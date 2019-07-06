@@ -24,7 +24,6 @@ create_lines_xyz <- function(xyz, period = numeric(0),
     symbolsafter <- placeholder("symbolsafter")
   }
   else {
-    browser()
     # from here, if period of length 2
     x <- xyz[["x"]]
     y <- xyz[["y"]]
