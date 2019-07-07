@@ -12,7 +12,7 @@ LazyData: true
 Depends: 
     R (>= 2.10)
 Imports: 
-    chaco,
+    chartdesigner,
     chartcatalog,
     clopus,
     donorloader,
@@ -26,7 +26,7 @@ Suggests:
     donordata,
     testthat
 Remotes: 
-  stefvanbuuren/chaco,
+  stefvanbuuren/chaco@chartdesigner,
   stefvanbuuren/chartcatalog,
   stefvanbuuren/clopus,
   stefvanbuuren/donorloader,
