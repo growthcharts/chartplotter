@@ -23,5 +23,13 @@ Imports:
     rlang,
     stats
 Suggests: 
+    donordata,
     testthat
+Remotes: 
+  stefvanbuuren/chaco,
+  stefvanbuuren/chartcatalog,
+  stefvanbuuren/clopus,
+  stefvanbuuren/donorloader,
+  stefvanbuuren/donordata,
+  stefvanbuuren/minihealth
 RoxygenNote: 6.1.1
