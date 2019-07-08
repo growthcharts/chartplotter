@@ -4,26 +4,17 @@
 #' and set all \code{ynames} in the graph.
 #' @param g A \code{gTree} object, typically loaded by
 #'   \code{chartbox::load_chart()}
-#' @param individual An S4 object of class \code{individual} containing data of the individual
-#' @param curve_interpolation Flag indicating whether curves should bend to
-#' reference curves
-#' @param matches List of vector containing the id's of the matches in the donor data.
-#' List elements should be named after \code{ynames}.
-#' The default value (\code{NULL}) indicates that no matches are plotted.
-#' @param dnr Name of the donor data (currently available are
-#' \code{smocc}, \code{terneuzen}, \code{lollypop.preterm} or \code{lollypop.term})
-#' @param period A vector of length 2 with left and right ages. If
-#' \code{length(period) == 0L}, then no matches are plotted
-#' @param show_realized A logical indicating whether the realized growth of the target
-#' child should be drawn
-#' @param show_future A logical indicating whether the predicted growth of the target
-#' child should be drawn
-#' @param clip A logical indicating whether clipping is needed
+#' @param matches List of vector containing the id's of the matches in
+#'   the donor data. List elements should be named after
+#'   \code{ynames}. The default value (\code{NULL}) indicates that no
+#'   matches are plotted.
+#' @inheritParams process_chart
 #' @return The grid object \code{g} with data points added.
 #' @export
 set_curves <- function(g, individual,
                        curve_interpolation = TRUE,
-                       matches = NULL, dnr = NULL,
+                       matches = NULL,
+                       dnr = NULL,
                        period = numeric(0),
                        show_realized = FALSE,
                        show_future = FALSE,
