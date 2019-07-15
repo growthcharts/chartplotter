@@ -65,7 +65,7 @@ process_chart <- function(individual,
   ynames <- get_ynames(chartcode)
 
   # match if needed
-  if (nmatch == 0L | length(period) == 0L) {
+  if (nmatch == 0L | length(period) == 0L | is.null(individual)) {
     # no matches needed
     matches <- vector("list", length(ynames))
     names(matches) <- ynames
