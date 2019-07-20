@@ -32,7 +32,7 @@ find_matches <- function(individual,
 
   # convert individual data into donordata format
   # return if that cannot be done
-  idf <- individual.to.donordata(individual, type = "child")
+  idf <- individual_to_donordata(individual, type = "child")
   if (nrow(idf) == 0L) return(lapply(matches, function(x) integer(0)))
 
   # add individual data to `donor`
