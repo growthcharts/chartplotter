@@ -73,7 +73,7 @@ process_chart <- function(individual,
   } else {
     # get donor data
     donor <- load_child_data(con = con, dnr = dnr)
-    # donor <- restore_factors(donor, f = c("sex", "etn", "edu"))
+    donor <- restore_factors(donor, f = c("sex", "etn", "edu"))
 
     # find matches for measurements on chart
     matches <- find_matches(individual = individual,
