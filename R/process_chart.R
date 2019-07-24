@@ -87,7 +87,7 @@ process_chart <- function(individual,
                             exact_ga = exact_ga,
                             break_ties = break_ties)
   }
-  cat("matches: ", matches, "\n")
+  browser()
 
   # set the palette
   parsed <- parse_chartcode(chartcode)
