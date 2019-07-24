@@ -27,6 +27,13 @@ find_matches <- function(individual,
   # preliminary exit if we need no matches
   matches <- vector("list", length(ynames))
   names(matches) <- ynames
+
+  cat("ynames (find_matches): ", ynames,
+      "nmatch (find_matches): ", nmatch,
+      sep = "\n",
+      file = path.expand("~/tmp/log.txt"), append = TRUE)
+
+
   if (length(ynames) == 0L | nmatch == 0L)
     return(lapply(matches, function(x) integer(0)))
 
