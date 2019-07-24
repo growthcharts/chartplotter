@@ -35,7 +35,7 @@ create_lines_xyz <- function(xyz, period = numeric(0),
     if (sum(before) > 0L)
       before <- x <= max(xyz[before, "obs"] * xyz[before, "x"])
     after  <- !before
-    after[sum(before)] <- TRUE
+    if (any(after) & sum(before) > 0L) after[sum(before)] <- TRUE
     if (!show_realized) after <- FALSE
 
     before_sy <- x_sy <= period[1]
@@ -60,7 +60,6 @@ create_lines_xyz <- function(xyz, period = numeric(0),
                                   name = "symbolsbefore")
     }
 
-    browser()
     if (!any(after)) {
       linesafter <- placeholder("linesafter")
       symbolsafter <- placeholder("symbolsafter")
