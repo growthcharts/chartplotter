@@ -6,8 +6,8 @@ create_lines_prediction <- function(chartcode, yname,
 
   # prediction
   if (length(matches) == 0L | !show_future | length(period) == 0L) {
-    lines.prediction <- placeholder("lines.prediction")
-    symbols.prediction <- placeholder("symbols.prediction")
+    lines_prediction <- placeholder("lines_prediction")
+    symbols_prediction <- placeholder("symbols_prediction")
   } else {
     child <- load_child_data(con = con, dnr = dnr, ids = matches[[yname]])
     vv <- visit_number(period)
@@ -25,19 +25,19 @@ create_lines_prediction <- function(chartcode, yname,
     xy <- apply_transforms(xy, chartcode = chartcode, yname = yname,
                            curve_interpolation = curve_interpolation)
     if (nrow(xy) == 0L) {
-      lines.prediction <- placeholder("lines.prediction")
-      symbols.prediction <- placeholder("symbols.prediction")
+      lines_prediction <- placeholder("lines_prediction")
+      symbols_prediction <- placeholder("symbols_prediction")
     } else {
-      lines.prediction <- polylineGrob(x = xy$x, y = xy$y,
+      lines_prediction <- polylineGrob(x = xy$x, y = xy$y,
                                        default.units = "native",
                                        gp = gpar(lwd = 2, lty = 2, col = "navy"),
-                                       name = "lines.prediction")
-      symbols.prediction <- pointsGrob(x = xy$x[xy$obs], y = xy$y[xy$obs], pch = 21,
+                                       name = "lines_prediction")
+      symbols_prediction <- pointsGrob(x = xy$x[xy$obs], y = xy$y[xy$obs], pch = 21,
                                        gp = gpar(col = "navy", fill = palette()[4],
                                                  lwd = 2, cex = 0.6),
-                                       name = "symbols.prediction")
+                                       name = "symbols_prediction")
     }
   }
-  gList(lines.prediction = lines.prediction,
-        symbols.prediction = symbols.prediction)
+  gList(lines_prediction = lines_prediction,
+        symbols_prediction = symbols_prediction)
 }
