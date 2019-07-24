@@ -88,6 +88,7 @@ process_chart <- function(individual,
                             break_ties = break_ties)
     cat("nmatch:  ", nmatch,
         "ynames:  ", ynames,
+        "teste",
         "matches: ", matches[[1L]],
         sep = "\n",
         file = path.expand("~/tmp/log.txt"), append = TRUE)
