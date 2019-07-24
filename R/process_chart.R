@@ -86,6 +86,7 @@ process_chart <- function(individual,
                             exact_sex = exact_sex,
                             exact_ga = exact_ga,
                             break_ties = break_ties)
+    cat("matches: ", matches[[ynames[1]]], "\n")
   }
 
   # set the palette
