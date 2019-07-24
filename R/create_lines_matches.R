@@ -11,6 +11,8 @@ create_lines_matches <- function(chartcode, yname,
   } else {
 
     time <- load_time_data(con = con, dnr = dnr, ids = matches[[yname]])
+    cat("yname: ", yname, "\n")
+    cat("matches: ", matches[[yname]], "\n")
 
     y <- time[, yname, drop = TRUE]
     mis <- is.na(y)
