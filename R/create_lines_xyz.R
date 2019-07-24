@@ -60,6 +60,7 @@ create_lines_xyz <- function(xyz, period = numeric(0),
                                   name = "symbolsbefore")
     }
 
+    browser()
     if (!any(after)) {
       linesafter <- placeholder("linesafter")
       symbolsafter <- placeholder("symbolsafter")
