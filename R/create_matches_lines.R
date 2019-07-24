@@ -47,6 +47,6 @@ create_matches_lines <- function(chartcode, yname,
                                     name = "matches_symbols")
     }
   }
-  gList(matches_lines = matches_lines,
+  list(matches_lines = matches_lines,
         matches_symbols = matches_symbols)
 }
