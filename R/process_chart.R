@@ -58,6 +58,7 @@ process_chart <- function(individual,
                           clip = TRUE)
 {
   dnr <- match.arg(dnr)
+  browser()
 
   # load growthchart, return early if there is a problem
   g <- load_chart(chartcode)
@@ -87,7 +88,6 @@ process_chart <- function(individual,
                             exact_ga = exact_ga,
                             break_ties = break_ties)
   }
-  browser()
 
   # set the palette
   parsed <- parse_chartcode(chartcode)
