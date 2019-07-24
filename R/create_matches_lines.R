@@ -1,4 +1,4 @@
-create_lines_matches <- function(chartcode, yname,
+create_matches_lines <- function(chartcode, yname,
                                  matches, dnr = "smocc",
                                  curve_interpolation = TRUE,
                                  con = NULL) {
@@ -6,13 +6,11 @@ create_lines_matches <- function(chartcode, yname,
 
   # matched cases
   if (length(matches[[yname]]) == 0L) {
-    lines.matches <- placeholder("lines.matches")
-    symbols.matches <- placeholder("symbols.matches")
+    matches_lines <- placeholder("matches_lines")
+    matches_symbols <- placeholder("matches_symbols")
   } else {
 
     time <- load_time_data(con = con, dnr = dnr, ids = matches[[yname]])
-    cat("yname: ", yname, "\n")
-    cat("matches: ", matches[[yname]], "\n")
 
     y <- time[, yname, drop = TRUE]
     mis <- is.na(y)
@@ -20,8 +18,8 @@ create_lines_matches <- function(chartcode, yname,
     x <- time[!mis, "age", drop = TRUE]
 
     if (length(y) == 0) {
-      lines.matches <- placeholder("lines.matches")
-      symbols.matches <- placeholder("symbols.matches")
+      matches_lines <- placeholder("matches_lines")
+      matches_symbols <- placeholder("matches_symbols")
     } else {
 
       # apply curve interpolation
@@ -38,17 +36,17 @@ create_lines_matches <- function(chartcode, yname,
       x_sy <- ci[["x"]][ci$obs]
       y_sy <- ci[["y"]][ci$obs]
 
-      lines.matches <- polylineGrob(x = x_li, y = y_li,
+      matches_lines <- polylineGrob(x = x_li, y = y_li,
                                     id = id_li,
                                     default.units = "native",
                                     gp = gpar(lwd = 1.5, lty = 1, col = "gray"),
-                                    name = "lines.matches")
-      symbols.matches <- pointsGrob(x = x_sy, y = y_sy, pch = 21,
+                                    name = "matches_lines")
+      matches_symbols <- pointsGrob(x = x_sy, y = y_sy, pch = 21,
                                     gp = gpar(col = "gray", fill = "gray",
                                               lwd = 1, cex = 0.5),
-                                    name = "symbols.matches")
+                                    name = "matches_symbols")
     }
   }
-  gList(lines.matches = lines.matches,
-        symbols.matches = symbols.matches)
+  gList(matches_lines = matches_lines,
+        matches_symbols = matches_symbols)
 }

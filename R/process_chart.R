@@ -58,7 +58,6 @@ process_chart <- function(individual,
                           clip = TRUE)
 {
   dnr <- match.arg(dnr)
-  browser()
 
   # load growthchart, return early if there is a problem
   g <- load_chart(chartcode)

@@ -42,7 +42,7 @@ set_curves <- function(g, individual,
       ind_gList <- create_lines_xyz(xyz, tx(period), show_realized)
 
       # plot curves of matches
-      mat_gList <- create_lines_matches(chartcode, yname,
+      mat_gList <- create_matches_lines(chartcode, yname,
                                         matches, dnr,
                                         curve_interpolation)
 
@@ -56,7 +56,9 @@ set_curves <- function(g, individual,
       clipper <- clipGrob(name = "clipper")
       curves <- gTree(name = "data",
                       children = gList(clipper, visit_lines,
-                                       mat_gList, pre_gList, ind_gList))
+                                       mat_gList$matches_lines,
+                                       mat_gList$matches_symbols,
+                                       pre_gList, ind_gList))
 
       g <- setGrob(gTree = g,
                    gPath = gPath(yname, "modules", "data"),
