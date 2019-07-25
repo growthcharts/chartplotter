@@ -33,7 +33,6 @@ find_matches <- function(individual,
       sep = "\n",
       file = path.expand("~/tmp/log.txt"), append = TRUE)
 
-
   if (length(ynames) == 0L | nmatch == 0L)
     return(lapply(matches, function(x) integer(0)))
 
@@ -41,6 +40,8 @@ find_matches <- function(individual,
   # return if that cannot be done
   idf <- individual_to_donordata(individual, elements = "child")
   if (nrow(idf) == 0L) return(lapply(matches, function(x) integer(0)))
+
+  write.table(idf, file = path.expand("~/tmp/log.txt"), append = TRUE)
 
   # add individual data to `donor`
   # take care that individual data are added as last because calculate_matches()
