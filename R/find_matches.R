@@ -1,8 +1,5 @@
 #' Find matches on all outcomes shown on the active chart
 #'
-#' @param donor     A \code{data.frame} with child-level data of potential donors.
-#'  This is usually obtained by
-#'  \code{donordata::load_child_data(con = con, dnr = dnr)}
 #' @param ynames    A vector with the names of the response variables
 #'   for which matches are sought, e.g. \code{ynames = c("hdc",
 #'   "hgt")}.
@@ -14,7 +11,7 @@
 #' @seealso \code{\link[curvematching]{calculate_matches}},
 #'   \code{\link[curvematching]{extract_matches}}
 find_matches <- function(individual,
-                         donor,
+                         con,
                          dnr,
                          ynames,
                          nmatch = 5L,
@@ -27,12 +24,6 @@ find_matches <- function(individual,
   # preliminary exit if we need no matches
   matches <- vector("list", length(ynames))
   names(matches) <- ynames
-
-  cat("ynames (find_matches): ", ynames,
-      "nmatch (find_matches): ", nmatch,
-      sep = "\n",
-      file = path.expand("~/tmp/log.txt"), append = TRUE)
-
   if (length(ynames) == 0L | nmatch == 0L)
     return(lapply(matches, function(x) integer(0)))
 
@@ -40,18 +31,20 @@ find_matches <- function(individual,
   # return if that cannot be done
   idf <- individual_to_donordata(individual, elements = "child")
   if (nrow(idf) == 0L) return(lapply(matches, function(x) integer(0)))
-
-  write.table(idf, file = path.expand("~/tmp/log.txt"), append = TRUE)
+  idf$istarget <- TRUE
+  idf$keep <- TRUE
 
   # add individual data to `donor`
   # take care that individual data are added as last because calculate_matches()
   # returns the row number
-  idf$istarget <- TRUE
-  idf$keep <- TRUE
+  donor <- load_child_data(con = con, dnr = dnr)
+
   data <- donor %>%
     mutate(keep = .data$id != idf$id,
            istarget = FALSE)
-  data <- data %>% bind_rows(idf)
+  data <- data %>%
+    bind_rows(idf) %>%
+    restore_factors(f = c("sex", "etn", "edu"))
 
   # names of complete variables in the data
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]

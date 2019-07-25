@@ -71,13 +71,9 @@ process_chart <- function(individual,
     names(matches) <- ynames
     matches <- lapply(matches, function(x) integer(0))
   } else {
-    # get donor data
-    donor <- load_child_data(con = con, dnr = dnr)
-    donor <- restore_factors(donor, f = c("sex", "etn", "edu"))
-
     # find matches for measurements on chart
     matches <- find_matches(individual = individual,
-                            donor = donor,
+                            con = con,
                             dnr = dnr,
                             ynames = ynames,
                             nmatch = nmatch,
@@ -86,12 +82,6 @@ process_chart <- function(individual,
                             exact_sex = exact_sex,
                             exact_ga = exact_ga,
                             break_ties = break_ties)
-    cat("nmatch:  ", nmatch,
-        "ynames:  ", ynames,
-        "teste",
-        "matches: ", matches[[1L]],
-        sep = "\n",
-        file = path.expand("~/tmp/log.txt"), append = TRUE)
   }
 
   # set the palette

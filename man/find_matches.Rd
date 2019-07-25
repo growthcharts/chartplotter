@@ -4,7 +4,7 @@
 \alias{find_matches}
 \title{Find matches on all outcomes shown on the active chart}
 \usage{
-find_matches(individual, donor, dnr, ynames, nmatch = 5L, period,
+find_matches(individual, con, dnr, ynames, nmatch = 5L, period,
   user_model = 2L, exact_sex = FALSE, exact_ga = FALSE,
   break_ties = TRUE)
 }
@@ -12,9 +12,8 @@ find_matches(individual, donor, dnr, ynames, nmatch = 5L, period,
 \item{individual}{An S4 object of class \code{individual}
 containing data of the individual}
 
-\item{donor}{A \code{data.frame} with child-level data of potential donors.
-This is usually obtained by
-\code{donordata::load_child_data(con = con, dnr = dnr)}}
+\item{con}{A connection on which the donor data reside. The
+default (\code{NULL}) reads from \code{donordata} package.}
 
 \item{dnr}{A string with the name of the donor data
 (currently available are \code{smocc}, \code{terneuzen},
