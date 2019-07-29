@@ -46,6 +46,8 @@ find_matches <- function(individual,
     bind_rows(idf) %>%
     restore_factors(f = c("sex", "etn", "edu"))
 
+  browser()
+
   # names of complete variables in the data
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]
 
