@@ -87,7 +87,6 @@ find_matches <- function(individual,
   # names of complete variables in the data
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]
 
-  browser()
   # define model variables
   e_name <- c("sex", "ga")[c(exact_sex, exact_ga)]
   t_name <- character()
