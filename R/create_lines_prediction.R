@@ -5,7 +5,7 @@ create_lines_prediction <- function(chartcode, yname,
                                     con = NULL) {
 
   # prediction
-  if (length(matches) == 0L | !show_future | length(period) == 0L) {
+  if (length(matches[[yname]]) == 0L | !show_future | length(period) == 0L) {
     lines_prediction <- placeholder("lines_prediction")
     symbols_prediction <- placeholder("symbols_prediction")
   } else {
