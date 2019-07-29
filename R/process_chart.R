@@ -8,7 +8,7 @@
 #' @param quiet Logical indicating whether chart code should be
 #'   written to standard output. Default is \code{quiet = TRUE}.
 #' @param con        A connection on which the donor data reside. The
-#' default (\code{NULL}) reads from \code{donordata} package.
+#' default (\code{NULL}) reads from \code{donorloader} package.
 #' @param dnr        A string with the name of the donor data
 #'   (currently available are \code{smocc}, \code{terneuzen},
 #'   \code{lollypop.preterm} or \code{lollypop.term})
