@@ -68,12 +68,12 @@ find_matches <- function(individual,
                     at = "knots", output = "vector")
     # backtransform to Y (comparison metric)
     if (dnr == "lollypop.preterm")
-      yhat <- z2y(z = zhat, x = xy[["age"]], ref = clopus::preterm,
-                  yname = yname, sex = xy[["sex"]], sub = xy[["ga"]],
+      yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::preterm,
+                  yname = yname, sex = xy[["sex"]][1L], sub = xy[["ga"]][1L],
                   drop = TRUE)
     else
-      yhat <- z2y(z = zhat, x = xy[["age"]], ref = clopus::nl1997,
-                  yname = yname, sex = xy[["sex"]], sub = "NL",
+      yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::nl1997,
+                  yname = yname, sex = xy[["sex"]][1L], sub = "NL",
                   drop = TRUE)
     # set proper names
     yhat_names <- paste(yname, get_knots(bsm), sep = "_")
