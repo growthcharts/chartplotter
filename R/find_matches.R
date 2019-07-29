@@ -49,7 +49,8 @@ find_matches <- function(individual,
 
   # add the brokenstick estimates for target child at all break ages,
   # but using only the child's data up to the "current" age (period[1])
-  for (yname in ynames) {
+  ynames2 <- ynames[ynames %in% c("hdc", "hgt", "wgt", "bmi")]
+  for (yname in ynames2) {
     # get the brokenstick model
     bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
     # get the observed target data up to period[1L]
