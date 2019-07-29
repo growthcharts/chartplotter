@@ -29,7 +29,7 @@ find_matches <- function(individual,
 
   # convert individual data into donordata format
   # return if that cannot be done
-  idf <- individual_to_donordata(individual, elements = "child")
+  idf <- individual_to_donordata(individual, element = "child")
   if (nrow(idf) == 0L) return(lapply(matches, function(x) integer(0)))
   idf$istarget <- TRUE
   idf$keep <- TRUE
