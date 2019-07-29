@@ -29,24 +29,57 @@ find_matches <- function(individual,
 
   # convert individual data into donordata format
   # return if that cannot be done
-  idf <- individual_to_donordata(individual, element = "child")
-  if (nrow(idf) == 0L) return(lapply(matches, function(x) integer(0)))
-  idf$istarget <- TRUE
-  idf$keep <- TRUE
+  target <- individual_to_donordata(individual)
+  if (nrow(target$child) == 0L) return(lapply(matches, function(x) integer(0)))
+  target$child$istarget <- TRUE
+  target$child$keep <- TRUE
+
+  # fetch potential donor data for target
+  donor <- load_data(con = con, dnr = dnr, element = "child")
+  data <- donor %>%
+    mutate(keep = .data$id != target$child$id,
+           istarget = FALSE)
 
   # add individual data to `donor`
   # take care that individual data are added as last because calculate_matches()
   # returns the row number
-  donor <- load_data(con = con, dnr = dnr, element = "child")
-
-  data <- donor %>%
-    mutate(keep = .data$id != idf$id,
-           istarget = FALSE)
   data <- data %>%
-    bind_rows(idf) %>%
+    bind_rows(target$child) %>%
     restore_factors(f = c("sex", "etn", "edu"))
 
-  browser()
+  # add the brokenstick estimates for target child at all break ages,
+  # but using only the child's data up to the "current" age (period[1])
+  for (yname in ynames) {
+    # get the brokenstick model
+    bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
+    # get the observed target data up to period[1L]
+    xy <- target$time[target$time$age <= period[1L], c("age", yname, "sex", "ga")]
+    # transform to Z-score (comparison metric)
+    if (dnr == "lollypop.preterm")
+      z <- y2z(y = xy[[yname]], x = xy[["age"]], ref = clopus::preterm,
+               yname = yname, sex = xy[["sex"]], sub = xy[["ga"]],
+               drop = TRUE)
+    else
+      z <- y2z(y = xy[[yname]], x = xy[["age"]], ref = clopus::nl1997,
+               yname = yname, sex = xy[["sex"]], sub = "NL",
+               drop = TRUE)
+    # predict according to the brokenstick model (Z scale)
+    zhat <- predict(bsm, y = z, x = xy[["age"]],
+                    at = "knots", output = "vector")
+    # backtransform to Y (comparison metric)
+    if (dnr == "lollypop.preterm")
+      yhat <- z2y(z = zhat, x = xy[["age"]], ref = clopus::preterm,
+                  yname = yname, sex = xy[["sex"]], sub = xy[["ga"]],
+                  drop = TRUE)
+    else
+      yhat <- z2y(z = zhat, x = xy[["age"]], ref = clopus::nl1997,
+                  yname = yname, sex = xy[["sex"]], sub = "NL",
+                  drop = TRUE)
+    # set proper names
+    yhat_names <- paste(yname, get_knots(bsm), sep = "_")
+    # store in last line of data
+    data[nrow(data), yhat_names] <- yhat
+  }
 
   # names of complete variables in the data
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]

@@ -1,3 +1,4 @@
+#' @importFrom brokenstick   get_knots
 #' @importFrom chartbox      load_chart
 #' @importFrom chartdesigner axesGrob get.form.design gridlinesGrob
 #' @importFrom chartcatalog  get_breakpoints get_reference get_seq
@@ -15,5 +16,5 @@
 #' @importFrom minihealth    get_xyz individual_to_donordata
 #'                           is.individual
 #' @importFrom rlang         .data :=
-#' @importFrom stats         approx na.omit
+#' @importFrom stats         approx na.omit predict
 NULL
