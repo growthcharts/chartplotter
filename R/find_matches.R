@@ -53,7 +53,8 @@ find_matches <- function(individual,
     # get the brokenstick model
     bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
     # get the observed target data up to period[1L]
-    xy <- target$time[target$time$age <= period[1L], c("age", yname, "sex", "ga")]
+    if (yname == "wfh") xy <- tibble()
+    else xy <- target$time[target$time$age <= period[1L], c("age", yname, "sex", "ga")]
     if (!is.null(bsm) & nrow(xy) > 0L) {
       # transform to Z-score (comparison metric)
       if (dnr == "lollypop.preterm")
@@ -86,6 +87,7 @@ find_matches <- function(individual,
   # names of complete variables in the data
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]
 
+  browser()
   # define model variables
   e_name <- c("sex", "ga")[c(exact_sex, exact_ga)]
   t_name <- character()
