@@ -9,7 +9,8 @@ create_lines_prediction <- function(chartcode, yname,
     lines_prediction <- placeholder("lines_prediction")
     symbols_prediction <- placeholder("symbols_prediction")
   } else {
-    child <- load_child_data(con = con, dnr = dnr, ids = matches[[yname]])
+    child <- load_data(con = con, dnr = dnr, element = "child",
+                       ids = matches[[yname]])
     vv <- visit_number(period)
     x <- visit_age(vv[1L]:vv[2L], dnr = dnr)
     vars <- paste(yname, x, sep = "_")

@@ -37,7 +37,7 @@ find_matches <- function(individual,
   # add individual data to `donor`
   # take care that individual data are added as last because calculate_matches()
   # returns the row number
-  donor <- load_child_data(con = con, dnr = dnr)
+  donor <- load_data(con = con, dnr = dnr, element = "child")
 
   data <- donor %>%
     mutate(keep = .data$id != idf$id,

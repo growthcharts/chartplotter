@@ -10,7 +10,8 @@ create_matches_lines <- function(chartcode, yname,
     matches_symbols <- placeholder("matches_symbols")
   } else {
 
-    time <- load_time_data(con = con, dnr = dnr, ids = matches[[yname]])
+    time <- load_data(con = con, dnr = dnr, element = "time",
+                      ids = matches[[yname]])
 
     y <- time[, yname, drop = TRUE]
     mis <- is.na(y)
