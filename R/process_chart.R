@@ -93,6 +93,7 @@ process_chart <- function(individual,
 
   g <- set_curves(g = g, individual = individual,
                   curve_interpolation = curve_interpolation,
+                  nmatch = nmatch,
                   matches = matches,
                   dnr = dnr,
                   period = period,

@@ -35,14 +35,17 @@ set_curves <- function(g, individual,
                               curve_interpolation = curve_interpolation)
 
       # create visit lines grob
-      if (nmatch > 0L) visit_lines <- create_visit_lines(chartcode, yname, period)
-      else visit_lines <- create_visit_lines(chartcode, yname, period = numeric(0))
+      if (nmatch > 0L)
+        visit_lines <- create_visit_lines(chartcode, yname, period)
+      else
+        visit_lines <- create_visit_lines(chartcode, yname, period = numeric(0))
 
       # plot curves of target individual
-      per <- period
-      if (yname == "wfh") per <- numeric(0)  # cannot predict for wfh
       tx <- get_tx(chartcode, yname)
-      ind_gList <- create_lines_xyz(xyz, tx(per), show_realized)
+      if (nmatch > 0L & yname !=  "wfh")
+        ind_gList <- create_lines_xyz(xyz, tx(period), show_realized)
+      else
+        ind_gList <- create_lines_xyz(xyz, numeric(0), show_realized)
 
       # plot curves of matches
       mat_gList <- create_matches_lines(chartcode, yname,
