@@ -9,14 +9,14 @@ create_visit_lines <- function(chartcode, yname, period = numeric(0)) {
   if (length(period) == 0L) return(placeholder("visit_lines"))
   xya <- get_axes_design(chartcode, yname)$xya
   xy.axes <- list(
-    bot = list(x = xya$x[xya$a == 1L],
-               y = xya$y[xya$a == 1L]),
-    lft = list(x = xya$x[xya$a == 2L],
-               y = xya$y[xya$a == 2L]),
-    top = list(x = xya$x[xya$a == 3L],
-               y = xya$y[xya$a == 3L]),
-    rgt = list(x = xya$x[xya$a == 4L],
-               y = xya$y[xya$a == 4L]))
+    bot = list(x = xya[xya[, "a"] == 1L, "x"],
+               y = xya[xya[, "a"] == 1L, "y"]),
+    lft = list(x = xya[xya[, "a"] == 2L, "x"],
+               y = xya[xya[, "a"] == 2L, "y"]),
+    top = list(x = xya[xya[, "a"] == 3L, "x"],
+               y = xya[xya[, "a"] == 3L, "y"]),
+    rgt = list(x = xya[xya[, "a"] == 4L, "x"],
+               y = xya[xya[, "a"] == 4L, "y"]))
   tx <- get_tx(chartcode, yname)
   gridlinesGrob(xy.axes = xy.axes,
                 at = list(tx(period), NULL),
