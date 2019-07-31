@@ -1,6 +1,7 @@
 #' @importFrom brokenstick   get_knots
 #' @importFrom chartbox      load_chart
 #' @importFrom chartdesigner axesGrob get.form.design gridlinesGrob
+#'                           get_axes_design
 #' @importFrom chartcatalog  get_breakpoints get_reference get_seq
 #'                           get_tx get_ty get_ynames parse_chartcode
 #' @importFrom clopus        is.reference y2z z2y
