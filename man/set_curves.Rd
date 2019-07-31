@@ -4,9 +4,9 @@
 \alias{set_curves}
 \title{Set data points in a graphic object}
 \usage{
-set_curves(g, individual, curve_interpolation = TRUE, matches = NULL,
-  dnr = NULL, period = numeric(0), show_realized = FALSE,
-  show_future = FALSE, clip = TRUE)
+set_curves(g, individual, curve_interpolation = TRUE, nmatch = 0L,
+  matches = NULL, dnr = NULL, period = numeric(0),
+  show_realized = FALSE, show_future = FALSE, clip = TRUE)
 }
 \arguments{
 \item{g}{A \code{gTree} object, typically loaded by
@@ -17,6 +17,9 @@ containing data of the individual}
 
 \item{curve_interpolation}{A logical indicating whether curve
 interpolation shoud be applied.}
+
+\item{nmatch}{Integer. Number of matches needed. When
+\code{nmatch == 0L} no matches are sought.}
 
 \item{matches}{List of vector containing the id's of the matches in
 the donor data. List elements should be named after
