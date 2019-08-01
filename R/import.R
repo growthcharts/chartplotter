@@ -13,7 +13,7 @@
 #' @importFrom grDevices     palette
 #' @importFrom grid          clipGrob editGrob gList gPath gTree gpar
 #'                           grid.draw is.grob pointsGrob polylineGrob
-#'                           setGrob
+#'                           removeGrob setGrob
 #' @importFrom minihealth    get_xyz individual_to_donordata
 #'                           is.individual
 #' @importFrom rlang         .data :=
