@@ -73,8 +73,8 @@ set_curves <- function(g, individual,
   }
 
   # remove rectangle
-  g <- editGrob(grob = g, gPath = gPath("page"),
-                gp = gpar(col = "transparent", fill = "grey97"))
+  # g <- editGrob(grob = g, gPath = gPath("page"),
+  #              gp = gpar(col = "transparent", fill = "grey97"))
 
   invisible(g)
 }
