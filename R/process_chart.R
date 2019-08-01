@@ -103,6 +103,6 @@ process_chart <- function(individual,
 
   grid.draw(g)
 
-  palette(old_pal)
+  # palette(old_pal)
   invisible(g)
 }
