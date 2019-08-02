@@ -35,13 +35,13 @@ set_curves <- function(g, individual,
                               curve_interpolation = curve_interpolation)
 
       # create visit lines grob
+      tx <- get_tx(chartcode, yname)
       if (nmatch > 0L)
-        visit_lines <- create_visit_lines(chartcode, yname, period)
+        visit_lines <- create_visit_lines(chartcode, yname, tx(period))
       else
         visit_lines <- create_visit_lines(chartcode, yname, period = numeric(0))
 
       # plot curves of target individual
-      tx <- get_tx(chartcode, yname)
       if (nmatch > 0L & yname !=  "wfh")
         ind_gList <- create_lines_xyz(xyz, tx(period), show_realized)
       else
@@ -71,11 +71,6 @@ set_curves <- function(g, individual,
                    newGrob = curves)
     }
   }
-
-  # remove rectangle
-  g <- editGrob(grob = g, gPath = gPath("page"),
-                gp = gpar(col = "transparent", fill = "#F7F7F7"))
-  # removeGrob(gTree = g, gPath = "page")
 
   invisible(g)
 }

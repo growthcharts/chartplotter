@@ -7,6 +7,7 @@
 #' @return An object of class \code{grob} with the visit lines
 create_visit_lines <- function(chartcode, yname, period = numeric(0)) {
   if (length(period) == 0L) return(placeholder("visit_lines"))
+
   xya <- get_axes_design(chartcode, yname)$xya
   xy.axes <- list(
     bot = list(x = xya[xya[, "a"] == 1L, "x"],
@@ -17,9 +18,9 @@ create_visit_lines <- function(chartcode, yname, period = numeric(0)) {
                y = xya[xya[, "a"] == 3L, "y"]),
     rgt = list(x = xya[xya[, "a"] == 4L, "x"],
                y = xya[xya[, "a"] == 4L, "y"]))
-  tx <- get_tx(chartcode, yname)
+
   gridlinesGrob(xy.axes = xy.axes,
-                at = list(tx(period), NULL),
+                at = list(period, NULL),
                 lwd = 2,
                 col = list(2L, NULL),
                 lty = 2L,
