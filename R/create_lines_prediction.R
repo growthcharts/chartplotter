@@ -11,7 +11,7 @@ create_lines_prediction <- function(chartcode, yname,
   } else {
     child <- load_data(con = con, dnr = dnr, element = "child",
                        ids = matches[[yname]])
-    vv <- visit_number(period)
+    vv <- visit_number(period, dnr = dnr)
     x <- visit_age(vv[1L]:vv[2L], dnr = dnr)
     vars <- paste(yname, x, sep = "_")
     idx <- vars %in% names(child)

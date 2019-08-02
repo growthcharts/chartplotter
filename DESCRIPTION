@@ -13,7 +13,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     brokenstick,
-    chartbox,
+    chartbox (>= 0.11.0),
     chartdesigner,
     chartcatalog,
     clopus,
