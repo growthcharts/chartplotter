@@ -24,6 +24,9 @@
 #'@param reference The reference needed to calculate the Z-score
 #'  scores and the back-transformation to measured scores.
 #'  An object of class \code{clopus::reference}.
+#'@param rule The \code{rule} argument passed down to \code{approx}. The
+#'default here is \code{rule = 2L}, so any extrapolations beyond the
+#'ranges of the reference take the closest value (min or max).
 #'@return A \code{tibble} with five columns: \code{id}, xname, yname,
 #'zname and \code{obs}. The \code{obs} variables signals whether
 #'the point is observed or not.
@@ -40,7 +43,8 @@
 #'int
 #'@export
 curve_interpolation <- function(data, xname = "x", yname = "y",
-                                zname = NULL, xout, reference) {
+                                zname = NULL, xout, reference,
+                                rule = 2L) {
 
   if (!is.reference(reference)) stop("Argument `reference` not of class `reference`")
 
@@ -53,7 +57,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
     select(.data$id, !! xname, !! yname) %>%
     mutate(obs = TRUE,
            !! zname := y2z(y = data[[yname]], x = data[[xname]],
-                           ref = reference))
+                           ref = reference, rule = rule))
 
   # create bending points
   rng <- suppressWarnings(range(data[, xname, drop = TRUE], finite = FALSE))
@@ -104,7 +108,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
                                xout = .data[[xname]])$y) %>%
       ungroup() %>%
       mutate(yt = z2y(z = .data[[zname]], x = .data[[xname]],
-                      ref = reference))
+                      ref = reference, rule = rule))
 
     # overwrite any NA's in yname
     ov <- grid %>%

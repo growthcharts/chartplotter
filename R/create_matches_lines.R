@@ -33,7 +33,8 @@ create_matches_lines <- function(chartcode, yname,
     x = x,
     y = y)
   #  FIXME curve_interpolation flag
-  ci <- apply_transforms(bend, id, chartcode, yname, curve_interpolation = FALSE)
+  ci <- apply_transforms(bend, id, chartcode, yname,
+                         curve_interpolation = curve_interpolation)
 
   id_li <- ci[["id"]]
   x_li <- ci[["x"]]

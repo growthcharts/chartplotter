@@ -5,7 +5,7 @@
 \title{Interpolates the growth curves along the references}
 \usage{
 curve_interpolation(data, xname = "x", yname = "y", zname = NULL,
-  xout, reference)
+  xout, reference, rule = 2L)
 }
 \arguments{
 \item{data}{A data frame in long format, with columns for person
@@ -24,6 +24,10 @@ data range of \code{xname} are interpolated.}
 \item{reference}{The reference needed to calculate the Z-score
 scores and the back-transformation to measured scores.
 An object of class \code{clopus::reference}.}
+
+\item{rule}{The \code{rule} argument passed down to \code{approx}. The
+default here is \code{rule = 2L}, so any extrapolations beyond the
+ranges of the reference take the closest value (min or max).}
 }
 \value{
 A \code{tibble} with five columns: \code{id}, xname, yname,
