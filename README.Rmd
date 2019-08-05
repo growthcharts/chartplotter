@@ -58,7 +58,7 @@ g <- process_chart(tgt, chartcode = "NMBA")
 dev.off()
 ```
 
-```{r displaysvg, fig.align = "center", fig.cap="Dutch girls, 0-4 years"}
+```{r displaysvg, echo=FALSE, fig.align="center", fig.cap="Dutch girls, 0-4 years"}
 knitr::include_graphics("figures/chart1.svg")
 ```
 
@@ -83,7 +83,7 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
 dev.off()
 ```
 
-```{r display2, fig.align = "center", fig.cap="Dutch girls, 0-4 years"}
+```{r display2, echo=FALSE, fig.align = "center", fig.cap="Dutch girls, 0-4 years"}
 knitr::include_graphics("figures/chart2.svg")
 ```
 
@@ -103,7 +103,7 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
 dev.off()
 ```
 
-```{r display3, fig.align = "center", fig.cap="Dutch girls, 0-4 years"}
+```{r display3, echo=FALSE, fig.align = "center", fig.cap="Dutch girls, 0-4 years"}
 knitr::include_graphics("figures/chart3.svg")
 ```
 

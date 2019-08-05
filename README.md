@@ -54,10 +54,6 @@ dev.off()
 #>                 2
 ```
 
-``` r
-knitr::include_graphics("figures/chart1.svg")
-```
-
 <img src="figures/chart1.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 2: Predict height at 3y9m when child is 3 months
@@ -84,10 +80,6 @@ dev.off()
 #>                 2
 ```
 
-``` r
-knitr::include_graphics("figures/chart2.svg")
-```
-
 <img src="figures/chart2.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 3: Predict height at 3y9m when child is 2 years
@@ -106,10 +98,6 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
 dev.off()
 #> quartz_off_screen 
 #>                 2
-```
-
-``` r
-knitr::include_graphics("figures/chart3.svg")
 ```
 
 <img src="figures/chart3.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
