@@ -1,12 +1,15 @@
 Package: chartplotter
 Type: Package
-Title: Tools for drawing charts
-Version: 0.4.1
+Title: Tools for analysing and plotting growth curves
+Version: 0.5.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
-Description: Load growth chart from chartbox and adds growth curves 
-    and analytics to the graph.
-License: file LICENSE
+Description: This package plots the target child's growth curves on 
+    pre-defined charts, finds matches from donor data similar to the 
+    target child, predicts the most likely future visit value, and 
+    graphically presents the inherent uncertainty around the 
+    prediction.
+License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: 
