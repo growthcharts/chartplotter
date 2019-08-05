@@ -37,9 +37,9 @@ set_curves <- function(g, individual,
       # create visit lines grob
       tx <- get_tx(chartcode, yname)
       if (nmatch > 0L)
-        visit_lines <- create_visit_lines(chartcode, yname, tx(period))
+        visit_lines <- create_visit_lines(g, yname, tx(period))
       else
-        visit_lines <- create_visit_lines(chartcode, yname, period = numeric(0))
+        visit_lines <- create_visit_lines(g, yname, period = numeric(0))
 
       # plot curves of target individual
       if (nmatch > 0L & yname !=  "wfh")

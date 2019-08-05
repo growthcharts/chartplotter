@@ -4,10 +4,11 @@
 \alias{create_visit_lines}
 \title{Create two visit lines}
 \usage{
-create_visit_lines(chartcode, yname, period = numeric(0))
+create_visit_lines(g, yname, period = numeric(0))
 }
 \arguments{
-\item{chartcode}{The chart code, usually constructed by \code{chartbox::create_chartcode()}}
+\item{g}{A \code{gTree} object, typically loaded by
+\code{chartbox::load_chart()}}
 
 \item{yname}{Character indicating the measure}
 
