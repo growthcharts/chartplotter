@@ -22,7 +22,7 @@ create_lines_prediction <- function(chartcode, yname,
 
     # prefer x_start as age at last observed data point
     if (any(before)) {
-      p <- which.max(xyz[before, "x"])
+      p <- which.max(unlist(xyz[before, "x"]))
       x_start <- xyz[p, "x"]
       y_start <- xyz[p, "y"]
     }
