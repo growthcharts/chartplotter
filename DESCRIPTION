@@ -24,7 +24,7 @@ Imports:
     dplyr,
     grDevices,
     grid,
-    minihealth,
+    minihealth (>= 0.60.0),
     rlang,
     stats
 Suggests: 
@@ -36,5 +36,5 @@ Remotes:
   stefvanbuuren/clopus,
   stefvanbuuren/curvematching,
   stefvanbuuren/donorloader,
-  stefvanbuuren/minihealth
+  stefvanbuuren/minihealth@stef
 RoxygenNote: 6.1.1
