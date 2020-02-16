@@ -5,8 +5,16 @@
 \alias{grid.gridlines}
 \title{Draw gridlines for axes object}
 \usage{
-gridlinesGrob(xy.axes, at = list(NULL, NULL), lwd = 1, col = 2,
-  lty = 1, vp = NULL, name = "gridlines", ...)
+gridlinesGrob(
+  xy.axes,
+  at = list(NULL, NULL),
+  lwd = 1,
+  col = 2,
+  lty = 1,
+  vp = NULL,
+  name = "gridlines",
+  ...
+)
 
 grid.gridlines(...)
 }

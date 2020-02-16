@@ -4,9 +4,18 @@
 \alias{find_matches}
 \title{Find matches on all outcomes shown on the active chart}
 \usage{
-find_matches(individual, con, dnr, ynames, nmatch = 5L, period,
-  user_model = 2L, exact_sex = FALSE, exact_ga = FALSE,
-  break_ties = TRUE)
+find_matches(
+  individual,
+  con,
+  dnr,
+  ynames,
+  nmatch = 5L,
+  period,
+  user_model = 2L,
+  exact_sex = FALSE,
+  exact_ga = FALSE,
+  break_ties = TRUE
+)
 }
 \arguments{
 \item{individual}{An S4 object of class \code{individual}

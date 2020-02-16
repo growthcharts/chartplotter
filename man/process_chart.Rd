@@ -4,12 +4,23 @@
 \alias{process_chart}
 \title{Plots the growth chart, optionally including matches}
 \usage{
-process_chart(individual, chartcode, curve_interpolation = TRUE,
-  quiet = TRUE, con = NULL, dnr = c("smocc", "terneuzen",
-  "lollypop.preterm", "lollypop.term", "pops"), period = numeric(0),
-  nmatch = 0L, user_model = 2L, exact_sex = TRUE, exact_ga = FALSE,
-  break_ties = TRUE, show_realized = FALSE, show_future = FALSE,
-  clip = TRUE)
+process_chart(
+  individual,
+  chartcode,
+  curve_interpolation = TRUE,
+  quiet = TRUE,
+  con = NULL,
+  dnr = c("smocc", "terneuzen", "lollypop.preterm", "lollypop.term", "pops"),
+  period = numeric(0),
+  nmatch = 0L,
+  user_model = 2L,
+  exact_sex = TRUE,
+  exact_ga = FALSE,
+  break_ties = TRUE,
+  show_realized = FALSE,
+  show_future = FALSE,
+  clip = TRUE
+)
 }
 \arguments{
 \item{individual}{An S4 object of class \code{individual}
