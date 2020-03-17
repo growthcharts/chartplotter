@@ -46,8 +46,9 @@ library(chartplotter)
 #> Registered S3 method overwritten by 'pryr':
 #>   method      from
 #>   print.bytes Rcpp
+library(svglite)
 tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
-svg(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
+svg(file = "figures/chart1_old.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
 dev.off()
 #> quartz_off_screen 
@@ -79,7 +80,7 @@ of the prediction.
 
 ``` r
 set.seed(61771)
-svg(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
                    dnr = "lollypop.term",
                    period = c(0.25, 3.75), nmatch = 25,
@@ -109,7 +110,7 @@ Same as before, but now using all data up to (but not beyond) the age of
 smaller.
 
 ``` r
-svg(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
                    dnr = "lollypop.term",
                    period = c(2.0, 3.75), nmatch = 25,
@@ -135,7 +136,7 @@ Dutch girls, 0-4 years
 ### Example 4: Square plot of height, chart `NMBH`
 
 ``` r
-svg(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
+svg(file = "figures/chart4_old.svg", height = 18/2.54, width = 18/2.54)
 g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE,
                    dnr = "lollypop.term",
                    period = c(2.0, 3.75), nmatch = 25,
