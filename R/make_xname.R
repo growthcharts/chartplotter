@@ -24,7 +24,7 @@ make_xname <- function(yname,
   covariates <- c("sex", "etn", "ga", "bw", "twin", "smo",
                   "edu", "agem", "hgtf", "wgtf", "hgtm", "wgtm",
                   "durbrst")
-  ynames <- c("hgt", "wgt", "hdc", "bmi", "wfh")
+  ynames <- c("hgt", "wgt", "hdc", "bmi", "wfh", "dsc")
   yname <- match.arg(yname, ynames)
   xn <- get_xname(yname, xnames)
   xa <- get_age(yname, xnames)
