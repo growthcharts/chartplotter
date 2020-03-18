@@ -42,7 +42,7 @@ set_curves <- function(g, individual,
         visit_lines <- create_visit_lines(g, yname, period = numeric(0))
 
       # plot curves of target individual
-      if (nmatch > 0L & !yname %in%  c("wfh", "dsc"))
+      if (nmatch > 0L & !yname %in%  c("wfh"))
         ind_gList <- create_lines_xyz(xyz, tx(period), show_realized)
       else
         ind_gList <- create_lines_xyz(xyz, numeric(0), show_realized)
