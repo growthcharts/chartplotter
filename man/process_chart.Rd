@@ -80,6 +80,30 @@ Plots the growth chart, optionally including matches
 \item{4}{3 + growth curves up to current, other measures}
 }
 }
+\examples{
+\dontrun{
+data("installed.cabinets", package = "jamestest")
+ind <- installed.cabinets$smocc[["Laura S"]]
+g <- process_chart(ind, chartcode = "NJAA",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
+
+# provides consistently the same match
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = FALSE)
+
+# provides a different match each time
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = TRUE)
+
+# provides an errorenous big blob of matches
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 2, break_ties = FALSE)
+
+# provides different 2 matches each time
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 2, break_ties = TRUE)
+}
+}
 \seealso{
 \code{\link[chartcatalog]{create_chartcode}}
 }
