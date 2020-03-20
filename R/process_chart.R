@@ -54,7 +54,7 @@
 #' g <- process_chart(ind, chartcode = "NMAD",
 #'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = TRUE)
 #'
-#' # provides an errorenous big blob of matches
+#' # provides consistently the same two matches
 #' g <- process_chart(ind, chartcode = "NMAD",
 #'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 2, break_ties = FALSE)
 #'
