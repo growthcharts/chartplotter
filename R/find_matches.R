@@ -83,7 +83,7 @@ find_matches <- function(individual,
                     yname = yname, sex = xy[["sex"]][1L], sub = xy[["ga"]][1L],
                     drop = TRUE)
       else if (yname == "dsc")
-        yhat <- z2y(y = zhat, x = get_knots(bsm), ref = clopus::dscore,
+        yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::dscore,
                     yname = yname, sex = xy[["sex"]][1L], sub = xy[["ga"]][1L],
                     drop = TRUE)
       else
