@@ -67,7 +67,7 @@ find_matches <- function(individual,
       else if (yname == "dsc")
         z <- y2z(y = xy[[yname]], x = xy[["age"]], ref = clopus::dscore,
                  yname = yname, sex = xy[["sex"]],
-                 sub = ifelse(xy[["ga"]] >= 37, 40, xy[["ga"]]),
+                 sub = 40,
                  drop = TRUE)
       else
         z <- y2z(y = xy[[yname]], x = xy[["age"]], ref = clopus::nl1997,
@@ -86,7 +86,7 @@ find_matches <- function(individual,
       else if (yname == "dsc")
         yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::dscore,
                     yname = yname, sex = xy[["sex"]][1L],
-                    sub = ifelse(xy[["ga"]][1L] >= 37, 40, xy[["ga"]][1L]),
+                    sub = 40,
                     drop = TRUE)
       else
         yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::nl1997,
