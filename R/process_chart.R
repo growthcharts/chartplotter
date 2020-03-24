@@ -50,7 +50,11 @@
 #' g <- process_chart(ind, chartcode = "NMAD",
 #'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = FALSE)
 #'
-#' # provides a different match each time
+#' # this model is different from previous? Does it produce a different match?
+#' g <- process_chart(ind, chartcode = "NMAD",
+#'                    dnr = "smocc", period = c(0.25, 1.1667), nmatch = 1, break_ties = FALSE)
+#'
+#' # provides a different match each time because it randomly breaks ties
 #' g <- process_chart(ind, chartcode = "NMAD",
 #'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = TRUE)
 #'
