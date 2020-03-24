@@ -1,7 +1,7 @@
 Package: chartplotter
 Type: Package
 Title: Analysing and Plotting Growth Curves
-Version: 0.6.3
+Version: 0.7.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: This package plots the target child's growth curves on 
@@ -18,7 +18,7 @@ Imports:
     brokenstick,
     chartbox (>= 1.1.0),
     chartcatalog (>= 1.3.0),
-    clopus (>= 0.41.1),
+    clopus (>= 0.43.0),
     curvematching,
     donorloader,
     dplyr,
