@@ -33,7 +33,7 @@ create_lines_prediction <- function(chartcode, yname,
     }
     else { # if not found, take period1
       x_start <- visit_age(vv[1L], dnr = dnr)
-      y_start <- mean(dplyr::pull(child[, paste(yname, x_start, sep = "_")]),
+      y_start <- mean(pull(child[, paste(yname, x_start, sep = "_")]),
                       na.rm = TRUE)
     }
 
@@ -41,7 +41,7 @@ create_lines_prediction <- function(chartcode, yname,
     x_end <- visit_age(vv[2L], dnr = dnr)
     # find y_end: local prediction equal to the mean of
     # broken stick estimates (in cm) of the matches
-    y_end <- mean(dplyr::pull(child[, paste(yname, x_end, sep = "_")]),
+    y_end <- mean(pull(child[, paste(yname, x_end, sep = "_")]),
                   na.rm = TRUE)
 
     xy <- data.frame(id = 0L,
