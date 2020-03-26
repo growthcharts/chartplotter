@@ -55,6 +55,7 @@ set_curves <- function(g, individual,
       # create the prediction
       pre_gList <- create_lines_prediction(chartcode, yname,
                                            matches, dnr, period,
+                                           xyz,
                                            show_future,
                                            curve_interpolation)
 

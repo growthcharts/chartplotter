@@ -1,5 +1,6 @@
 create_lines_prediction <- function(chartcode, yname,
                                     matches, dnr, period,
+                                    xyz,
                                     show_future,
                                     curve_interpolation,
                                     con = NULL) {
@@ -12,19 +13,46 @@ create_lines_prediction <- function(chartcode, yname,
     child <- load_data(con = con, dnr = dnr, element = "child",
                        ids = matches[[yname]])
     vv <- visit_number(period, dnr = dnr)
-    x <- visit_age(vv[1L]:vv[2L], dnr = dnr)
-    vars <- paste(yname, x, sep = "_")
-    idx <- vars %in% names(child)
-    x <- x[idx]
-    vars <- vars[idx]
 
-    # calculate the local prediction as the mean
+    # find x_start, age at which lines_prediction begins
+    xyz <- as.data.frame(xyz)
+    x <- xyz$x
+    before <- x <= period[1L]
+    if (sum(before) > 0L)
+      before <- x <= max(xyz$obs[before] * xyz$x[before])
+
+    # browser()
+    #cat("before: ", before, "\n")
+    #cat("xyz[before, `x`]", xyz[before, "x"], "\n")
+
+    # prefer x_start as age at last observed data point
+    if (any(before)) {
+      p <- which.max(xyz$x[before])
+      x_start <- xyz$x[p]
+      y_start <- xyz$y[p]
+    }
+    else { # if not found, take period1
+      x_start <- visit_age(vv[1L], dnr = dnr)
+      y_start <- mean(dplyr::pull(child[, paste(yname, x_start, sep = "_")]),
+                      na.rm = TRUE)
+    }
+
+    # find x_end, age at which lines_prediction ends
+    x_end <- visit_age(vv[2L], dnr = dnr)
+    # find y_end: local prediction equal to the mean of
     # broken stick estimates (in cm) of the matches
-    y <- NULL
-    if (length(vars) >= 1) y <- colMeans(child[, vars, drop = FALSE])
-    xy <- data.frame(id = 0L, x = x, y = y)
+    y_end <- mean(dplyr::pull(child[, paste(yname, x_end, sep = "_")]),
+                  na.rm = TRUE)
+
+    xy <- data.frame(id = 0L,
+                     x = c(x_start, x_end),
+                     y = c(y_start, y_end))
     xy <- apply_transforms(xy, chartcode = chartcode, yname = yname,
                            curve_interpolation = curve_interpolation)
+
+    # remove symbol from start---
+    # FIXME
+
     if (nrow(xy) == 0L) {
       lines_prediction <- placeholder("lines_prediction")
       symbols_prediction <- placeholder("symbols_prediction")
