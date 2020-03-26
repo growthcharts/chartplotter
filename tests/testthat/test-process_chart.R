@@ -11,3 +11,18 @@ context("process_chart")
 #                    dnr = "terneuzen", period = c(2, 18),
 #                    nmatch = 10, break_ties = TRUE))
 # })
+
+# data("installed.cabinets", package = "jamestest")
+# ind <- installed.cabinets$smocc[["Laura S"]]
+# test_that("prediction line connects last observation to prediction", {
+#   expect_silent(process_chart(ind, chartcode = "NJCH",
+#                    dnr = "terneuzen", period = c(2, 18),
+#                    nmatch = 10, break_ties = TRUE, show_future = TRUE))
+# })
+#
+#
+# process_chart(ind, chartcode = "NJBH",
+#               dnr = "terneuzen", period = c(0.8, 2),
+#               nmatch = 10, break_ties = TRUE, show_future = TRUE,
+#               show_realized = TRUE)
+
