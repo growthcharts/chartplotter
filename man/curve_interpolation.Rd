@@ -4,8 +4,15 @@
 \alias{curve_interpolation}
 \title{Interpolates the growth curves along the references}
 \usage{
-curve_interpolation(data, xname = "x", yname = "y", zname = NULL,
-  xout, reference, rule = 2L)
+curve_interpolation(
+  data,
+  xname = "x",
+  yname = "y",
+  zname = NULL,
+  xout,
+  reference,
+  rule = 2L
+)
 }
 \arguments{
 \item{data}{A data frame in long format, with columns for person

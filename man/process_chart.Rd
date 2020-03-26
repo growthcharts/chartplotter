@@ -4,12 +4,23 @@
 \alias{process_chart}
 \title{Plots the growth chart, optionally including matches}
 \usage{
-process_chart(individual, chartcode, curve_interpolation = TRUE,
-  quiet = TRUE, con = NULL, dnr = c("smocc", "terneuzen",
-  "lollypop.preterm", "lollypop.term", "pops"), period = numeric(0),
-  nmatch = 0L, user_model = 2L, exact_sex = TRUE, exact_ga = FALSE,
-  break_ties = TRUE, show_realized = FALSE, show_future = FALSE,
-  clip = TRUE)
+process_chart(
+  individual,
+  chartcode,
+  curve_interpolation = TRUE,
+  quiet = TRUE,
+  con = NULL,
+  dnr = c("smocc", "terneuzen", "lollypop.preterm", "lollypop.term", "pops"),
+  period = numeric(0),
+  nmatch = 0L,
+  user_model = 2L,
+  exact_sex = TRUE,
+  exact_ga = FALSE,
+  break_ties = TRUE,
+  show_realized = FALSE,
+  show_future = FALSE,
+  clip = TRUE
+)
 }
 \arguments{
 \item{individual}{An S4 object of class \code{individual}
@@ -67,6 +78,34 @@ Plots the growth chart, optionally including matches
 \item{2}{sex + growth curve up to current}
 \item{3}{2 + all complete covariates}
 \item{4}{3 + growth curves up to current, other measures}
+}
+}
+\examples{
+\dontrun{
+data("installed.cabinets", package = "jamestest")
+ind <- installed.cabinets$smocc[["Laura S"]]
+g <- process_chart(ind, chartcode = "NJAA",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
+
+# provides consistently the same match
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = FALSE)
+
+# this model is different from previous? Does it produce a different match?
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.25, 1.1667), nmatch = 1, break_ties = FALSE)
+
+# provides a different match each time because it randomly breaks ties
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = TRUE)
+
+# provides consistently the same two matches
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 2, break_ties = FALSE)
+
+# provides different 2 matches each time
+g <- process_chart(ind, chartcode = "NMAD",
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 2, break_ties = TRUE)
 }
 }
 \seealso{
