@@ -2,6 +2,7 @@ apply_transforms <- function(xyz,
                              id = rep(0L, nrow(xyz)),
                              chartcode, yname,
                              curve_interpolation) {
+
   tx <- get_tx(chartcode, yname)
   ty <- get_ty(chartcode, yname)
   sq <- get_seq(chartcode, yname)

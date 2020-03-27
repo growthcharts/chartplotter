@@ -52,10 +52,11 @@ set_curves <- function(g, individual,
                                         matches, dnr,
                                         curve_interpolation)
 
-      # create the prediction
+      # calculate "look into future" line
       pre_gList <- create_lines_prediction(chartcode, yname,
-                                           matches, dnr, period,
-                                           xyz,
+                                           matches, dnr,
+                                           period,
+                                           get_xyz(individual, yname),
                                            show_future,
                                            curve_interpolation)
 
