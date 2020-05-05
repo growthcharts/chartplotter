@@ -28,6 +28,7 @@ Imports:
     rlang,
     stats
 Suggests: 
+    jamestest,
     testthat
 Remotes: 
   stefvanbuuren/brokenstick,
@@ -36,5 +37,6 @@ Remotes:
   stefvanbuuren/clopus,
   stefvanbuuren/curvematching,
   stefvanbuuren/donorloader,
+  stefvanbuuren/jamestest,
   stefvanbuuren/minihealth
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
