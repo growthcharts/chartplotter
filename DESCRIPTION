@@ -1,7 +1,7 @@
 Package: chartplotter
 Type: Package
 Title: Analysing and Plotting Growth Curves
-Version: 0.8.0
+Version: 0.9.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: This package plots the target child's growth curves on 
@@ -15,12 +15,12 @@ LazyData: true
 Depends: 
     R (>= 2.10)
 Imports: 
-    brokenstick,
+    brokenstick (>= 0.70.1),
     chartbox (>= 1.2.0),
     chartcatalog (>= 1.4.0),
     clopus (>= 0.43.0),
-    curvematching,
-    donorloader,
+    curvematching (>= 0.10.0),
+    donorloader (>= 0.12.0),
     dplyr,
     grDevices,
     grid,
