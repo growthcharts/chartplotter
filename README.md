@@ -85,6 +85,11 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
                    dnr = "lollypop.term",
                    period = c(0.25, 3.75), nmatch = 25,
                    show_future = TRUE)
+#> Warning: `mutate_()` is deprecated as of dplyr 0.7.0.
+#> Please use `mutate()` instead.
+#> See vignette('programming') for more help
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 #> chartcode:  NMBA
 dev.off()
 #> quartz_off_screen 

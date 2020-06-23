@@ -91,8 +91,7 @@ knitr::include_graphics("figures/chart2.svg")
 ### Example 3: Predict height at 3y9m when child is 2 years
 
 Same as before, but now using all data up to (but not beyond) 
-the age of 2 years. The variation 
-between the grey curves at age 3y9m is now much smaller. 
+the age of 2 years. The variation between the grey curves at age 3y9m is now much smaller. 
 
 
 ```{r example3}
