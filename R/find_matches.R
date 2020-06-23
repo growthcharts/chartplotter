@@ -75,8 +75,11 @@ find_matches <- function(individual,
                  drop = TRUE)
 
       # predict according to the brokenstick model (Z scale)
-      zhat <- predict(bsm, y = z, x = xy[["age"]],
-                      at = "knots", output = "vector")
+      df <- data.frame(age = xy["age"], z = z, id = 1)
+      colnames(df) <- c("age", paste(yname, "z", sep = "."), "id")
+      zhat <- predict(bsm, df, x = "knots", shape = "vector")
+      #zhat <- predict(bsm, y = z, x = xy[["age"]],
+      #                at = "knots", output = "vector")
 
       # backtransform to Y (comparison metric)
       if (dnr == "lollypop.preterm")
@@ -97,7 +100,7 @@ find_matches <- function(individual,
       yhat_names <- paste(yname, get_knots(bsm), sep = "_")
 
       # store in last line of data
-      data[nrow(data), yhat_names] <- yhat
+      data[nrow(data), yhat_names] <- matrix(yhat, nrow = 1L)
     }
   }
 
