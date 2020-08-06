@@ -1,6 +1,10 @@
+# chartplotter 0.10.0
+
+* Removes dependency on `brokenstick::get_knots()` by making a copy
+
 # chartplotter 0.9.0
 
-* Update to `R 4.0.0` and more recent `brokenstick`, `curvematching` packages
+* Updates to `R 4.0.0` and more recent `brokenstick`, `curvematching` packages
 
 # chartplotter 0.8.0
 
