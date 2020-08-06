@@ -1,5 +1,7 @@
 context("process_chart")
 
+library(brokenstick)
+
 # data("installed.cabinets", package = "jamestest")
 # ind <- installed.cabinets$smocc[["Laura S"]]
 #

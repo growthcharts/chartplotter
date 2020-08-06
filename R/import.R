@@ -12,7 +12,7 @@
 #'                           grid.draw is.grob nullGrob pointsGrob
 #'                           polylineGrob removeGrob segmentsGrob
 #'                           setGrob
-#' @importFrom minihealth    get_xyz individual_to_donordata
+#' @importFrom minihealth    get_knots get_xyz individual_to_donordata
 #'                           is.individual
 #' @importFrom rlang         .data :=
 #' @importFrom stats         approx na.omit predict

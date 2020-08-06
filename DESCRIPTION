@@ -27,9 +27,11 @@ Imports:
     rlang,
     stats
 Suggests: 
+    brokenstick,
     jamestest,
     testthat
 Remotes: 
+  stefvanbuuren/brokenstick,
   stefvanbuuren/chartbox,
   stefvanbuuren/chartcatalog,
   stefvanbuuren/clopus,
