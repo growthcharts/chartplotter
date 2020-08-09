@@ -1,3 +1,4 @@
+#' @importFrom brokenstick   get_knots
 #' @importFrom chartbox      load_chart
 #' @importFrom chartcatalog  get_breakpoints get_reference get_seq
 #'                           get_tx get_ty get_ynames parse_chartcode
@@ -12,7 +13,7 @@
 #'                           grid.draw is.grob nullGrob pointsGrob
 #'                           polylineGrob removeGrob segmentsGrob
 #'                           setGrob
-#' @importFrom minihealth    get_knots get_xyz individual_to_donordata
+#' @importFrom minihealth    get_xyz individual_to_donordata
 #'                           is.individual
 #' @importFrom rlang         .data :=
 #' @importFrom stats         approx na.omit predict

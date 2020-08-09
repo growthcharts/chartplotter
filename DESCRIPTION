@@ -15,6 +15,7 @@ LazyData: true
 Depends: 
     R (>= 2.10)
 Imports: 
+    brokenstick (>= 0.75.0),
     chartbox (>= 1.2.0),
     chartcatalog (>= 1.4.0),
     clopus (>= 0.43.0),
@@ -27,7 +28,6 @@ Imports:
     rlang,
     stats
 Suggests: 
-    brokenstick,
     jamestest,
     testthat
 Remotes: 
