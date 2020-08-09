@@ -1,3 +1,7 @@
+# chartplotter 0.10.1
+
+* Reinstates dependency `brokenstick::get_knots()` because minihealth needs the brokenstick dependency anyway (for predict)
+
 # chartplotter 0.10.0
 
 * Removes dependency on `brokenstick::get_knots()` by making a copy
