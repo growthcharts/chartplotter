@@ -39,16 +39,20 @@
 #' \item{3}{2 + all complete covariates}
 #' \item{4}{3 + growth curves up to current, other measures}
 #' }
+#' @return A \code{gTree} that can be rendered by \code{grid::grid.draw()}.
 #' @examples
 #' \dontrun{
+#' library(grid)
 #' data("installed.cabinets", package = "jamestest")
 #' ind <- installed.cabinets$smocc[["Laura S"]]
 #' g <- process_chart(ind, chartcode = "NJAA",
 #'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
+#' grid.draw(g)
 #'
 #' # provides consistently the same match
 #' g <- process_chart(ind, chartcode = "NMAD",
 #'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = FALSE)
+#' grid.draw(g)
 #'
 #' # this model is different from previous? Does it produce a different match?
 #' g <- process_chart(ind, chartcode = "NMAD",
@@ -118,18 +122,13 @@ process_chart <- function(individual,
   # set data points
   if (!quiet) cat("chartcode: ", chartcode, "\n")
 
-  g <- set_curves(g = g, individual = individual,
-                  curve_interpolation = curve_interpolation,
-                  nmatch = nmatch,
-                  matches = matches,
-                  dnr = dnr,
-                  period = period,
-                  show_realized = show_realized,
-                  show_future = show_future,
-                  clip = clip)
-
-  grid.draw(g)
-
-  # palette(old_pal)
-  invisible(g)
+  set_curves(g = g, individual = individual,
+             curve_interpolation = curve_interpolation,
+             nmatch = nmatch,
+             matches = matches,
+             dnr = dnr,
+             period = period,
+             show_realized = show_realized,
+             show_future = show_future,
+             clip = clip)
 }

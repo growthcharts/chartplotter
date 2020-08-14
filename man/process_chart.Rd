@@ -68,6 +68,9 @@ growth of the target child should be drawn}
 
 \item{clip}{A logical indicating whether clipping is needed}
 }
+\value{
+A \code{gTree} that can be rendered by \code{grid::grid.draw()}.
+}
 \description{
 Plots the growth chart, optionally including matches
 }
@@ -82,14 +85,17 @@ Plots the growth chart, optionally including matches
 }
 \examples{
 \dontrun{
+library(grid)
 data("installed.cabinets", package = "jamestest")
 ind <- installed.cabinets$smocc[["Laura S"]]
 g <- process_chart(ind, chartcode = "NJAA",
                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
+grid.draw(g)
 
 # provides consistently the same match
 g <- process_chart(ind, chartcode = "NMAD",
                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = FALSE)
+grid.draw(g)
 
 # this model is different from previous? Does it produce a different match?
 g <- process_chart(ind, chartcode = "NMAD",

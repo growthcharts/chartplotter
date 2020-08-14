@@ -43,13 +43,12 @@ remotes::install_github("stefvanbuuren/chartplotter")
 
 ``` r
 library(chartplotter)
-#> Registered S3 method overwritten by 'pryr':
-#>   method      from
-#>   print.bytes Rcpp
 library(svglite)
+library(grid)
 tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
+grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2
@@ -91,6 +90,7 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
 #> This warning is displayed once every 8 hours.
 #> Call `lifecycle::last_warnings()` to see where this warning was generated.
 #> chartcode:  NMBA
+grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2
@@ -121,6 +121,7 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE)
 #> chartcode:  NMBA
+grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2
@@ -147,6 +148,7 @@ g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE,
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE, show_realized = TRUE)
 #> chartcode:  NMBH
+grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2

@@ -53,9 +53,11 @@ remotes::install_github("stefvanbuuren/chartplotter")
 ```{r example}
 library(chartplotter)
 library(svglite)
+library(grid)
 tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
+grid.draw(g)
 dev.off()
 ```
 
@@ -81,6 +83,7 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
                    dnr = "lollypop.term",
                    period = c(0.25, 3.75), nmatch = 25,
                    show_future = TRUE)
+grid.draw(g)
 dev.off()
 ```
 
@@ -100,6 +103,7 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
                    dnr = "lollypop.term",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE)
+grid.draw(g)
 dev.off()
 ```
 
@@ -116,6 +120,7 @@ g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE,
                    dnr = "lollypop.term",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE, show_realized = TRUE)
+grid.draw(g)
 dev.off()
 ```
 
