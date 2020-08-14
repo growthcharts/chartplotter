@@ -1,3 +1,7 @@
+# chartplotte 0.11.0
+
+* Removes `grid.draw()` from `process_chart()`, so now your need to run `grid.draw()` to render the graph
+
 # chartplotter 0.10.1
 
 * Reinstates dependency `brokenstick::get_knots()` because minihealth needs the brokenstick dependency anyway (for predict)
