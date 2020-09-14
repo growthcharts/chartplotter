@@ -14,42 +14,49 @@ find_matches(
   user_model = 2L,
   exact_sex = FALSE,
   exact_ga = FALSE,
-  break_ties = TRUE
+  break_ties = TRUE,
+  replace = FALSE,
+  blend = 1
 )
 }
 \arguments{
-\item{individual}{An S4 object of class \code{individual}
-containing data of the individual}
+\item{individual}{An S4 object of class \code{individual} containing data of
+the individual}
 
-\item{con}{A connection on which the donor data reside. The
-default (\code{NULL}) reads from \code{donorloader} package.}
+\item{con}{A connection on which the donor data reside. The default
+(\code{NULL}) reads from \code{donorloader} package.}
 
-\item{dnr}{A string with the name of the donor data
-(currently available are \code{smocc}, \code{terneuzen},
-\code{lollypop.preterm} or \code{lollypop.term})}
+\item{dnr}{A string with the name of the donor data (currently
+available are \code{smocc}, \code{terneuzen}, \code{lollypop.preterm} or
+\code{lollypop.term})}
 
 \item{ynames}{A vector with the names of the response variables
 for which matches are sought, e.g. \code{ynames = c("hdc",
 "hgt")}.}
 
-\item{nmatch}{Integer. Number of matches needed. When
-\code{nmatch == 0L} no matches are sought.}
+\item{nmatch}{Integer. Number of matches needed. When \code{nmatch == 0L}
+no matches are sought.}
 
-\item{period}{A vector of length 2 with left and right ages
-(decimal age). If \code{length(period) == 0L}, then no curve
-matching is done}
+\item{period}{A vector of length 2 with left and right ages (decimal age). If
+\code{length(period) == 0L}, then no curve matching is done}
 
-\item{user_model}{Model number (1-4), indicating type of model the
-user wants. See details.}
+\item{user_model}{Model number (1-4), indicating type of model the user wants.
+See details.}
 
-\item{exact_sex}{A logical indicating whether sex should be
+\item{exact_sex}{A logical indicating whether sex should be matched exactly}
+
+\item{exact_ga}{A logical indicating whether gestational age should be
 matched exactly}
 
-\item{exact_ga}{A logical indicating whether gestational age
-should be matched exactly}
+\item{break_ties}{A logical indicating whether ties should broken randomly.
+The default (\code{TRUE}) breaks ties randomly.}
 
-\item{break_ties}{A logical indicating whether ties should broken
-randomly. The default (\code{TRUE}) breaks ties randomly.}
+\item{replace}{A logical that indicates whether or not matching should be with
+replacement. The default is \code{FALSE}.}
+
+\item{blend}{A number between 0 and 1, that indicates the blend between
+nearest neighbour matching (\code{0}) and predicitve mean matching
+(\code{1}).}
 }
 \value{
 List with components with names \code{ynames}. Each

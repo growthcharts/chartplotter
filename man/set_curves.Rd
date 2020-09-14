@@ -21,33 +21,32 @@ set_curves(
 \item{g}{A \code{gTree} object, typically loaded by
 \code{chartbox::load_chart()}}
 
-\item{individual}{An S4 object of class \code{individual}
-containing data of the individual}
+\item{individual}{An S4 object of class \code{individual} containing data of
+the individual}
 
-\item{curve_interpolation}{A logical indicating whether curve
-interpolation shoud be applied.}
+\item{curve_interpolation}{A logical indicating whether curve interpolation
+shoud be applied.}
 
-\item{nmatch}{Integer. Number of matches needed. When
-\code{nmatch == 0L} no matches are sought.}
+\item{nmatch}{Integer. Number of matches needed. When \code{nmatch == 0L}
+no matches are sought.}
 
 \item{matches}{List of vector containing the id's of the matches in
 the donor data. List elements should be named after
 \code{ynames}. The default value (\code{NULL}) indicates that no
 matches are plotted.}
 
-\item{dnr}{A string with the name of the donor data
-(currently available are \code{smocc}, \code{terneuzen},
-\code{lollypop.preterm} or \code{lollypop.term})}
+\item{dnr}{A string with the name of the donor data (currently
+available are \code{smocc}, \code{terneuzen}, \code{lollypop.preterm} or
+\code{lollypop.term})}
 
-\item{period}{A vector of length 2 with left and right ages
-(decimal age). If \code{length(period) == 0L}, then no curve
-matching is done}
+\item{period}{A vector of length 2 with left and right ages (decimal age). If
+\code{length(period) == 0L}, then no curve matching is done}
 
-\item{show_realized}{A logical indicating whether the realized
-growth of the target child should be drawn}
+\item{show_realized}{A logical indicating whether the realized growth of the
+target child should be drawn}
 
-\item{show_future}{A logical indicating whether the predicted
-growth of the target child should be drawn}
+\item{show_future}{A logical indicating whether the predicted growth of the
+target child should be drawn}
 
 \item{clip}{A logical indicating whether clipping is needed}
 }

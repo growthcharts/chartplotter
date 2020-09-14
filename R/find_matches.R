@@ -19,7 +19,9 @@ find_matches <- function(individual,
                          user_model = 2L,
                          exact_sex = FALSE,
                          exact_ga = FALSE,
-                         break_ties = TRUE) {
+                         break_ties = TRUE,
+                         replace = FALSE,
+                         blend = 1) {
 
   # preliminary exit if we need no matches
   matches <- vector("list", length(ynames))
@@ -128,7 +130,9 @@ find_matches <- function(individual,
                            e_name = e_name,
                            t_name = t_name,
                            k = as.numeric(nmatch),
-                           break_ties = break_ties)
+                           break_ties = break_ties,
+                           replace = replace,
+                           blend = blend)
     matches[[yname]] <- extract_matches(m)
   }
 

@@ -15,8 +15,8 @@ data. Any brokenstick variable should have names like
 \code{paste(yname, d, sep = "_")}, where \code{d} is a vector
 contuining decimal ages.}
 
-\item{user_model}{Model number (1-4), indicating type of model the
-user wants. See details.}
+\item{user_model}{Model number (1-4), indicating type of model the user wants.
+See details.}
 
 \item{current_age}{Current age (in decimal years)}
 }
