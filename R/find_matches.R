@@ -60,47 +60,26 @@ find_matches <- function(individual,
 
     # transform to Z-score (comparison metric)
     if (!is.null(bsm) & nrow(xy) > 0L) {
-      if (dnr == "lollypop.preterm")
-        z <- y2z(y = xy[[yname]], x = xy[["age"]], ref = clopus::preterm,
-                 yname = yname, sex = xy[["sex"]], sub = xy[["ga"]],
-                 drop = TRUE)
-      else if (yname == "dsc")
-        z <- y2z(y = xy[[yname]], x = xy[["age"]], ref = clopus::dscore,
-                 yname = yname, sex = xy[["sex"]],
-                 sub = ifelse(xy[["ga"]] >= 37, 40, xy[["ga"]]),
-                 drop = TRUE)
-      else
-        z <- y2z(y = xy[[yname]], x = xy[["age"]], ref = clopus::nl1997,
-                 yname = yname, sex = xy[["sex"]], sub = "NL",
-                 drop = TRUE)
+      z <- clopus::transform_z(xy, ynames = yname)
 
       # predict according to the brokenstick model (Z scale)
       df <- data.frame(age = xy["age"], z = z, id = 1)
-      colnames(df) <- c("age", paste(yname, "z", sep = "."), "id")
       zhat <- predict(bsm, df, x = "knots", shape = "vector")
-      #zhat <- predict(bsm, y = z, x = xy[["age"]],
-      #                at = "knots", output = "vector")
 
       # backtransform to Y (comparison metric)
-      if (dnr == "lollypop.preterm")
-        yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::preterm,
-                    yname = yname, sex = xy[["sex"]][1L], sub = xy[["ga"]][1L],
-                    drop = TRUE)
-      else if (yname == "dsc")
-        yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::dscore,
-                    yname = yname, sex = xy[["sex"]][1L],
-                    sub = ifelse(xy[["ga"]][1L] >= 37, 40, xy[["ga"]][1L]),
-                    drop = TRUE)
-      else
-        yhat <- z2y(z = zhat, x = get_knots(bsm), ref = clopus::nl1997,
-                    yname = yname, sex = xy[["sex"]][1L], sub = "NL",
-                    drop = TRUE)
+      df <- data.frame(
+        age = get_knots(bsm),
+        sex = xy[["sex"]][1L],
+        ga  = xy[["ga"]][1L],
+        z = zhat)
+      colnames(df) <- c("age", "sex", "ga", paste0(yname, ".z"))
+      yhat <- clopus::transform_y(df, ynames = yname)
 
       # set proper names
       yhat_names <- paste(yname, get_knots(bsm), sep = "_")
 
       # store in last line of data
-      data[nrow(data), yhat_names] <- matrix(yhat, nrow = 1L)
+      data[nrow(data), yhat_names] <- matrix(pull(yhat), nrow = 1L)
     }
   }
 
