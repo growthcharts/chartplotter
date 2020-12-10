@@ -1,4 +1,8 @@
-# chartplotte 0.11.0
+# chartplotter 0.12.0
+
+* Repairs discrepancy in Z-transformation in `find_matches()` that resulted in incorrect Z-scores for preterms in mixed data (#2)
+
+# chartplotter 0.11.0
 
 * Removes `grid.draw()` from `process_chart()`, so now your need to run `grid.draw()` to render the graph
 
