@@ -13,6 +13,11 @@
 #' that, the Z-scores are transformed back to the original scale,
 #' so the points to plot then follow the curvy reference lines.
 #'
+#' If the user specifies argument \code{zname}, then the function
+#' applies only the transformation \code{z2y()} after interpolation,
+#' and skips the input transformation \code{y2z()}. This
+#' mechanism creates synthetic values for the output \code{yname}.
+#'
 #'@param data A data frame in long format, with columns for person
 #'  number (named \code{id}), the x and y variables.
 #'@param xname Name of the variable on the horizontal axis.
@@ -48,16 +53,30 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
 
   if (!is.reference(reference)) stop("Argument `reference` not of class `reference`")
 
-  # automatic zname
-  if (is.null(zname))
+  # handle zname input
+  skip <- FALSE
+  if (!is.null(zname)) {
+    if (hasName(data, zname)) skip <- TRUE
+  } else {
     zname <- paste(yname, "z", sep = "_")
+  }
 
   # select observed data
+  # calculate Z-scores if the user did not provide a zname argument
+  # Calculate Y-values if user provive zname argument
+  if (skip) {
+  observed <- data %>%
+    select(.data$id, !! xname, !!zname) %>%
+    mutate(obs = TRUE,
+          !! yname := z2y(z = .data[[zname]], x = .data[[xname]],
+                         ref = reference, rule = rule))
+  } else {
   observed <- data %>%
     select(.data$id, !! xname, !! yname) %>%
     mutate(obs = TRUE,
            !! zname := y2z(y = data[[yname]], x = data[[xname]],
                            ref = reference, rule = rule))
+  }
 
   # create bending points
   rng <- suppressWarnings(range(data[, xname, drop = TRUE], finite = FALSE))

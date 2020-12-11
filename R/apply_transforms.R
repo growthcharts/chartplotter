@@ -7,26 +7,42 @@ apply_transforms <- function(xyz,
   ty <- get_ty(chartcode, yname)
   sq <- get_seq(chartcode, yname)
 
-  # transform
-  if (sq == "tr" & !is.null(xyz$y)) xyz$y <- ty(xyz$y)
+  # FIXME
+  # NOTE: It would be better if we define "rt" and "tr" as part of the
+  # Z-score calculation.
+
+  # transform ty(y) in transform-reference sequence if needed and possible
+  if (sq == "tr" && hasName(xyz, "y")) xyz$y <- ty(xyz$y)
 
   # curve interpolation
+  # skip Z-score calculation if xyz has a variable called "z"
   if (nrow(xyz) > 0L) {
     xyz$id  <- id
     xyz$obs <- TRUE
     if (curve_interpolation) {
       ref <- get_reference(chartcode, yname)
       xout <- set_xout(chartcode, yname)
-      xyz <- curve_interpolation(data = xyz,
-                                 xname = "x",
-                                 yname = "y",
-                                 xout = xout,
-                                 reference = ref)
+      if (hasName(xyz, "z")) {
+        xyz <- curve_interpolation(data = xyz,
+                                   xname = "x",
+                                   yname = "y",
+                                   zname = "z",
+                                   xout = xout,
+                                   reference = ref)
+      } else {
+        xyz <- curve_interpolation(data = xyz,
+                                   xname = "x",
+                                   yname = "y",
+                                   xout = xout,
+                                   reference = ref)
+      }
     }
   }
 
-  # transform
-  if (sq == "rt" & !is.null(xyz$y)) xyz$y <- ty(xyz$y)
+  # transform ty(y) in reference-transform sequence if needed
+  if (sq == "rt") xyz$y <- ty(xyz$y)
+
+  # apply x transform
   xyz$x <- tx(xyz$x)
 
   xyz

@@ -20,8 +20,8 @@ ind <- installed.cabinets$smocc[["Laura S"]]
 test_that("prediction line connects last observation to prediction", {
   # warns for mutate_ in curvematching::calculate_matches()
   expect_warning(process_chart(ind, chartcode = "NJCH",
-                   dnr = "terneuzen", period = c(3, 18),
-                   nmatch = 10, break_ties = TRUE,
+                   dnr = "terneuzen", period = c(3, 10),
+                   nmatch = 25, break_ties = TRUE,
                    show_realized = TRUE, show_future = TRUE))
 })
 

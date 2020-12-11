@@ -55,6 +55,11 @@ through the \code{xout} argument), and calculates the linear
 interpolation between these points in the Z-scores metric. After
 that, the Z-scores are transformed back to the original scale,
 so the points to plot then follow the curvy reference lines.
+
+If the user specifies argument \code{zname}, then the function
+applies only the transformation \code{z2y()} after interpolation,
+and skips the input transformation \code{y2z()}. This
+mechanism creates synthetic values for the output \code{yname}.
 }
 \examples{
 data <- data.frame(

@@ -17,4 +17,5 @@
 #'                           is.individual
 #' @importFrom rlang         .data :=
 #' @importFrom stats         approx na.omit predict
+#' @importFrom utils         hasName
 NULL

@@ -26,7 +26,8 @@ Imports:
     grid,
     minihealth (>= 0.60.0),
     rlang,
-    stats
+    stats,
+    utils
 Suggests: 
     jamestest,
     testthat
