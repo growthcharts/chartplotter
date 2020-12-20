@@ -44,12 +44,19 @@ create_lines_prediction <- function(chartcode, yname,
     dplyr::rename(age = .data$x,
                   !! v := .data$z) %>%
     filter(.data$age <= period[1L]) %>%
+    arrange(.data$age) %>%
     mutate(id = 0L) %>%
     select(c("age", v, "id"))
 
   # predict with brokenstick model (in Z scale)
-  x <- c(max(df$age, 0), period[2L])
-  z <- predict(bsm, df, x = x, shape = "vector")
+  x <- c(min(df[nrow(df), "age"], period[1L]), period[2L])
+  df2 <- bind_rows(df,
+                   tibble(age = x, !! v := c(NA, NA), id = 0L))
+  z <- predict(bsm, new_data = df2, shape = "vector")[(nrow(df2)-1L):nrow(df2)]
+
+  # replace bs estimate with observed value
+  z1 <- df[nrow(df), v]
+  if (length(z1) && !is.na(z1)) z[1] <- z1
 
   # transform to display scale
   xz <- data.frame(x = x, z = z)
