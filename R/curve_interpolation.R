@@ -28,10 +28,13 @@
 #'  data range of \code{xname} are interpolated.
 #'@param reference The reference needed to calculate the Z-score
 #'  scores and the back-transformation to measured scores.
-#'  An object of class \code{clopus::reference}.
+#'  An object of class \code{clopus::reference}. If not specified,
+#'  then the function expect argument \code{covariates}.
 #'@param rule The \code{rule} argument passed down to \code{approx}. The
 #'default here is \code{rule = 2L}, so any extrapolations beyond the
 #'ranges of the reference take the closest value (min or max).
+#'@param covariates A list with covariate values \code{sex} and \code{ga}. Used
+#'to define a fixed \code{clopus::transform_z()} and \code{clopus::transform_y()}.
 #'@return A \code{tibble} with five columns: \code{id}, xname, yname,
 #'zname and \code{obs}. The \code{obs} variables signals whether
 #'the point is observed or not.
@@ -48,12 +51,16 @@
 #'int
 #'@export
 curve_interpolation <- function(data, xname = "x", yname = "y",
-                                zname = NULL, xout, reference,
-                                rule = 2L) {
+                                zname = NULL,
+                                xout = numeric(0),
+                                reference = NULL,
+                                rule = 2L,
+                                covariates = NULL) {
 
-  if (!is.reference(reference)) stop("Argument `reference` not of class `reference`")
+  if (!is.null(reference) && !is.reference(reference))
+    stop("Argument `reference` not of class `reference`")
 
-  # handle zname input
+  # Skip transform to Z-score if data has a column with name zname
   skip <- FALSE
   if (!is.null(zname)) {
     if (hasName(data, zname)) skip <- TRUE
@@ -61,21 +68,32 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
     zname <- paste(yname, "z", sep = "_")
   }
 
-  # select observed data
-  # calculate Z-scores if the user did not provide a zname argument
-  # Calculate Y-values if user provive zname argument
-  if (skip) {
-  observed <- data %>%
-    select(.data$id, !! xname, !!zname) %>%
-    mutate(obs = TRUE,
-          !! yname := z2y(z = .data[[zname]], x = .data[[xname]],
-                         ref = reference, rule = rule))
+  # Transform to Z-values (analysis metric)
+  if (!skip) {
+    if (is.null(reference)) {
+      observed <- data %>%
+        select(.data$id, !! xname, !! yname)
+      df <- data.frame(y = observed[[yname]],
+                       x = observed[[xname]],
+                       sex = covariates$sex,
+                       ga = covariates$ga)
+      names(df) <- c(covariates$yname, "age", "sex", "ga")
+      observed <- observed %>%
+        mutate(obs = TRUE,
+               !! zname :=
+                 as.numeric(transform_z(df, ynames = covariates$yname)[[paste0(covariates$yname, ".z")]]))
+    } else {
+      observed <- data %>%
+        select(.data$id, !! xname, !! yname) %>%
+        mutate(obs = TRUE,
+               !! zname := y2z(y = data[[yname]], x = data[[xname]],
+                               ref = reference, rule = rule))
+    }
   } else {
-  observed <- data %>%
-    select(.data$id, !! xname, !! yname) %>%
-    mutate(obs = TRUE,
-           !! zname := y2z(y = data[[yname]], x = data[[xname]],
-                           ref = reference, rule = rule))
+    observed <- data %>%
+      select(.data$id, !! xname, !! zname) %>%
+      mutate(obs = TRUE,
+             !! yname := NA_real_)
   }
 
   # create bending points
@@ -120,14 +138,28 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
     filter(.data$do_approx)
 
   # if there are bending points left:
-  # transform to z, interpolate and backtransform to y
+  # interpolate and backtransform to y
   if (nrow(grid) > 0L) {
     grid <- grid %>%
       mutate(!!zname := approx(x = .data[[xname]], y = .data[[zname]],
-                               xout = .data[[xname]])$y) %>%
-      ungroup() %>%
-      mutate(yt = z2y(z = .data[[zname]], x = .data[[xname]],
-                      ref = reference, rule = rule))
+                               xout = .data[[xname]], rule = rule)$y) %>%
+      ungroup()
+
+    if (is.reference(reference)) {
+      # use z2y() directly
+      grid <- grid %>%
+        mutate(yt = z2y(z = .data[[zname]], x = .data[[xname]],
+                        ref = reference, rule = rule))
+    } else {
+      # use transform_y()
+      df <- data.frame(z = grid[[zname]],
+                       x = grid[[xname]],
+                       sex = covariates$sex,
+                       ga = covariates$ga)
+      names(df) <- c(paste0(covariates$yname, ".z"), "age", "sex", "ga")
+      grid <- grid %>%
+        mutate(yt = as.numeric(transform_y(df, ynames = covariates$yname)[[covariates$yname]]))
+    }
 
     # overwrite any NA's in yname
     ov <- grid %>%
@@ -140,7 +172,8 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
   }
 
   # append singletons and sort
-  grid %>%
+  grid <- grid %>%
     bind_rows(singletons) %>%
     arrange(!!! rlang::syms(c("id", xname)))
+
 }

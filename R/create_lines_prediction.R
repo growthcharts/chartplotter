@@ -4,9 +4,10 @@ create_lines_prediction <- function(chartcode, yname,
                                     xyz,
                                     show_future,
                                     curve_interpolation,
+                                    covariates = NULL,
                                     con = NULL) {
-    # return early
-    if (length(matches[[yname]]) == 0L | !show_future | length(period) == 0L) {
+  # return early
+  if (length(matches[[yname]]) == 0L | !show_future | length(period) == 0L) {
     lines_prediction <- placeholder("lines_prediction")
     symbols_prediction <- placeholder("symbols_prediction")
     return(gList(lines_prediction = lines_prediction,
@@ -14,45 +15,48 @@ create_lines_prediction <- function(chartcode, yname,
   }
 
   # create the prediction line
-  child <- load_data(con = NULL, dnr = dnr, element = "child",
-                     ids = matches[[yname]])
 
-  # precalculate begin and end, we need visit_number() to "round" to nearest visit
-  vv <- visit_number(period, dnr = dnr)
-  x_start <- visit_age(vv[1L], dnr = dnr)
-  x_end <- visit_age(vv[2L], dnr = dnr)
-  y_start <- mean(pull(child[, paste(yname, x_start, sep = "_")]),
-                  na.rm = TRUE)
-  y_end <- mean(pull(child[, paste(yname, x_end, sep = "_")]),
-                na.rm = TRUE)
+  # SvB: 20/12
+  # NOTE: This is double loading. Previously done in create_matches_lines()
+  # child <- load_data(con = NULL, dnr = dnr, element = "child",
+  #                   ids = matches[[yname]])
 
-  # find x_start, age at which lines_prediction begins
-  xyz <- as.data.frame(xyz)
-  x <- xyz$x
-  before <- x <= period[1L]
-  if (sum(before) > 0L)
-    before <- x <= max(xyz$x[before])
+  # SvB 20/12
+  # CHANGES NEEDED:
+  # 1) For target case, calculate Z-score (z_start) at last observed data point before visitline 1 (x_start)
+  # 2a) Calculate Z-scores (z2) at visitline 2 (x_end) for all matches by predict.brokenstick
+  # 2b) OR, for all matches, find y_end in donor$child, and convert to analysis metric z2 by apply_transforms() - likely to be faster (see find_matches())
+  # 3) Average z2 over matches (z_end)
+  # 4) Convert (x_start, z_start) and (x_end, z_end) to Y-scale in display metric by apply_transforms(covariates)
 
-  # prefer x_start as age at last observed data point
-  if (any(before)) {
-    p <- which.max(xyz$x[before])
-    x_start <- xyz$x[p]
-    y_start <- xyz$y[p]
-  }
-  else { # if not found, take period1
-    x_start <- x_start
-    y_start <- y_start
-  }
+  # DIRECT ALTERNATIVE USING ONLY TARGET
+  # 1) For target case, calculate Z-score (z_start) at last observed data point before visitline 1 (x_start)
+  # 2) For target case, calculate Z-score (z_end) at visitline 2 (x_end) by predict.brokenstick
+  # 3) Convert (x_start, z_start) and (x_end, z_end) to display metric by apply_transforms(covariates)
 
-  xy <- data.frame(id = 0L,
-                   x = c(x_start, x_end),
-                   y = c(y_start, y_end))
+  # get the brokenstick model
+  bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
 
-  xy <- apply_transforms(xy, chartcode = chartcode, yname = yname,
-                         curve_interpolation = curve_interpolation)
+  # prepare for prediction
+  v <- paste0(yname, ".z")
+  df <- xyz %>%
+    select(-.data$y) %>%
+    dplyr::rename(age = .data$x,
+                  !! v := .data$z) %>%
+    filter(.data$age <= period[1L]) %>%
+    mutate(id = 0L) %>%
+    select(c("age", v, "id"))
 
-  # remove symbol from start---
-  # FIXME
+  # predict with brokenstick model (in Z scale)
+  x <- c(max(df$age, 0), period[2L])
+  z <- predict(bsm, df, x = x, shape = "vector")
+
+  # transform to display scale
+  xz <- data.frame(x = x, z = z)
+  xy <- apply_transforms(xz,
+                         chartcode = chartcode, yname = yname,
+                         curve_interpolation = curve_interpolation,
+                         covariates = covariates)
 
   if (nrow(xy) == 0L) {
     lines_prediction <- placeholder("lines_prediction")

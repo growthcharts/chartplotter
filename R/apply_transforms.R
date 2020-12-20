@@ -1,7 +1,8 @@
 apply_transforms <- function(xyz,
                              id = rep(0L, nrow(xyz)),
                              chartcode, yname,
-                             curve_interpolation) {
+                             curve_interpolation,
+                             covariates) {
 
   tx <- get_tx(chartcode, yname)
   ty <- get_ty(chartcode, yname)
@@ -15,27 +16,37 @@ apply_transforms <- function(xyz,
   if (sq == "tr" && hasName(xyz, "y")) xyz$y <- ty(xyz$y)
 
   # curve interpolation
-  # skip Z-score calculation if xyz has a variable called "z"
   if (nrow(xyz) > 0L) {
     xyz$id  <- id
     xyz$obs <- TRUE
     if (curve_interpolation) {
-      ref <- get_reference(chartcode, yname)
+      # ref <- get_reference(chartcode, yname)
       xout <- set_xout(chartcode, yname)
-      if (hasName(xyz, "z")) {
+      if (!hasName(xyz, "z")) {
+        # transform_z(), interpolate, transform_y()
+        xyz <- curve_interpolation(data = xyz,
+                                   xname = "x",
+                                   yname = "y",
+                                   xout = xout,
+                                   covariates = covariates)
+      } else {
+        # interpolate, transform_y()
+        # skip Z-score calculation if xyz has a variable called "z"
         xyz <- curve_interpolation(data = xyz,
                                    xname = "x",
                                    yname = "y",
                                    zname = "z",
                                    xout = xout,
-                                   reference = ref)
-      } else {
-        xyz <- curve_interpolation(data = xyz,
-                                   xname = "x",
-                                   yname = "y",
-                                   xout = xout,
-                                   reference = ref)
-      }
+                                   covariates = covariates)
+      }}
+    if (!curve_interpolation) {
+      # only transform_y()
+      # do not interpolate without xout
+      xyz <- curve_interpolation(data = xyz,
+                                 xname = "x",
+                                 yname = "y",
+                                 zname = "z",
+                                 covariates = covariates)
     }
   }
 
@@ -45,6 +56,7 @@ apply_transforms <- function(xyz,
   # apply x transform
   xyz$x <- tx(xyz$x)
 
+  names(xyz) <- c("id", "x", "y", "z", "obs")
   xyz
 }
 

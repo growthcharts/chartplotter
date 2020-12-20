@@ -60,6 +60,9 @@ find_matches <- function(individual,
 
     # transform to Z-score (comparison metric)
     if (!is.null(bsm) & nrow(xy) > 0L) {
+
+      # Note: the following statement is not strictly needed since target$time
+      # stores these Z-scores
       z <- clopus::transform_z(xy, ynames = yname)
 
       # predict according to the brokenstick model (Z scale)
@@ -87,6 +90,12 @@ find_matches <- function(individual,
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]
 
   # define model variables
+  # FIXME
+  # double use of ga
+  # 1. we use ga to choose the Z-score transform clopus::transform_z()
+  # 2. we use here ga in the predictive model.
+  # Need to check whether this double application is useful.
+  # Also, do we really want to have yname_period[2L] as the outcome measure?
   e_name <- c("sex", "ga")[c(exact_sex, exact_ga)]
   t_name <- character()
   xnames <- sapply(ynames,

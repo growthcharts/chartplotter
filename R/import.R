@@ -2,7 +2,7 @@
 #' @importFrom chartbox      load_chart
 #' @importFrom chartcatalog  get_breakpoints get_reference get_seq
 #'                           get_tx get_ty get_ynames parse_chartcode
-#' @importFrom clopus        is.reference y2z z2y
+#' @importFrom clopus        is.reference y2z z2y transform_z transform_y
 #' @importFrom curvematching calculate_matches extract_matches
 #' @importFrom donorloader   load_data
 #' @importFrom dplyr         %>% arrange as_tibble bind_rows distinct

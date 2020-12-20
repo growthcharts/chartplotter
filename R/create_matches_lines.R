@@ -1,6 +1,7 @@
 create_matches_lines <- function(chartcode, yname,
                                  matches, dnr = "smocc",
                                  curve_interpolation = TRUE,
+                                 covariates = NULL,
                                  con = NULL) {
 
   # matched cases
@@ -35,7 +36,8 @@ create_matches_lines <- function(chartcode, yname,
     x = x,
     z = z)
   ci <- apply_transforms(bend, id, chartcode, yname,
-                         curve_interpolation = curve_interpolation)
+                         curve_interpolation = curve_interpolation,
+                         covariates = covariates)
 
   id_li <- ci[["id"]]
   x_li <- ci[["x"]]
