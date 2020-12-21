@@ -12,6 +12,13 @@ apply_transforms <- function(xyz,
   # NOTE: It would be better if we define "rt" and "tr" as part of the
   # Z-score calculation.
 
+  # FIXME
+  # hack: we must use sq <- "rt" for WFH
+  # The table ynames_lookup in chartcatalog return "tr", because these are based
+  # on the 1980 data (which was modeled in a different way than the WFH data
+  # of 1997 (which is used here as standard by the clopus::transform functions)
+  if (yname == "wfh") sq <- "rt"
+
   # transform ty(y) in transform-reference sequence if needed and possible
   if (sq == "tr" && hasName(xyz, "y")) xyz$y <- ty(xyz$y)
 

@@ -90,10 +90,17 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
                                ref = reference, rule = rule))
     }
   } else {
-    observed <- data %>%
-      select(.data$id, !! xname, !! zname) %>%
-      mutate(obs = TRUE,
-             !! yname := NA_real_)
+    # keep y values for sorting below, else set to NA
+    if (hasName(data, yname)) {
+      observed <- data %>%
+        select(.data$id, !! xname, !! zname, !! yname) %>%
+        mutate(obs = TRUE)
+    } else {
+      observed <- data %>%
+        select(.data$id, !! xname, !! zname) %>%
+        mutate(obs = TRUE,
+               !! yname := NA_real_)
+    }
   }
 
   # create bending points
@@ -157,6 +164,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
                        sex = covariates$sex,
                        ga = covariates$ga)
       names(df) <- c(paste0(covariates$yname, ".z"), "age", "sex", "ga")
+      if (covariates$yname == "wfh") names(df)[2] <- "hgt"
       grid <- grid %>%
         mutate(yt = as.numeric(transform_y(df, ynames = covariates$yname)[[covariates$yname]]))
     }
