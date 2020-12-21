@@ -4,16 +4,15 @@
 # chartplotter
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of `chartplotter` is to
 
-  - plot the child’s growth curves on pre-defined charts;
-  - plot two (visit) lines indicating a present and a future visit;
-  - find matches from donor data similar to the target child;
-  - predict the most likely future visit value;
-  - represent the inherent uncertainty of the prediction.
+-   plot the child’s growth curves on pre-defined charts;
+-   plot two (visit) lines indicating a present and a future visit;
+-   find matches from donor data similar to the target child;
+-   predict the most likely future visit value;
+-   represent the inherent uncertainty of the prediction.
 
 ## Installation
 
@@ -45,6 +44,7 @@ remotes::install_github("stefvanbuuren/chartplotter")
 library(chartplotter)
 library(svglite)
 library(grid)
+library(clopus)
 tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
@@ -57,11 +57,8 @@ dev.off()
 <div class="figure" style="text-align: center">
 
 <img src="figures/chart1.svg" alt="Dutch girls, 0-4 years" width="100%" />
-
 <p class="caption">
-
 Dutch girls, 0-4 years
-
 </p>
 
 </div>
@@ -99,11 +96,8 @@ dev.off()
 <div class="figure" style="text-align: center">
 
 <img src="figures/chart2.svg" alt="Dutch girls, 0-4 years" width="100%" />
-
 <p class="caption">
-
 Dutch girls, 0-4 years
-
 </p>
 
 </div>
@@ -130,11 +124,8 @@ dev.off()
 <div class="figure" style="text-align: center">
 
 <img src="figures/chart3.svg" alt="Dutch girls, 0-4 years" width="100%" />
-
 <p class="caption">
-
 Dutch girls, 0-4 years
-
 </p>
 
 </div>
@@ -157,11 +148,8 @@ dev.off()
 <div class="figure" style="text-align: center">
 
 <img src="figures/chart4.svg" alt="Dutch girls, 0-4 years" width="100%" />
-
 <p class="caption">
-
 Dutch girls, 0-4 years
-
 </p>
 
 </div>
