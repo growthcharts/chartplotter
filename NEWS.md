@@ -1,3 +1,7 @@
+# chartplotter 0.13.1
+
+# Repairs prediction line plotting
+
 # chartplotter 0.13.0
 
 * Major update: Consistent use of measurement-analysis-display metrics
