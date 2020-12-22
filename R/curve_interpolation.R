@@ -114,7 +114,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
            !! xname := .data$xout) %>%
     select(-.data$xout) %>%
     bind_rows(observed) %>%
-    arrange(!!! rlang::syms(c("id", xname, yname))) %>%
+    arrange(!!! rlang::syms(c("id", xname, yname, zname))) %>%
     distinct(!!! rlang::syms(c("id", xname)), .keep_all = TRUE)
 
   # remove any bending points outside the observation intervals
