@@ -20,7 +20,7 @@ Imports:
     chartcatalog (>= 1.4.0),
     clopus (>= 0.52.0),
     curvematching (>= 0.10.0),
-    donorloader (>= 0.12.0),
+    donorloader (>= 0.18.0),
     dplyr,
     grDevices,
     grid,
