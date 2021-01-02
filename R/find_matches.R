@@ -87,6 +87,9 @@ find_matches <- function(individual,
   }
 
   # names of complete variables in the data
+  # Note: 2020/12/31: Selecting the complete variables is very frail
+  # and leads to wrong matches for dnr=lollypop.preterm, since id 52602
+  # has ga=24, and all model estimates are missing
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]
 
   # define model variables
