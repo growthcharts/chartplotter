@@ -47,12 +47,15 @@ find_matches <- function(individual,
     bind_rows(target$child) %>%
     restore_factors(f = c("sex", "etn", "edu"))
 
+  # load model collection
+  bs <- load_data(dnr = paste0(dnr, "_bs"))
+
   # add the brokenstick estimates for target child at all break ages,
   # but using only the child's data up to the "current" age (period[1])
   for (yname in ynames) {
 
     # get the brokenstick model
-    bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
+    bsm <- bs[[yname]]
 
     # get the observed target data up to period[1L]
     if (yname %in% c("wfh")) xy <- tibble()
@@ -69,20 +72,11 @@ find_matches <- function(individual,
       df <- data.frame(age = xy["age"], z = z, id = 1)
       zhat <- predict(bsm, df, x = "knots", shape = "vector")
 
-      # backtransform to Y (comparison metric)
-      df <- data.frame(
-        age = get_knots(bsm),
-        sex = xy[["sex"]][1L],
-        ga  = xy[["ga"]][1L],
-        z = zhat)
-      colnames(df) <- c("age", "sex", "ga", paste0(yname, ".z"))
-      yhat <- clopus::transform_y(df, ynames = yname)
-
       # set proper names
-      yhat_names <- paste(yname, get_knots(bsm), sep = "_")
+      zhat_names <- paste(yname, "z", get_knots(bsm), sep = "_")
 
-      # store in last line of data
-      data[nrow(data), yhat_names] <- matrix(pull(yhat), nrow = 1L)
+      # store predicted Z-scores in last line of data
+      data[nrow(data), zhat_names] <- as.list(zhat)
     }
   }
 
@@ -114,7 +108,7 @@ find_matches <- function(individual,
     m <- calculate_matches(data = data,
                            condition = .data$istarget == TRUE,
                            subset = .data$keep == TRUE,
-                           y_name = paste(yname, period[2L], sep = "_"),
+                           y_name = paste(yname, "z", period[2L], sep = "_"),
                            x_name = xnames[[yname]],
                            e_name = e_name,
                            t_name = t_name,

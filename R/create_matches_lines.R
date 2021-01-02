@@ -17,7 +17,7 @@ create_matches_lines <- function(chartcode, yname,
 
   # here we need to take z, and convert to y using clopus::transform_y()
   # with ga set to the target's ga
-  z <- time[, paste0(yname, ".z"), drop = TRUE]
+  z <- time[, paste0(yname, "_z"), drop = TRUE]
   mis <- is.na(z)
   z <- z[!mis]
   x <- time[!mis, "age", drop = TRUE]

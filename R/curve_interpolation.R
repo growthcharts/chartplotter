@@ -81,7 +81,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
       observed <- observed %>%
         mutate(obs = TRUE,
                !! zname :=
-                 as.numeric(transform_z(df, ynames = covariates$yname)[[paste0(covariates$yname, ".z")]]))
+                 as.numeric(transform_z(df, ynames = covariates$yname)[[paste0(covariates$yname, "_z")]]))
     } else {
       observed <- data %>%
         select(.data$id, !! xname, !! yname) %>%
@@ -163,7 +163,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
                        x = grid[[xname]],
                        sex = covariates$sex,
                        ga = covariates$ga)
-      names(df) <- c(paste0(covariates$yname, ".z"), "age", "sex", "ga")
+      names(df) <- c(paste0(covariates$yname, "_z"), "age", "sex", "ga")
       if (covariates$yname == "wfh") names(df)[2] <- "hgt"
       grid <- grid %>%
         mutate(yt = as.numeric(transform_y(df, ynames = covariates$yname)[[covariates$yname]]))

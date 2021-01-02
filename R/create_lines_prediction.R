@@ -38,7 +38,7 @@ create_lines_prediction <- function(chartcode, yname,
   bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
 
   # prepare for prediction
-  v <- paste0(yname, ".z")
+  v <- paste0(yname, "_z")
   df <- xyz %>%
     select(-.data$y) %>%
     dplyr::rename(age = .data$x,
