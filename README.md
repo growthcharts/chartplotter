@@ -78,7 +78,7 @@ of the prediction.
 set.seed(61771)
 svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
-                   dnr = "lollypop.term",
+                   dnr = "lollypop",
                    period = c(0.25, 3.75), nmatch = 25,
                    show_future = TRUE)
 #> Warning: `mutate_()` is deprecated as of dplyr 0.7.0.
@@ -111,7 +111,7 @@ smaller.
 ``` r
 svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
-                   dnr = "lollypop.term",
+                   dnr = "lollypop",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE)
 #> chartcode:  NMBA
@@ -135,7 +135,7 @@ Dutch girls, 0-4 years
 ``` r
 svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
 g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE,
-                   dnr = "lollypop.term",
+                   dnr = "lollypop",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE, show_realized = TRUE)
 #> chartcode:  NMBH
