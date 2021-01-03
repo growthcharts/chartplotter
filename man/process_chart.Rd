@@ -10,7 +10,7 @@ process_chart(
   curve_interpolation = TRUE,
   quiet = TRUE,
   con = NULL,
-  dnr = c("smocc", "terneuzen", "lollypop.preterm", "lollypop.term", "pops"),
+  dnr = c("smocc", "terneuzen", "lollypop", "pops"),
   period = numeric(0),
   nmatch = 0L,
   user_model = 2L,
@@ -39,7 +39,7 @@ default (\code{NULL}) reads from \code{donorloader} package.}
 
 \item{dnr}{A string with the name of the donor data
 (currently available are \code{smocc}, \code{terneuzen},
-\code{lollypop.preterm} or \code{lollypop.term})}
+\code{lollypop} and \code{pops})}
 
 \item{period}{A vector of length 2 with left and right ages
 (decimal age). If \code{length(period) == 0L}, then no curve
@@ -93,9 +93,9 @@ g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = 
                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10)
 grid.draw(g)
 
-# using pre-terms for matching
+# using lollypop for matching
 g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-                   dnr = "lollypop.preterm", period = c(0.5, 1.1667), nmatch = 10)
+                   dnr = "lollypop", period = c(0.5, 1.1667), nmatch = 10)
 grid.draw(g)
 }
 }

@@ -35,9 +35,9 @@ test_that("Kevin S is drawn silently", {
 })
 
 ind <- installed.cabinets$smocc[["Kevin S"]]
-test_that("Kevin S predict hdc using lollypop.preterm", {
+test_that("Kevin S predict hdc using lollypop", {
   # warns for mutate_ in curvematching::calculate_matches()
-  expect_silent(process_chart(ind, chartcode = "PJAAN34", dnr = "lollypop.preterm", period = c(0.6, 1.1667),
+  expect_silent(process_chart(ind, chartcode = "PJAAN34", dnr = "lollypop", period = c(0.6, 1.1667),
                               nmatch = 10, show_future = TRUE, show_realized = TRUE))
 })
 

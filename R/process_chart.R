@@ -11,7 +11,7 @@
 #' default (\code{NULL}) reads from \code{donorloader} package.
 #' @param dnr        A string with the name of the donor data
 #'   (currently available are \code{smocc}, \code{terneuzen},
-#'   \code{lollypop.preterm} or \code{lollypop.term})
+#'   \code{lollypop} and \code{pops})
 #' @param period A vector of length 2 with left and right ages
 #'   (decimal age). If \code{length(period) == 0L}, then no curve
 #'   matching is done
@@ -50,9 +50,9 @@
 #'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10)
 #' grid.draw(g)
 #'
-#' # using pre-terms for matching
+#' # using lollypop for matching
 #' g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-#'                    dnr = "lollypop.preterm", period = c(0.5, 1.1667), nmatch = 10)
+#'                    dnr = "lollypop", period = c(0.5, 1.1667), nmatch = 10)
 #' grid.draw(g)
 #' }
 #' @export
@@ -61,8 +61,7 @@ process_chart <- function(individual,
                           curve_interpolation = TRUE,
                           quiet = TRUE,
                           con = NULL,
-                          dnr = c("smocc", "terneuzen", "lollypop.preterm",
-                                  "lollypop.term", "pops"),
+                          dnr = c("smocc", "terneuzen", "lollypop", "pops"),
                           period = numeric(0),
                           nmatch = 0L,
                           user_model = 2L,

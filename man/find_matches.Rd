@@ -26,7 +26,7 @@ default (\code{NULL}) reads from \code{donorloader} package.}
 
 \item{dnr}{A string with the name of the donor data
 (currently available are \code{smocc}, \code{terneuzen},
-\code{lollypop.preterm} or \code{lollypop.term})}
+\code{lollypop} and \code{pops})}
 
 \item{ynames}{A vector with the names of the response variables
 for which matches are sought, e.g. \code{ynames = c("hdc",
