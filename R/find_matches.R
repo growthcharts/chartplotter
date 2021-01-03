@@ -34,6 +34,9 @@ find_matches <- function(individual,
   target$child$istarget <- TRUE
   target$child$keep <- TRUE
 
+  # load model collection
+  bs <- load_data(dnr = paste0(dnr, "_bs"))
+
   # fetch potential donor data for target
   donor <- load_data(con = con, dnr = dnr, element = "child")
   data <- donor %>%
@@ -47,35 +50,26 @@ find_matches <- function(individual,
     bind_rows(target$child) %>%
     restore_factors(f = c("sex", "etn", "edu"))
 
-  # load model collection
-  bs <- load_data(dnr = paste0(dnr, "_bs"))
-
   # add the brokenstick estimates for target child at all break ages,
-  # but using only the child's data up to the "current" age (period[1])
+  # but using only the child's data up to the "current age" (period[1])
   for (yname in ynames) {
 
     # get the brokenstick model
     bsm <- bs[[yname]]
 
     # get the observed target data up to period[1L]
-    if (yname %in% c("wfh")) xy <- tibble()
-    else xy <- target$time[target$time$age <= period[1L], c("age", yname, "sex", "ga")]
+    if (yname %in% c("wfh")) xz <- tibble()
+    else {
+      idx <- target$time$age <= period[1L]
+      zname <- paste(yname, "z", sep = "_")
+      xz <- target$time[idx, c("id", "age", zname, "sex", "ga")]
+    }
 
-    # transform to Z-score (comparison metric)
-    if (!is.null(bsm) & nrow(xy) > 0L) {
-
-      # Note: the following statement is not strictly needed since target$time
-      # stores these Z-scores
-      z <- clopus::transform_z(xy, ynames = yname)
-
-      # predict according to the brokenstick model (Z scale)
-      df <- data.frame(age = xy["age"], z = z, id = 1)
-      zhat <- predict(bsm, df, x = "knots", shape = "vector")
-
-      # set proper names
+    # predict according to the brokenstick model
+    # store predicted Z-scores in last line of data
+    if (!is.null(bsm) && nrow(xz)) {
+      zhat <- predict(bsm, xz, x = "knots", shape = "vector")
       zhat_names <- paste(yname, "z", get_knots(bsm), sep = "_")
-
-      # store predicted Z-scores in last line of data
       data[nrow(data), zhat_names] <- as.list(zhat)
     }
   }
