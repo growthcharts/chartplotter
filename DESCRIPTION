@@ -19,7 +19,7 @@ Imports:
     chartbox (>= 1.2.0),
     chartcatalog (>= 1.4.0),
     clopus (>= 0.52.0),
-    curvematching (>= 0.10.0),
+    curvematching (>= 0.12.0),
     donorloader (>= 0.20.0),
     dplyr,
     grDevices,
