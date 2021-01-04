@@ -60,6 +60,12 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
   if (!is.null(reference) && !is.reference(reference))
     stop("Argument `reference` not of class `reference`")
 
+  if (nrow(data) == 0L) {
+    return(tibble(id = numeric(0),
+                  x = numeric(0), y = numeric(0), z = numeric(0),
+                  obs = logical(0)))
+  }
+
   # Skip transform to Z-score if data has a column with name zname
   skip <- FALSE
   if (!is.null(zname)) {

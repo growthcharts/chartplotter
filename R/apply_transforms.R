@@ -23,7 +23,9 @@ apply_transforms <- function(xyz,
   if (sq == "tr" && hasName(xyz, "y")) xyz$y <- ty(xyz$y)
 
   # curve interpolation
-  if (nrow(xyz) > 0L) {
+  if (nrow(xyz) == 0L) {
+    xyz <- curve_interpolation(xyz)
+  } else {
     xyz$id  <- id
     xyz$obs <- TRUE
     if (curve_interpolation) {
