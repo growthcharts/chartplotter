@@ -11,7 +11,7 @@
 #' default (\code{NULL}) reads from \code{donorloader} package.
 #' @param dnr        A string with the name of the donor data
 #'   (currently available are \code{smocc}, \code{terneuzen},
-#'   \code{lollypop.preterm} or \code{lollypop.term})
+#'   \code{lollypop} and \code{pops})
 #' @param period A vector of length 2 with left and right ages
 #'   (decimal age). If \code{length(period) == 0L}, then no curve
 #'   matching is done
@@ -43,41 +43,25 @@
 #' @examples
 #' \dontrun{
 #' library(grid)
+#' library(clopus)
 #' data("installed.cabinets", package = "jamestest")
 #' ind <- installed.cabinets$smocc[["Laura S"]]
-#' g <- process_chart(ind, chartcode = "NJAA",
-#'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
+#' g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
+#'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10)
 #' grid.draw(g)
 #'
-#' # provides consistently the same match
-#' g <- process_chart(ind, chartcode = "NMAD",
-#'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = FALSE)
+#' # using lollypop for matching
+#' g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
+#'                    dnr = "lollypop", period = c(0.5, 1.1667), nmatch = 10)
 #' grid.draw(g)
-#'
-#' # this model is different from previous? Does it produce a different match?
-#' g <- process_chart(ind, chartcode = "NMAD",
-#'                    dnr = "smocc", period = c(0.25, 1.1667), nmatch = 1, break_ties = FALSE)
-#'
-#' # provides a different match each time because it randomly breaks ties
-#' g <- process_chart(ind, chartcode = "NMAD",
-#'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 1, break_ties = TRUE)
-#'
-#' # provides consistently the same two matches
-#' g <- process_chart(ind, chartcode = "NMAD",
-#'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 2, break_ties = FALSE)
-#'
-#' # provides different 2 matches each time
-#' g <- process_chart(ind, chartcode = "NMAD",
-#'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 2, break_ties = TRUE)
-#'}
+#' }
 #' @export
 process_chart <- function(individual,
                           chartcode,
                           curve_interpolation = TRUE,
                           quiet = TRUE,
                           con = NULL,
-                          dnr = c("smocc", "terneuzen", "lollypop.preterm",
-                                  "lollypop.term", "pops"),
+                          dnr = c("smocc", "terneuzen", "lollypop", "pops"),
                           period = numeric(0),
                           nmatch = 0L,
                           user_model = 2L,

@@ -1,6 +1,7 @@
 create_matches_lines <- function(chartcode, yname,
                                  matches, dnr = "smocc",
                                  curve_interpolation = TRUE,
+                                 covariates = NULL,
                                  con = NULL) {
 
   # matched cases
@@ -14,12 +15,14 @@ create_matches_lines <- function(chartcode, yname,
   time <- load_data(con = con, dnr = dnr, element = "time",
                     ids = matches[[yname]])
 
-  y <- time[, yname, drop = TRUE]
-  mis <- is.na(y)
-  y <- y[!mis]
+  # here we need to take z, and convert to y using clopus::transform_y()
+  # with ga set to the target's ga
+  z <- time[, paste0(yname, "_z"), drop = TRUE]
+  mis <- is.na(z)
+  z <- z[!mis]
   x <- time[!mis, "age", drop = TRUE]
 
-  if (length(y) == 0L) {
+  if (length(z) == 0L) {
     return(list(
       matches_lines = placeholder("matches_lines"),
       matches_symbols = placeholder("matches_symbols")
@@ -31,9 +34,10 @@ create_matches_lines <- function(chartcode, yname,
   bend <- data.frame(
     id = id,
     x = x,
-    y = y)
+    z = z)
   ci <- apply_transforms(bend, id, chartcode, yname,
-                         curve_interpolation = curve_interpolation)
+                         curve_interpolation = curve_interpolation,
+                         covariates = covariates)
 
   id_li <- ci[["id"]]
   x_li <- ci[["x"]]

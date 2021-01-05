@@ -1,3 +1,12 @@
+# chartplotter 0.13.1
+
+# Repairs prediction line plotting
+
+# chartplotter 0.13.0
+
+* Major update: Consistent use of measurement-analysis-display metrics
+* Prediction lines not yet functional
+
 # chartplotter 0.12.0
 
 * Repairs discrepancy in Z-transformation in `find_matches()` that resulted in incorrect Z-scores for preterms in mixed data (#2)

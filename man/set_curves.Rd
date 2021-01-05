@@ -37,7 +37,7 @@ matches are plotted.}
 
 \item{dnr}{A string with the name of the donor data
 (currently available are \code{smocc}, \code{terneuzen},
-\code{lollypop.preterm} or \code{lollypop.term})}
+\code{lollypop} and \code{pops})}
 
 \item{period}{A vector of length 2 with left and right ages
 (decimal age). If \code{length(period) == 0L}, then no curve

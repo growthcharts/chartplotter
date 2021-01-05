@@ -34,6 +34,9 @@ find_matches <- function(individual,
   target$child$istarget <- TRUE
   target$child$keep <- TRUE
 
+  # load model collection
+  bs <- load_data(dnr = paste0(dnr, "_bs"))
+
   # fetch potential donor data for target
   donor <- load_data(con = con, dnr = dnr, element = "child")
   data <- donor %>%
@@ -48,45 +51,40 @@ find_matches <- function(individual,
     restore_factors(f = c("sex", "etn", "edu"))
 
   # add the brokenstick estimates for target child at all break ages,
-  # but using only the child's data up to the "current" age (period[1])
+  # but using only the child's data up to the "current age" (period[1])
   for (yname in ynames) {
 
     # get the brokenstick model
-    bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
+    bsm <- bs[[yname]]
 
     # get the observed target data up to period[1L]
-    if (yname %in% c("wfh")) xy <- tibble()
-    else xy <- target$time[target$time$age <= period[1L], c("age", yname, "sex", "ga")]
+    if (yname %in% c("wfh")) xz <- tibble()
+    else {
+      idx <- target$time$age <= period[1L]
+      zname <- paste(yname, "z", sep = "_")
+      xz <- target$time[idx, c("id", "age", zname, "sex", "ga")]
+    }
 
-    # transform to Z-score (comparison metric)
-    if (!is.null(bsm) & nrow(xy) > 0L) {
-      z <- clopus::transform_z(xy, ynames = yname)
-
-      # predict according to the brokenstick model (Z scale)
-      df <- data.frame(age = xy["age"], z = z, id = 1)
-      zhat <- predict(bsm, df, x = "knots", shape = "vector")
-
-      # backtransform to Y (comparison metric)
-      df <- data.frame(
-        age = get_knots(bsm),
-        sex = xy[["sex"]][1L],
-        ga  = xy[["ga"]][1L],
-        z = zhat)
-      colnames(df) <- c("age", "sex", "ga", paste0(yname, ".z"))
-      yhat <- clopus::transform_y(df, ynames = yname)
-
-      # set proper names
-      yhat_names <- paste(yname, get_knots(bsm), sep = "_")
-
-      # store in last line of data
-      data[nrow(data), yhat_names] <- matrix(pull(yhat), nrow = 1L)
+    # predict according to the brokenstick model
+    # store predicted Z-scores in last line of data
+    if (!is.null(bsm) && nrow(xz)) {
+      zhat <- predict(bsm, xz, x = "knots", shape = "vector")
+      zhat_names <- paste(yname, "z", get_knots(bsm), sep = "_")
+      data[nrow(data), zhat_names] <- as.list(zhat)
     }
   }
 
   # names of complete variables in the data
+  # Note: 2020/12/31: Selecting the complete variables is very frail
   xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]
 
   # define model variables
+  # FIXME
+  # double use of ga
+  # 1. we use ga to choose the Z-score transform clopus::transform_z()
+  # 2. we use here ga in the predictive model.
+  # Need to check whether this double application is useful.
+  # Also, do we really want to have yname_period[2L] as the outcome measure?
   e_name <- c("sex", "ga")[c(exact_sex, exact_ga)]
   t_name <- character()
   xnames <- sapply(ynames,
@@ -102,7 +100,7 @@ find_matches <- function(individual,
     m <- calculate_matches(data = data,
                            condition = .data$istarget == TRUE,
                            subset = .data$keep == TRUE,
-                           y_name = paste(yname, period[2L], sep = "_"),
+                           y_name = paste(yname, "z", period[2L], sep = "_"),
                            x_name = xnames[[yname]],
                            e_name = e_name,
                            t_name = t_name,

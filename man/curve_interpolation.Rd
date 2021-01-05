@@ -9,9 +9,10 @@ curve_interpolation(
   xname = "x",
   yname = "y",
   zname = NULL,
-  xout,
-  reference,
-  rule = 2L
+  xout = numeric(0),
+  reference = NULL,
+  rule = 2L,
+  covariates = NULL
 )
 }
 \arguments{
@@ -30,11 +31,15 @@ data range of \code{xname} are interpolated.}
 
 \item{reference}{The reference needed to calculate the Z-score
 scores and the back-transformation to measured scores.
-An object of class \code{clopus::reference}.}
+An object of class \code{clopus::reference}. If not specified,
+then the function expect argument \code{covariates}.}
 
 \item{rule}{The \code{rule} argument passed down to \code{approx}. The
 default here is \code{rule = 2L}, so any extrapolations beyond the
 ranges of the reference take the closest value (min or max).}
+
+\item{covariates}{A list with covariate values \code{sex} and \code{ga}. Used
+to define a fixed \code{clopus::transform_z()} and \code{clopus::transform_y()}.}
 }
 \value{
 A \code{tibble} with five columns: \code{id}, xname, yname,
@@ -55,6 +60,11 @@ through the \code{xout} argument), and calculates the linear
 interpolation between these points in the Z-scores metric. After
 that, the Z-scores are transformed back to the original scale,
 so the points to plot then follow the curvy reference lines.
+
+If the user specifies argument \code{zname}, then the function
+applies only the transformation \code{z2y()} after interpolation,
+and skips the input transformation \code{y2z()}. This
+mechanism creates synthetic values for the output \code{yname}.
 }
 \examples{
 data <- data.frame(

@@ -1,8 +1,8 @@
 context("make_xname")
 
 xnames <- c("sex", "ga", "bw",
-            "hgt_0", "hgt_1",         "hgt_3",
-            "wgt_0", "wgt_1", "wgt_2",
+            "hgt_z_0", "hgt_z_1",         "hgt_z_3",
+            "wgt_z_0", "wgt_z_1", "wgt_z_2",
             "junk")
 test_that("make_xname has length 1", {
   expect_equal(length(make_xname(yname = "hgt", xnames = xnames,

@@ -27,7 +27,7 @@ make_xname <- function(yname,
   ynames <- c("hgt", "wgt", "hdc", "bmi", "wfh", "dsc")
   yname <- match.arg(yname, ynames)
   xn <- get_xname(yname, xnames)
-  xa <- get_age(yname, xnames)
+  xa <- get_age(xn)
 
   idx <- xa <= current_age
   switch(as.numeric(user_model),
@@ -39,7 +39,7 @@ make_xname <- function(yname,
              ynames,
              function(x) {
                xn <- get_xname(x, xnames)
-               xa <- get_age(x, xnames)
+               xa <- get_age(xn)
                xn[xa <= current_age]
              },
              simplify = FALSE)))
@@ -48,10 +48,10 @@ make_xname <- function(yname,
          character())
 }
 
-get_age <- function(yname, xnames) {
-  xn <- get_xname(yname, xnames)
+get_age <- function(xn) {
+  # parse xname to get age
   x <- sapply(xn, strsplit, split = "_")
-  as.numeric(unlist(lapply(x, `[`, 2)))
+  as.numeric(unlist(lapply(x, `[`, 3L)))
 }
 
 get_xname <- function(yname, xnames) {

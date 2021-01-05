@@ -30,6 +30,12 @@ test_that("handles id with all missing outcome measurements", {
                tolerance = 0.001)
 })
 
+xyz <- data.frame(x = numeric(0), y = numeric(0))
+test_that("handles input with zero rows", {
+  expect_silent(curve_interpolation(xyz))
+})
+
+
 # first, a case where it works
 data3a <- data.frame(
   id = c(2, 2),

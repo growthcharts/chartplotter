@@ -27,12 +27,18 @@ set_curves <- function(g, individual,
   if (is.individual(individual) & length(ynames) > 0) {
     for (yname in ynames) {
 
+      # needed for fixing the display transform
+      covariates <- list(yname = yname,
+                         sex = individual@sex,
+                         ga = individual@ga)
+
       # obtain data and apply data transforms
       xyz <- get_xyz(individual, yname)
       xyz <- apply_transforms(xyz,
                               chartcode = chartcode,
                               yname = yname,
-                              curve_interpolation = curve_interpolation)
+                              curve_interpolation = curve_interpolation,
+                              covariates = covariates)
 
       # create visit lines grob
       tx <- get_tx(chartcode, yname)
@@ -43,14 +49,17 @@ set_curves <- function(g, individual,
 
       # plot curves of target individual
       if (nmatch > 0L & !yname %in%  c("wfh"))
-        ind_gList <- create_lines_xyz(xyz, tx(period), show_realized)
+        ind_gList <- create_lines_xyz(xyz, tx(period),
+                                      show_realized)
       else
-        ind_gList <- create_lines_xyz(xyz, numeric(0), show_realized)
+        ind_gList <- create_lines_xyz(xyz, numeric(0),
+                                      show_realized)
 
       # plot curves of matches
       mat_gList <- create_matches_lines(chartcode, yname,
                                         matches, dnr,
-                                        curve_interpolation)
+                                        curve_interpolation,
+                                        covariates)
 
       # calculate "look into future" line
       pre_gList <- create_lines_prediction(chartcode, yname,
@@ -58,7 +67,8 @@ set_curves <- function(g, individual,
                                            period,
                                            get_xyz(individual, yname),
                                            show_future,
-                                           curve_interpolation)
+                                           curve_interpolation,
+                                           covariates)
 
       # now put everything into a clipped grob
       clipper <- clipGrob(name = "clipper")
