@@ -1,3 +1,12 @@
+# chartplotter 0.14.0
+
+This version major extension of the chartplotter package.
+
+* Shifts all calculations to the Z-score analysis metric by transform_z()
+* Explicit definition of the display metric depending on target individual's sex and ga by transform_y()
+* Renames ".z" to "_z" variables
+* Improves various plotting functions
+
 # chartplotter 0.13.1
 
 # Repairs prediction line plotting
