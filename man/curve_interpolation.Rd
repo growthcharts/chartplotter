@@ -38,7 +38,8 @@ then the function expect argument \code{covariates}.}
 default here is \code{rule = 2L}, so any extrapolations beyond the
 ranges of the reference take the closest value (min or max).}
 
-\item{covariates}{A list with covariate values \code{sex} and \code{ga}. Used
+\item{covariates}{A list with covariate values \code{yname}, \code{sex}
+and \code{ga}. Used
 to define a fixed \code{clopus::transform_z()} and \code{clopus::transform_y()}.}
 }
 \value{

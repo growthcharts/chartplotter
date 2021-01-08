@@ -54,13 +54,23 @@ test_that("handles wfh correctly", {
 # problem case
 # wfh preterm, two height observations below 50 cm
 data3 <- data.frame(
-  id = c(2, 2),
-  wgt = c(1.25, 2.10),
-  hgt = c(38, 43.6),
+  id = c(2, 2, 2, 2),
+  wgt = c(1.25, 2.10, 3, 4),
+  hgt = c(38, 43.6, 51, 54),
   stringsAsFactors = FALSE)
 test_that("handles wfh with heights below 50cm correctly", {
-  expect_equal(2L,
+  expect_equal(7L,
                nrow(curve_interpolation(data3, xname = "hgt",
                                         yname = "wgt", zname = "wfh_z",
                                         xout = ref3@table@table$x,
                                         reference = ref3)))})
+
+# curve interpolation for D-score of a pre-term
+data("installed.cabinets", package = "jamestest")
+ind <- installed.cabinets$smocc[["Kevin S"]]
+xyz <- data.frame(ind@dsc)[, c("x", "y", "z")]
+data <- data.frame(id = 0, xyz)
+xout <- clopus::dscore[["nl2014.mdsc40"]]@table@table$x
+
+z <- curve_interpolation(data, xout = xout, covariates = list(yname = "dsc", sex = "male", ga = 34))
+

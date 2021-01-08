@@ -33,7 +33,8 @@
 #'@param rule The \code{rule} argument passed down to \code{approx}. The
 #'default here is \code{rule = 2L}, so any extrapolations beyond the
 #'ranges of the reference take the closest value (min or max).
-#'@param covariates A list with covariate values \code{sex} and \code{ga}. Used
+#'@param covariates A list with covariate values \code{yname}, \code{sex}
+#'and \code{ga}. Used
 #'to define a fixed \code{clopus::transform_z()} and \code{clopus::transform_y()}.
 #'@return A \code{tibble} with five columns: \code{id}, xname, yname,
 #'zname and \code{obs}. The \code{obs} variables signals whether
@@ -126,10 +127,10 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
   # remove any bending points outside the observation intervals
   grid <- grid %>%
     group_by(.data$id) %>%
-    mutate(mn = min(.data[[xname]][.data$obs], na.rm = TRUE),
-           mx = max(.data[[xname]][.data$obs], na.rm = TRUE),
-           lower  = .data[[xname]] < .data$mn,
-           higher = .data[[xname]] > .data$mx) %>%
+    mutate(mn = min(.data[[xname]][.data$obs & !is.na(.data[[zname]])], na.rm = TRUE),
+           mx = max(.data[[xname]][.data$obs & !is.na(.data[[zname]])], na.rm = TRUE),
+           lower  = .data[[xname]] < .data$mn & !.data$obs,
+           higher = .data[[xname]] > .data$mx & !.data$obs) %>%
     filter(!.data$lower & !.data$higher) %>%
     select(-.data$mn, -.data$mx, -.data$lower, -.data$higher)
 
@@ -149,7 +150,6 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
   # select subset with bending points
   grid <- grid %>%
     filter(.data$do_approx)
-
   # if there are bending points left:
   # interpolate and backtransform to y
   if (nrow(grid) > 0L) {
