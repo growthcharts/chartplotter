@@ -1,4 +1,5 @@
 context("curve_interpolation")
+library(clopus)
 
 # with single observation per group
 data1 <- data.frame(
@@ -24,7 +25,7 @@ test_that("handles id with single observations", {
   })
 
 test_that("handles id with all missing outcome measurements", {
-  expect_equal(c(52, 60.0, 68.4, 75.9, 78.0, 69.0, 70.0, NA, NA, NA, NA),
+  expect_equal(c(52, 60.0, 68.4, 75.9, 78.0, 69.0, 70.0, NA, NA),
                curve_interpolation(data2, xname = "age", yname = "hgt", xout = seq(0, 1.3, 0.5),
                                    reference = ref)$hgt,
                tolerance = 0.001)

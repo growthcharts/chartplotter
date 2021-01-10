@@ -127,8 +127,8 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
   # remove any bending points outside the observation intervals
   grid <- grid %>%
     group_by(.data$id) %>%
-    mutate(mn = min(.data[[xname]][.data$obs & !is.na(.data[[zname]])], na.rm = TRUE),
-           mx = max(.data[[xname]][.data$obs & !is.na(.data[[zname]])], na.rm = TRUE),
+    mutate(mn = suppressWarnings(min(.data[[xname]][.data$obs & !is.na(.data[[zname]])], na.rm = TRUE)),
+           mx = suppressWarnings(max(.data[[xname]][.data$obs & !is.na(.data[[zname]])], na.rm = TRUE)),
            lower  = .data[[xname]] < .data$mn & !.data$obs,
            higher = .data[[xname]] > .data$mx & !.data$obs) %>%
     filter(!.data$lower & !.data$higher) %>%
