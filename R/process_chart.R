@@ -47,12 +47,12 @@
 #' data("installed.cabinets", package = "jamestest")
 #' ind <- installed.cabinets$smocc[["Laura S"]]
 #' g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-#'                    dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10)
+#'                    dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10)
 #' grid.draw(g)
 #'
 #' # using lollypop for matching
 #' g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-#'                    dnr = "lollypop", period = c(0.5, 1.1667), nmatch = 10)
+#'                    dnr = "2-4", period = c(0.5, 1.1667), nmatch = 10)
 #' grid.draw(g)
 #' }
 #' @export
@@ -61,7 +61,8 @@ process_chart <- function(individual,
                           curve_interpolation = TRUE,
                           quiet = TRUE,
                           con = NULL,
-                          dnr = c("smocc", "terneuzen", "lollypop", "pops"),
+                          dnr = c("0-2", "2-4", "4-18",
+                                  "smocc", "lollypop", "terneuzen", "pops"),
                           period = numeric(0),
                           nmatch = 0L,
                           user_model = 2L,
@@ -73,6 +74,13 @@ process_chart <- function(individual,
                           clip = TRUE)
 {
   dnr <- match.arg(dnr)
+
+  # make the switch to the donordata solution per age group
+  dnr <- switch(dnr,
+                "0-2" = "smocc",
+                "2-4" = "lollypop",
+                "4-18" = "terneuzen",
+                dnr)
 
   # load growthchart, return early if there is a problem
   g <- load_chart(chartcode)
