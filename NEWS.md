@@ -1,3 +1,8 @@
+# chartplotter 0.15.0
+
+* Accepts new `dnr` arguments: `"0-2"`, `"2-4"` and `"4-18"` as donor data choices
+* Repairs the curve interpolation problem for Kevin S
+
 # chartplotter 0.14.0
 
 This version major extension of the chartplotter package.
