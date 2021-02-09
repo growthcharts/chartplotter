@@ -86,7 +86,6 @@ Plots the growth chart, optionally including matches
 \examples{
 \dontrun{
 library(grid)
-library(clopus)
 data("installed.cabinets", package = "jamestest")
 ind <- installed.cabinets$smocc[["Laura S"]]
 g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
