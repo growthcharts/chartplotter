@@ -13,11 +13,6 @@
 #' that, the Z-scores are transformed back to the original scale,
 #' so the points to plot then follow the curvy reference lines.
 #'
-#' If the user specifies argument \code{zname}, then the function
-#' applies only the transformation \code{z2y()} after interpolation,
-#' and skips the input transformation \code{y2z()}. This
-#' mechanism creates synthetic values for the output \code{yname}.
-#'
 #'@param data A data frame in long format, with columns for person
 #'  number (named \code{id}), the x and y variables.
 #'@param xname Name of the variable on the horizontal axis.
@@ -42,14 +37,14 @@
 #'@seealso \code{\link[clopus]{reference-class}}
 #'@author Stef van Buuren, 2019
 #'@examples
-#'data <- data.frame(
-#'  id = c(1, 1, 1, 2, 3, 3, 3),
-#'  age = c(0, 0.2, 1.2, 0.5, 0.1, 1, 1.3),
-#'  hgt = c(52, 60, 78, 69, 62, 78, 82))
-#'ref <- clopus::nl2009[["nl2009.mhgtNL"]]
-#'xout <- seq(0, 3, 0.2)
-#'int <- curve_interpolation(data, xname = "age", yname = "hgt", xout = xout, reference = ref)
-#'int
+#' data <- data.frame(
+#'   id = c(1, 1, 1, 2, 3, 3, 3),
+#'   age = c(0, 0.2, 1.2, 0.5, 0.1, 1, 1.3),
+#'   hgt = c(52, 60, 78, 69, 62, 78, 82))
+#' ref <- clopus::nl2009[["nl2009.mhgtNL"]]
+#' xout <- seq(0, 3, 0.2)
+#' int <- curve_interpolation(data, xname = "age", yname = "hgt", xout = xout, reference = ref)
+#' int
 #'@export
 curve_interpolation <- function(data, xname = "x", yname = "y",
                                 zname = NULL,
@@ -67,47 +62,28 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
                   obs = logical(0)))
   }
 
-  # Skip transform to Z-score if data has a column with name zname
-  skip <- FALSE
-  if (!is.null(zname)) {
-    if (hasName(data, zname)) skip <- TRUE
-  } else {
-    zname <- paste(yname, "z", sep = "_")
-  }
+  # Assume no zname, make one
+  zname <- paste(yname, "z", sep = "_")
 
   # Transform to Z-values (analysis metric)
-  if (!skip) {
-    if (is.null(reference)) {
-      observed <- data %>%
-        select(.data$id, !! xname, !! yname)
-      df <- data.frame(y = observed[[yname]],
-                       x = observed[[xname]],
-                       sex = covariates$sex,
-                       ga = covariates$ga)
-      names(df) <- c(covariates$yname, "age", "sex", "ga")
-      observed <- observed %>%
-        mutate(obs = TRUE,
-               !! zname :=
-                 as.numeric(transform_z(df, ynames = covariates$yname)[[paste0(covariates$yname, "_z")]]))
-    } else {
-      observed <- data %>%
-        select(.data$id, !! xname, !! yname) %>%
-        mutate(obs = TRUE,
-               !! zname := y2z(y = data[[yname]], x = data[[xname]],
-                               ref = reference, rule = rule))
-    }
+  if (is.null(reference)) {
+    observed <- data %>%
+      select(.data$id, !! xname, !! yname)
+    df <- data.frame(y = observed[[yname]],
+                     x = observed[[xname]],
+                     sex = covariates$sex,
+                     ga = covariates$ga)
+    names(df) <- c(covariates$yname, "age", "sex", "ga")
+    observed <- observed %>%
+      mutate(obs = TRUE,
+             !! zname :=
+               as.numeric(transform_z(df, ynames = covariates$yname)[[paste0(covariates$yname, "_z")]]))
   } else {
-    # keep y values for sorting below, else set to NA
-    if (hasName(data, yname)) {
-      observed <- data %>%
-        select(.data$id, !! xname, !! zname, !! yname) %>%
-        mutate(obs = TRUE)
-    } else {
-      observed <- data %>%
-        select(.data$id, !! xname, !! zname) %>%
-        mutate(obs = TRUE,
-               !! yname := NA_real_)
-    }
+    observed <- data %>%
+      select(.data$id, !! xname, !! yname) %>%
+      mutate(obs = TRUE,
+             !! zname := y2z(y = data[[yname]], x = data[[xname]],
+                             ref = reference, rule = rule))
   }
 
   # create bending points
