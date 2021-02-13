@@ -48,12 +48,4 @@ make_xname <- function(yname,
          character())
 }
 
-get_age <- function(xn) {
-  # parse xname to get age
-  x <- sapply(xn, strsplit, split = "_")
-  as.numeric(unlist(lapply(x, `[`, 3L)))
-}
 
-get_xname <- function(yname, xnames) {
-  xnames[grep(paste0(yname, "_"), xnames)]
-}

@@ -2,20 +2,25 @@
 #' @importFrom chartbox      load_chart
 #' @importFrom chartcatalog  get_breakpoints get_reference get_seq
 #'                           get_tx get_ty get_ynames parse_chartcode
-#' @importFrom clopus        is.reference y2z z2y transform_z transform_y
 #' @importFrom curvematching calculate_matches extract_matches
 #' @importFrom donorloader   load_data
-#' @importFrom dplyr         %>% arrange as_tibble bind_rows distinct
-#'                           filter group_by left_join mutate one_of
-#'                           pull select summarise tibble ungroup
+#' @importFrom dplyr         %>% all_of any_of arrange as_tibble bind_rows
+#'                           distinct filter first group_by left_join mutate
+#'                           n pull select slice_tail summarise tibble ungroup
 #' @importFrom grDevices     palette
 #' @importFrom grid          clipGrob editGrob gList gPath gTree gpar
 #'                           grid.draw is.grob nullGrob pointsGrob
 #'                           polylineGrob removeGrob segmentsGrob
 #'                           setGrob
+#' @importFrom jamesyzy      set_refcodes
+#' @importFrom methods       slot
 #' @importFrom minihealth    get_xyz individual_to_donordata
 #'                           is.individual
 #' @importFrom rlang         .data :=
 #' @importFrom stats         approx na.omit predict
-#' @importFrom utils         hasName
+#' @importFrom tidyr         drop_na pivot_longer uncount
+#' @importFrom utils         hasName tail
+#' @importFrom yzy           y z
 NULL
+
+globalVariables(".")

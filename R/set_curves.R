@@ -22,66 +22,145 @@ set_curves <- function(g, individual,
                        clip = TRUE) {
 
   chartcode <- g$name
-  ynames <- get_ynames(chartcode)
+  ynames <- unname(chartcatalog::get_ynames(chartcode))
 
-  if (is.individual(individual) & length(ynames) > 0) {
-    for (yname in ynames) {
+  # get target data
+  data <- individual %>%
+    data.frame() %>%
+    tibble() %>%
+    select(all_of(c("xname", "yname", "x", "y"))) %>%
+    filter(.data$yname %in% ynames) %>%
+    tidyr::drop_na(all_of("y")) %>%
+    mutate(id = -1,
+           sex = slot(individual, "sex"),
+           ga = slot(individual, "ga")) %>%
+    select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
 
-      # needed for fixing the display transform
-      covariates <- list(yname = yname,
-                         sex = individual@sex,
-                         ga = individual@ga)
+  # get data of matches
+  time <- vector("list", length(ynames))
+  names(time) <- ynames
+  for (yname in ynames) {
+    time[[yname]] <- load_data(dnr = dnr, element = "time", ids = matches[[yname]]) %>%
+      mutate(xhgt = .data$hgt,
+             wfh = .data$wgt) %>%
+      select(all_of(c("id", "age", "sex", "ga", "xhgt", yname)))
+  }
+  time <- time %>%
+    bind_rows() %>%
+    pivot_longer(cols = all_of(ynames), names_to = "yname", values_to = "y") %>%
+    drop_na(.data$y) %>%
+    mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
+           xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
+    arrange(.data$id, .data$yname, .data$x) %>%
+    select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
 
-      # obtain data and apply data transforms
-      xyz <- get_xyz(individual, yname)
-      xyz <- apply_transforms(xyz,
-                              chartcode = chartcode,
-                              yname = yname,
-                              curve_interpolation = curve_interpolation,
-                              covariates = covariates)
+  # rbind target and matches
+  data <- data %>%
+    bind_rows(time) %>%
+    mutate(obs = TRUE)
 
-      # create visit lines grob
-      tx <- get_tx(chartcode, yname)
-      if (nmatch > 0L)
-        visit_lines <- create_visit_lines(g, yname, tx(period))
-      else
-        visit_lines <- create_visit_lines(g, yname, period = numeric(0))
+  # define grid for synthetic observations
+  ynames <- unique(data$yname)
+  lohi <- data %>%
+    group_by(.data$id, .data$yname) %>%
+    summarise(
+      id = first(.data$id),
+      sex = first(.data$sex),
+      ga = first(.data$ga),
+      lo = min(.data$x),
+      hi = max(.data$x),
+      .groups = "drop")
+  xl <- vector("list", nrow(lohi))
+  for (i in seq_along(xl)) {
+    xo <- set_xout(chartcode, lohi$yname[i])
+    xl[[i]] <- xo[xo > lohi$lo[i] & xo < lohi$hi[i]]
+  }
+  lng <- sapply(xl, length)
+  if (any(lng)) {
+    synt <- tidyr::uncount(lohi, weights = !! lng) %>%
+      mutate(x = unlist(!! xl),
+             obs = FALSE) %>%
+      select(-.data$lo, -.data$hi)
+  } else {
+    synth <- tibble(yname = character(0))
+  }
 
-      # plot curves of target individual
-      if (nmatch > 0L & !yname %in%  c("wfh"))
-        ind_gList <- create_lines_xyz(xyz, tx(period),
-                                      show_realized)
-      else
-        ind_gList <- create_lines_xyz(xyz, numeric(0),
-                                      show_realized)
+  # append synthetic data
+  data <- data %>%
+    bind_rows(synt) %>%
+    arrange(.data$id, .data$yname, .data$x) %>%
+    mutate(refcode_z = jamesyzy::set_refcodes(.)) %>%
+    mutate(z = yzy::z(y = .data$y,
+                      x = .data$x,
+                      refcode = .data$refcode_z,
+                      pkg = "jamesyzy"),
+           pred = FALSE)
 
-      # plot curves of matches
-      mat_gList <- create_matches_lines(chartcode, yname,
-                                        matches, dnr,
-                                        curve_interpolation,
-                                        covariates)
+  # calculate brokenstick predictions
+  pred <- calc_predictions(data, chartcode = chartcode, ynames = ynames,
+                           dnr = dnr, period = period)
 
-      # calculate "look into future" line
-      pre_gList <- create_lines_prediction(chartcode, yname,
-                                           matches, dnr,
-                                           period,
-                                           get_xyz(individual, yname),
-                                           show_future,
-                                           curve_interpolation,
-                                           covariates)
+  # linear interpolation in Z-scale
+  data <- data %>%
+    bind_rows(pred)
+  data <- data %>%
+    group_by(.data$id, .data$yname, .data$pred) %>%
+    mutate(z = approx(x = .data$x, y = .data$z, xout = .data$x,
+                      ties = list("ordered", mean))$y) %>%
+    group_by(.data$yname, .data$pred) %>%
+    mutate(refcode_y = first(.data$refcode_z)) %>%
+    ungroup() %>%
+    mutate(v = yzy::y(z = .data$z,
+                      x = .data$x,
+                      refcode = .data$refcode_y,
+                      pkg = "jamesyzy"))
 
-      # now put everything into a clipped grob
-      clipper <- clipGrob(name = "clipper")
-      curves <- gTree(name = "data",
-                      children = gList(clipper, visit_lines,
-                                       mat_gList$matches_lines,
-                                       mat_gList$matches_symbols,
-                                       pre_gList, ind_gList))
+  # select essential fields for plotting
+  alldata <- data
+  # %>%
+  #   select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
 
-      g <- setGrob(gTree = g,
-                   gPath = gPath(yname, "modules", "data"),
-                   newGrob = curves)
-    }
+  # plot loop
+  for (yname in ynames) {
+
+    # obtain data and apply data transforms
+    data <- alldata %>%
+      filter(.data$yname == !! yname) %>%
+      mutate(
+        v = apply_transforms_y(.data$v, chartcode, yname),
+        x = apply_transforms_x(.data$x, chartcode, yname))
+
+    # create visit lines grob
+    tx <- get_tx(chartcode, yname)
+    p <- tx(period)
+    if (nmatch == 0L) p <- numeric(0)
+    visit_lines <- plot_visit_lines(g, yname, p)
+
+    # plot curves of target individual
+    p <- tx(period)
+    if (yname == "wfh") p <- numeric(0)
+    ind_gList <- plot_lines_target(data, yname = yname, period = p,
+                                   curve_interpolation, show_realized)
+
+    # plot curves of matches
+    mat_gList <- plot_lines_matches(data, yname, curve_interpolation)
+
+    # calculate "look into future" line
+    pre_gList <- plot_lines_prediction(data, yname = yname,
+                                       show_future = show_future,
+                                       curve_interpolation = curve_interpolation)
+
+    # now put everything into a clipped grob
+    clipper <- clipGrob(name = "clipper")
+    curves <- gTree(name = "data",
+                    children = gList(clipper, visit_lines,
+                                     mat_gList$matches_lines,
+                                     mat_gList$matches_symbols,
+                                     pre_gList, ind_gList))
+
+    g <- setGrob(gTree = g,
+                 gPath = gPath(yname, "modules", "data"),
+                 newGrob = curves)
   }
 
   invisible(g)

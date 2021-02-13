@@ -2,17 +2,15 @@
 % Please edit documentation in R/curve_interpolation.R
 \name{curve_interpolation}
 \alias{curve_interpolation}
-\title{Interpolates the growth curves along the references}
+\title{Interpolates of growth curves along reference centiles}
 \usage{
 curve_interpolation(
   data,
   xname = "x",
   yname = "y",
-  zname = NULL,
   xout = numeric(0),
-  reference = NULL,
-  rule = 2L,
-  covariates = NULL
+  refcode = NULL,
+  rule = 2L
 )
 }
 \arguments{
@@ -23,24 +21,17 @@ number (named \code{id}), the x and y variables.}
 
 \item{yname}{Name of the variable on the vertical axis.}
 
-\item{zname}{Name of the variable with Z-scores}
-
 \item{xout}{A vector of values for the horizontal axis in the scale
 of the variable \code{xname}. Only \code{xout} points within the
 data range of \code{xname} are interpolated.}
 
-\item{reference}{The reference needed to calculate the Z-score
-scores and the back-transformation to measured scores.
-An object of class \code{clopus::reference}. If not specified,
-then the function expect argument \code{covariates}.}
+\item{refcode}{The name of reference needed to calculate the Z-score
+scores and the back-transformation to measured scores. There can only
+be one reference.}
 
 \item{rule}{The \code{rule} argument passed down to \code{approx}. The
 default here is \code{rule = 2L}, so any extrapolations beyond the
 ranges of the reference take the closest value (min or max).}
-
-\item{covariates}{A list with covariate values \code{yname}, \code{sex}
-and \code{ga}. Used
-to define a fixed \code{clopus::transform_z()} and \code{clopus::transform_y()}.}
 }
 \value{
 A \code{tibble} with five columns: \code{id}, xname, yname,
@@ -48,38 +39,38 @@ zname and \code{obs}. The \code{obs} variables signals whether
 the point is observed or not.
 }
 \description{
-We would normally connect the points of a growth curve by
+By convention, we connect the points of a growth curve by
 straight lines. This is OK when ages are relatively close
 together. However, for ages that are more apart, the straight
-line gives an ugly representation that - moreover - underestimates
-real growth during that interval.
+line gives an ugly representation that doesn't follow the real
+growth during the interval.
 }
 \details{
 The \code{curve_interpolation()} function provides a solution
 for this. It defines a number of additional points (specified
 through the \code{xout} argument), and calculates the linear
 interpolation between these points in the Z-scores metric. After
-that, the Z-scores are transformed back to the original scale,
-so the points to plot then follow the curvy reference lines.
-
-If the user specifies argument \code{zname}, then the function
-applies only the transformation \code{z2y()} after interpolation,
-and skips the input transformation \code{y2z()}. This
-mechanism creates synthetic values for the output \code{yname}.
+that, the procedure transforms back the interpolated Z-scores
+to the original scale, so the curve points follow the curvy
+centiles.
 }
 \examples{
 data <- data.frame(
- id = c(1, 1, 1, 2, 3, 3, 3),
- age = c(0, 0.2, 1.2, 0.5, 0.1, 1, 1.3),
- hgt = c(52, 60, 78, 69, 62, 78, 82))
-ref <- clopus::nl2009[["nl2009.mhgtNL"]]
+  id = c(1, 1, 1, 2, 3, 3, 3),
+  age = c(0, 0.2, 1.2, 0.5, 0.1, 1, 1.3),
+  hgt = c(52, 60, 78, 69, 62, 78, 82)
+)
+refcode <- "nl_1997_hgt_male_nl"
 xout <- seq(0, 3, 0.2)
-int <- curve_interpolation(data, xname = "age", yname = "hgt", xout = xout, reference = ref)
+int <- curve_interpolation(data,
+  xname = "age", yname = "hgt",
+  xout = xout, refcode = refcode
+)
 int
 }
 \seealso{
-\code{\link[clopus]{reference-class}}
+[yzy::z()], [yzy::y()]
 }
 \author{
-Stef van Buuren, 2019
+Stef van Buuren, 2021
 }

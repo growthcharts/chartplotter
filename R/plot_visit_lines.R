@@ -1,4 +1,4 @@
-#' Create two visit lines
+#' Create and plot two visit lines
 #'
 #' @param g A \code{gTree} object, typically loaded by
 #'   \code{chartbox::load_chart()}
@@ -6,7 +6,7 @@
 #' @param period    A vector of length 2 with left and right ages, or \code{numeric(0)} (default) if there are
 #'                  no ages
 #' @return An object of class \code{grob} with the visit lines
-create_visit_lines <- function(g, yname, period = numeric(0)) {
+plot_visit_lines <- function(g, yname, period = numeric(0)) {
   if (length(period) == 0L) return(placeholder("visit_lines"))
 
   # make xya, taken from chartdesigner::get_axes_design()

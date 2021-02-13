@@ -1,7 +1,7 @@
 context("process_chart")
 
 library(brokenstick)
-library(clopus)
+library(jamesyzy)
 
 #data("installed.cabinets", package = "jamestest")
 #ind <- installed.cabinets$smocc[["Laura S"]]

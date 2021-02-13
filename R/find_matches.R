@@ -81,7 +81,7 @@ find_matches <- function(individual,
   # define model variables
   # FIXME
   # double use of ga
-  # 1. we use ga to choose the Z-score transform clopus::transform_z()
+  # 1. we use ga to choose the Z-score transform yzy::transform_z()
   # 2. we use here ga in the predictive model.
   # Need to check whether this double application is useful.
   # Also, do we really want to have yname_period[2L] as the outcome measure?
