@@ -1,3 +1,9 @@
+# chartplotter 0.16.0
+
+* Major overhaul
+* Splits calculation and plotting
+* Replaces `clopus` dependency by `yzy` and `jamesxzy` imports
+
 # chartplotter 0.15.0
 
 * Accepts new `dnr` arguments: `"0-2"`, `"2-4"` and `"4-18"` as donor data choices
