@@ -2,6 +2,11 @@ apply_transforms_y <- function(y, chartcode, yname) {
   # transform ty(y) in reference-transform sequence
   ty <- get_ty(chartcode, yname)
   sq <- get_seq(chartcode, yname)
+  # hack: we must use sq <- "rt" for WFH
+  # The table ynames_lookup in chartcatalog return "tr", because these are based
+  # on the 1980 data (which was modeled in a different way than the WFH data
+  # of 1997
+  if (yname == "wfh") sq <- "rt"
   if (sq == "rt") return(ty(y))
   y
 }

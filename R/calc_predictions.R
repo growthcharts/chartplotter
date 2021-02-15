@@ -14,6 +14,11 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
       mutate(age = .data$x,
              !! zname := .data$z)
 
+    # nothing to do
+    if (!nrow(df)) {
+      return(df %>% select(all_of(!! vars)))
+    }
+
     # grid of data points to append. First = last observation before period[1],
     # last = period[2], in-between points for curve interpolation
     xout <- set_xout(chartcode, yname)

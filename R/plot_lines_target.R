@@ -8,10 +8,10 @@ plot_lines_target <- function(data, yname, period = numeric(0),
       linesbefore <- placeholder("linesbefore")
       symbolsbefore <- placeholder("symbolsbefore")
     } else {
-      xy <- na.omit(m[, c("x", "y")])
+      xy <- na.omit(m[, c("x", "v")])
       linesbefore <- polylineGrob(
         x = xy$x,
-        y = xy$y,
+        y = xy$v,
         id.lengths = nrow(xy),
         default.units = "native",
         gp = gpar(lwd = 2, lty = 1, col = "red"),
@@ -19,7 +19,7 @@ plot_lines_target <- function(data, yname, period = numeric(0),
       )
       symbolsbefore <- pointsGrob(
         x = m$x[m$obs],
-        y = m$y[m$obs],
+        y = m$v[m$obs],
         pch = 21,
         gp = gpar(
           col = "red", fill = palette()[4],

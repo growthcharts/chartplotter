@@ -49,8 +49,8 @@ set_curves <- function(g, individual,
     bind_rows() %>%
     pivot_longer(cols = all_of(ynames), names_to = "yname", values_to = "y") %>%
     drop_na(.data$y) %>%
-    mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
-           xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
+    mutate(x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
+           xname = as.character(ifelse(.data$yname == "wfh", "hgt", "age"))) %>%
     arrange(.data$id, .data$yname, .data$x) %>%
     select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
 
@@ -65,6 +65,7 @@ set_curves <- function(g, individual,
     group_by(.data$id, .data$yname) %>%
     summarise(
       id = first(.data$id),
+      xname = first(.data$xname),
       sex = first(.data$sex),
       ga = first(.data$ga),
       lo = min(.data$x),
@@ -107,28 +108,36 @@ set_curves <- function(g, individual,
     group_by(.data$id, .data$yname, .data$pred) %>%
     mutate(z = approx(x = .data$x, y = .data$z, xout = .data$x,
                       ties = list("ordered", mean))$y) %>%
-    group_by(.data$yname, .data$pred) %>%
-    mutate(refcode_y = first(.data$refcode_z)) %>%
-    ungroup() %>%
-    mutate(v = yzy::y(z = .data$z,
+    ungroup()
+
+  # set refcode as target's sex and ga
+  refcode_y <- data %>%
+    mutate(sex = slot(individual, "sex"),
+           ga = slot(individual, "ga")) %>%
+    mutate(refcode_y = jamesyzy::set_refcodes(.)) %>%
+    pull(.data$refcode_y)
+
+  # convert to display metric
+  data <- data %>%
+    mutate(refcode_y = !! refcode_y,
+           v = yzy::y(z = .data$z,
                       x = .data$x,
                       refcode = .data$refcode_y,
                       pkg = "jamesyzy"))
 
   # select essential fields for plotting
-  alldata <- data
-  # %>%
-  #   select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
+  plotdata <- data %>%
+    select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
 
   # plot loop
   for (yname in ynames) {
 
     # obtain data and apply data transforms
-    data <- alldata %>%
+    data <- plotdata %>%
       filter(.data$yname == !! yname) %>%
       mutate(
-        v = apply_transforms_y(.data$v, chartcode, yname),
-        x = apply_transforms_x(.data$x, chartcode, yname))
+        v = apply_transforms_y(.data$v, chartcode, !! yname),
+        x = apply_transforms_x(.data$x, chartcode, !! yname))
 
     # create visit lines grob
     tx <- get_tx(chartcode, yname)
@@ -140,10 +149,12 @@ set_curves <- function(g, individual,
     p <- tx(period)
     if (yname == "wfh") p <- numeric(0)
     ind_gList <- plot_lines_target(data, yname = yname, period = p,
-                                   curve_interpolation, show_realized)
+                                   curve_interpolation = curve_interpolation,
+                                   show_realized = show_realized)
 
     # plot curves of matches
-    mat_gList <- plot_lines_matches(data, yname, curve_interpolation)
+    mat_gList <- plot_lines_matches(data, yname = yname,
+                                    curve_interpolation = curve_interpolation)
 
     # calculate "look into future" line
     pre_gList <- plot_lines_prediction(data, yname = yname,
