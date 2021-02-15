@@ -35,7 +35,7 @@ the environmental variable `GITHUB_PAT`, so that
 `Sys.getenv("GITHUB_PAT")` returns your token;
 
 2. Access to the following private repositories:
-`stefvanbuuren/chartbox`, `stefvanbuuren/clopus`, `stefvanbuuren/curvematching`,
+`stefvanbuuren/chartbox`, `stefvanbuuren/curvematching`,
 `stefvanbuuren/donorloader` and `stefvanbuuren/minihealth`.
 
 The following statements will install the `chartplotter` package, as
@@ -51,13 +51,14 @@ remotes::install_github("stefvanbuuren/chartplotter")
 ### Example 1: Plot child's data onto a growth chart
 
 ```{r example}
+library(clopus)
 library(chartplotter)
 library(svglite)
 library(grid)
-library(clopus)
+library(jamesyzy)
 tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
-g <- process_chart(tgt, chartcode = "NMBA")
+g <- process_chart(tgt, chartcode = "NMBA", period = c(0.5, 1))
 grid.draw(g)
 dev.off()
 ```

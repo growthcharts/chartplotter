@@ -24,9 +24,8 @@ You need two things in order to install `chartplotter`:
     `Sys.getenv("GITHUB_PAT")` returns your token;
 
 2.  Access to the following private repositories:
-    `stefvanbuuren/chartbox`, `stefvanbuuren/clopus`,
-    `stefvanbuuren/curvematching`, `stefvanbuuren/donorloader` and
-    `stefvanbuuren/minihealth`.
+    `stefvanbuuren/chartbox`, `stefvanbuuren/curvematching`,
+    `stefvanbuuren/donorloader` and `stefvanbuuren/minihealth`.
 
 The following statements will install the `chartplotter` package, as
 well as any of its dependencies:
@@ -41,13 +40,19 @@ remotes::install_github("stefvanbuuren/chartplotter")
 ### Example 1: Plot child’s data onto a growth chart
 
 ``` r
+library(clopus)
 library(chartplotter)
 library(svglite)
 library(grid)
-library(clopus)
+library(jamesyzy)
+#> 
+#> Attaching package: 'jamesyzy'
+#> The following objects are masked from 'package:clopus':
+#> 
+#>     transform_y, transform_z
 tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
-g <- process_chart(tgt, chartcode = "NMBA")
+g <- process_chart(tgt, chartcode = "NMBA", period = c(0.5, 1))
 grid.draw(g)
 dev.off()
 #> quartz_off_screen 
