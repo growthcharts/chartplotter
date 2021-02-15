@@ -40,7 +40,7 @@ Remotes:
   stefvanbuuren/curvematching,
   stefvanbuuren/donorloader,
   stefvanbuuren/jamestest,
-  stefvanbuuren/minihealth
-  growthcharts/jamesyzy
+  stefvanbuuren/minihealth,
+  growthcharts/jamesyzy,
   growthcharts/yzy
 RoxygenNote: 7.1.1
