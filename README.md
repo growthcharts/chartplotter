@@ -45,11 +45,6 @@ library(chartplotter)
 library(svglite)
 library(grid)
 library(jamesyzy)
-#> 
-#> Attaching package: 'jamesyzy'
-#> The following objects are masked from 'package:clopus':
-#> 
-#>     transform_y, transform_z
 tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", period = c(0.5, 1))
@@ -86,11 +81,9 @@ g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
                    dnr = "lollypop",
                    period = c(0.25, 3.75), nmatch = 25,
                    show_future = TRUE)
-#> Warning: `mutate_()` is deprecated as of dplyr 0.7.0.
+#> Warning: `mutate_()` was deprecated in dplyr 0.7.0.
 #> Please use `mutate()` instead.
 #> See vignette('programming') for more help
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_warnings()` to see where this warning was generated.
 #> chartcode:  NMBA
 grid.draw(g)
 dev.off()

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of `chartplotter` is to 
+The goal of `chartplotter` is to
 
 - plot the child's growth curves on pre-defined charts;
 - plot two (visit) lines indicating a present and a future visit;
