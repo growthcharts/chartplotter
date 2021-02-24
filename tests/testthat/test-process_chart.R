@@ -65,6 +65,11 @@ test_that("Height plots on NJCH", {
   expect_silent(process_chart(ind, chartcode = "NJCH"))
 })
 
+ind <- installed.cabinets$terneuzen[["T 6021"]]
+test_that("Height plots on NMCH", {
+  expect_silent(process_chart(ind, chartcode = "NMCH"))
+})
+
 
 # g <- process_chart(ind, chartcode = "NJBH",
 #               dnr = "terneuzen", period = c(0.9, 2),
