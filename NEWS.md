@@ -1,6 +1,7 @@
-# chartplotter 0.17.1
+# chartplotter 0.18.0
 
 * Repair typo in `set_curves()` that crashes JAMES
+* Make `set_curves()` work with zero observations
 
 # chartplotter 0.17.0
 
