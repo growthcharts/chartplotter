@@ -105,9 +105,11 @@ set_curves <- function(g, individual,
   data <- data %>%
     bind_rows(pred)
   data <- data %>%
-    group_by(.data$id, .data$yname, .data$pred) %>%
+    group_by(.data$id, .data$yname, .data$pred)
+  data <- data %>%
     mutate(z = safe_approx(x = .data$x, y = .data$z, xout = .data$x,
-                           ties = list("ordered", mean))$y) %>%
+                           ties = list("ordered", mean))$y)
+  data <- data %>%
     ungroup()
 
   # set refcode as target's sex and ga
