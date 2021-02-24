@@ -1,3 +1,7 @@
+# chartplotter 0.17.0
+
+* Replace `yzy` by `centile` package
+
 # chartplotter 0.16.0
 
 * Major overhaul

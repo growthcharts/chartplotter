@@ -1,4 +1,5 @@
 #' @importFrom brokenstick   get_knots
+#' @importFrom centile       y2z z2y
 #' @importFrom chartbox      load_chart
 #' @importFrom chartcatalog  get_breakpoints get_reference get_seq
 #'                           get_tx get_ty get_ynames parse_chartcode
@@ -20,7 +21,6 @@
 #' @importFrom stats         approx na.omit predict
 #' @importFrom tidyr         drop_na pivot_longer uncount
 #' @importFrom utils         hasName tail
-#' @importFrom yzy           y z
 NULL
 
 globalVariables(".")

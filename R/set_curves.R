@@ -91,10 +91,10 @@ set_curves <- function(g, individual,
     bind_rows(synt) %>%
     arrange(.data$id, .data$yname, .data$x) %>%
     mutate(refcode_z = jamesyzy::set_refcodes(.)) %>%
-    mutate(z = yzy::z(y = .data$y,
-                      x = .data$x,
-                      refcode = .data$refcode_z,
-                      pkg = "jamesyzy"),
+    mutate(z = centile::y2z(y = .data$y,
+                            x = .data$x,
+                            refcode = .data$refcode_z,
+                            pkg = "jamesyzy"),
            pred = FALSE)
 
   # calculate brokenstick predictions
@@ -120,10 +120,10 @@ set_curves <- function(g, individual,
   # convert to display metric
   data <- data %>%
     mutate(refcode_y = !! refcode_y,
-           v = yzy::y(z = .data$z,
-                      x = .data$x,
-                      refcode = .data$refcode_y,
-                      pkg = "jamesyzy"))
+           v = centile::z2y(z = .data$z,
+                            x = .data$x,
+                            refcode = .data$refcode_y,
+                            pkg = "jamesyzy"))
 
   # select essential fields for plotting
   plotdata <- data %>%

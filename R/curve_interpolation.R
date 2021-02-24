@@ -30,7 +30,7 @@
 #' @return A \code{tibble} with five columns: \code{id}, xname, yname,
 #' zname and \code{obs}. The \code{obs} variables signals whether
 #' the point is observed or not.
-#' @seealso [yzy::z()], [yzy::y()]
+#' @seealso [centile::y2z()], [centile::z2y()]
 #' @author Stef van Buuren, 2021
 #' @examples
 #' data <- data.frame(
@@ -70,7 +70,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
     select(.data$id, !!xname, !!yname) %>%
     mutate(
       obs = TRUE,
-      !!zname := yzy::z(
+      !!zname := centile::y2z(
         y = data[[yname]], x = data[[xname]],
         refcode = refcode, pkg = "jamesyzy", rule = rule
       )
@@ -134,7 +134,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
       ungroup()
 
     grid <- grid %>%
-      mutate(yt = yzy::y(
+      mutate(yt = centile::z2y(
         z = .data[[zname]], x = .data[[xname]],
         refcode = refcode, pkg = "jamesyzy", rule = rule
       ))

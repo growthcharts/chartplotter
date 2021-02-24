@@ -1,7 +1,7 @@
 Package: chartplotter
 Type: Package
 Title: Analysing and Plotting Growth Curves
-Version: 0.16.0
+Version: 0.17.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: This package plots the target child's growth curves on 
@@ -16,6 +16,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     brokenstick (>= 1.1.0),
+    centile,
     chartbox (>= 1.2.0),
     chartcatalog (>= 1.4.0),
     curvematching (>= 0.12.0),
@@ -23,24 +24,23 @@ Imports:
     dplyr,
     grDevices,
     grid,
-    jamesyzy (>= 0.6.0),
+    jamesyzy (>= 0.7.0),
     methods,
     minihealth (>= 0.85.0),
     rlang,
     stats,
     tidyr,
-    utils,
-    yzy
+    utils
 Suggests: 
     jamestest,
     testthat
 Remotes: 
+  growthcharts/centile,
   stefvanbuuren/chartbox,
   stefvanbuuren/chartcatalog,
   stefvanbuuren/curvematching,
   stefvanbuuren/donorloader,
   stefvanbuuren/jamestest,
   stefvanbuuren/minihealth,
-  growthcharts/jamesyzy,
-  growthcharts/yzy
+  growthcharts/jamesyzy
 RoxygenNote: 7.1.1
