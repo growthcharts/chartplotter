@@ -41,6 +41,17 @@ test_that("Kevin S predict hdc using lollypop", {
                               nmatch = 10, show_future = TRUE, show_realized = TRUE))
 })
 
+# problematic json file not_a_vector.json identified by Allegro Sultum - Feb 2020
+library(clopus)
+fn <- system.file("extdata", "test", "not_a_vector.json", package = "jamestest")
+js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+ind <- minihealth::convert_bds_individual(js)
+
+test_that("AS case Feb 2020 is silent", {
+  # warns for mutate_ in curvematching::calculate_matches()
+  expect_silent(process_chart(individual = ind, chartcode = "NMAH", dnr = "0-2",
+                              period = numeric(0), nmatch = 0))
+  })
 
 # g <- process_chart(ind, chartcode = "NJBH",
 #               dnr = "terneuzen", period = c(0.9, 2),

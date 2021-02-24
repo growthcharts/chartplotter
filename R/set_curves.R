@@ -68,8 +68,8 @@ set_curves <- function(g, individual,
       xname = first(.data$xname),
       sex = first(.data$sex),
       ga = first(.data$ga),
-      lo = min(.data$x),
-      hi = max(.data$x),
+      lo = suppressWarnings(min(.data$x)),
+      hi = suppressWarnings(max(.data$x)),
       .groups = "drop")
   xl <- vector("list", nrow(lohi))
   for (i in seq_along(xl)) {
@@ -104,11 +104,13 @@ set_curves <- function(g, individual,
   # linear interpolation in Z-scale
   data <- data %>%
     bind_rows(pred)
-  data <- data %>%
-    group_by(.data$id, .data$yname, .data$pred) %>%
-    mutate(z = approx(x = .data$x, y = .data$z, xout = .data$x,
-                      ties = list("ordered", mean))$y) %>%
-    ungroup()
+  if (nrow(data)) {
+    data <- data %>%
+      group_by(.data$id, .data$yname, .data$pred) %>%
+      mutate(z = approx(x = .data$x, y = .data$z, xout = .data$x,
+                        ties = list("ordered", mean))$y) %>%
+      ungroup()
+  }
 
   # set refcode as target's sex and ga
   refcode_y <- data %>%
