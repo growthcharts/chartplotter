@@ -83,7 +83,7 @@ set_curves <- function(g, individual,
              obs = FALSE) %>%
       select(-.data$lo, -.data$hi)
   } else {
-    synth <- tibble(yname = character(0))
+    synt <- tibble(yname = character(0))
   }
 
   # append synthetic data
