@@ -42,11 +42,13 @@ test_that("Kevin S predict hdc using lollypop", {
 })
 
 # problematic json file not_a_vector.json identified by Allegro Sultum - Feb 2020
-library(clopus)
-fn <- system.file("extdata", "test", "not_a_vector.json", package = "jamestest")
-js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-ind <- minihealth::convert_bds_individual(js)
+# library(clopus)
+# fn <- system.file("extdata", "test", "not_a_vector.json", package = "jamestest")
+# js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+# ind <- minihealth::convert_bds_individual(js)
+# saveRDS(ind, file = "inst/testdata/ind.rds")
 
+ind <- readRDS(system.file("testdata", "ind.rds", package = "chartplotter"))
 test_that("AS case Feb 2020 is silent", {
   # warns for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(individual = ind, chartcode = "NMAH", dnr = "0-2",
