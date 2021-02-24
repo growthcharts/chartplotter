@@ -104,13 +104,11 @@ set_curves <- function(g, individual,
   # linear interpolation in Z-scale
   data <- data %>%
     bind_rows(pred)
-  if (nrow(data)) {
-    data <- data %>%
-      group_by(.data$id, .data$yname, .data$pred) %>%
-      mutate(z = approx(x = .data$x, y = .data$z, xout = .data$x,
-                        ties = list("ordered", mean))$y) %>%
-      ungroup()
-  }
+  data <- data %>%
+    group_by(.data$id, .data$yname, .data$pred) %>%
+    mutate(z = safe_approx(x = .data$x, y = .data$z, xout = .data$x,
+                           ties = list("ordered", mean))$y) %>%
+    ungroup()
 
   # set refcode as target's sex and ga
   refcode_y <- data %>%

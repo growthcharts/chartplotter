@@ -48,3 +48,11 @@ restore_factors <- function(data, f = NULL) {
   }
   data
 }
+
+safe_approx <- function (x, y = NULL, xout, method = "linear", n = 50,
+                         rule = 1, f = 0, ties = mean, na.rm = TRUE)
+  {
+  if (!length(x)) return(list(x = xout, y = numeric(0)))
+  approx(x = x, y = y, xout = xout, method = method, n = n,
+         rule = rule, f = f, ties = ties, na.rm = na.rm)
+  }

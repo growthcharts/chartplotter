@@ -55,6 +55,12 @@ test_that("AS case Feb 2020 is silent", {
                               period = numeric(0), nmatch = 0))
   })
 
+ind <- installed.cabinets$smocc[["Laura S"]]
+test_that("Head circumference plots on NMCO", {
+  expect_silent(process_chart(ind, chartcode = "NMCO"))
+})
+
+
 # g <- process_chart(ind, chartcode = "NJBH",
 #               dnr = "terneuzen", period = c(0.9, 2),
 #               nmatch = 10, break_ties = TRUE, show_future = TRUE,
