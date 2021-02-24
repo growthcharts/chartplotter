@@ -108,8 +108,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
 
   # isolate data with fewer than two valid xy pairs (approx fails)
   minimal2 <- grid %>%
-    summarise(do_approx = sum(!(is.na(.data[[zname]][.data$obs])) |
-      is.na(.data[[xname]][.data$obs])) >= 2L)
+    summarise(do_approx = sum(!(is.na(.data[[zname]][.data$obs])) | is.na(.data[[xname]][.data$obs])) >= 2L)
 
   grid <- grid %>%
     left_join(minimal2, by = "id")

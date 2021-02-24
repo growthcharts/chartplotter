@@ -60,6 +60,11 @@ test_that("Head circumference plots on NMCO", {
   expect_silent(process_chart(ind, chartcode = "NMCO"))
 })
 
+ind <- installed.cabinets$terneuzen[["T 3254"]]
+test_that("Height plots on NJCH", {
+  expect_silent(process_chart(ind, chartcode = "NJCH"))
+})
+
 
 # g <- process_chart(ind, chartcode = "NJBH",
 #               dnr = "terneuzen", period = c(0.9, 2),

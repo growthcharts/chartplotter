@@ -94,7 +94,8 @@ set_curves <- function(g, individual,
     mutate(z = centile::y2z(y = .data$y,
                             x = .data$x,
                             refcode = .data$refcode_z,
-                            pkg = "jamesyzy"),
+                            pkg = "jamesyzy",
+                            rule = 2L),
            pred = FALSE)
 
   # calculate brokenstick predictions
@@ -125,7 +126,8 @@ set_curves <- function(g, individual,
            v = centile::z2y(z = .data$z,
                             x = .data$x,
                             refcode = .data$refcode_y,
-                            pkg = "jamesyzy"))
+                            pkg = "jamesyzy",
+                            rule = 2L))
 
   # select essential fields for plotting
   plotdata <- data %>%
