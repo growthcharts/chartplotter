@@ -51,8 +51,10 @@ restore_factors <- function(data, f = NULL) {
 
 safe_approx <- function (x, y = NULL, xout, method = "linear", n = 50,
                          rule = 1, f = 0, ties = mean, na.rm = TRUE) {
-  # cat("\n x: ", x)
-  if (sum(! (is.na(x) | is.na(y)) ) < 2L) {
+  mis <- is.na(x) | is.na(y)
+  x <- x[!mis]
+  y <- y[!mis]
+  if (length(x) < 2L) {
     return(list(x = xout, y = rep(NA_real_, length(xout))))
   }
   approx(x = x, y = y, xout = xout, method = method, n = n,
