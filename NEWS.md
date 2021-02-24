@@ -1,3 +1,7 @@
+# chartplotter 0.17.1
+
+* Repair typo in `set_curves()` that crashes JAMES
+
 # chartplotter 0.17.0
 
 * Replace `yzy` by `centile` package
