@@ -1,6 +1,7 @@
 # chartplotter 0.18.1
 
 * Add `safe_approx()` function to deal with zero observations
+* Use `rule = 2` in approx to calculate Z-score outside the reference (note: this may not always be appropriate)
 
 # chartplotter 0.18.0
 
