@@ -1,3 +1,7 @@
+# chartplotter 0.18.1
+
+* Add `safe_approx()` function to deal with zero observations
+
 # chartplotter 0.18.0
 
 * Repair typo in `set_curves()` that crashes JAMES
