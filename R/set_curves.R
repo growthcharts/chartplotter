@@ -23,6 +23,7 @@ set_curves <- function(g, individual,
 
   chartcode <- g$name
   ynames <- unname(chartcatalog::get_ynames(chartcode))
+  if (!nmatch) period <- numeric(0)
 
   # get target data
   data <- individual %>%
@@ -150,7 +151,6 @@ set_curves <- function(g, individual,
     # create visit lines grob
     tx <- get_tx(chartcode, yname)
     p <- tx(period)
-    if (nmatch == 0L) p <- numeric(0)
     visit_lines <- plot_visit_lines(g, yname, p)
 
     # plot curves of target individual
