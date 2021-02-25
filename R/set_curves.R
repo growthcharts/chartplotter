@@ -113,21 +113,18 @@ set_curves <- function(g, individual,
 
   # calculate brokenstick predictions
   pred <- calc_predictions(data,
-    chartcode = chartcode, ynames = ynames,
-    dnr = dnr, period = period
+                           chartcode = chartcode, ynames = ynames,
+                           dnr = dnr, period = period
   )
 
   # linear interpolation in Z-scale
   data <- data %>%
-    bind_rows(pred)
-  data <- data %>%
-    group_by(.data$id, .data$yname, .data$pred)
-  data <- data %>%
+    bind_rows(pred) %>%
+    group_by(.data$id, .data$yname, .data$pred) %>%
     mutate(z = safe_approx(
       x = .data$x, y = .data$z, xout = .data$x,
       ties = list("ordered", mean)
-    )$y)
-  data <- data %>%
+    )$y) %>%
     ungroup()
 
   # set refcode as target's sex and ga
@@ -157,10 +154,10 @@ set_curves <- function(g, individual,
     select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
 
   # for debugging
-  utils::write.table(data,
-    file = "data.txt", quote = FALSE, sep = "\t", na = "",
-    row.names = FALSE
-  )
+  # utils::write.table(data,
+  #                    file = "data.txt", quote = FALSE, sep = "\t", na = "",
+  #                    row.names = FALSE
+  # )
 
   # plot loop
   for (yname in ynames) {
@@ -183,22 +180,22 @@ set_curves <- function(g, individual,
 
     # plot curves of target individual
     ind_gList <- plot_lines_target(data,
-      yname = yname, period = p,
-      curve_interpolation = curve_interpolation,
-      show_realized = show_realized
+                                   yname = yname, period = p,
+                                   curve_interpolation = curve_interpolation,
+                                   show_realized = show_realized
     )
 
     # plot curves of matches
     mat_gList <- plot_lines_matches(data,
-      yname = yname,
-      curve_interpolation = curve_interpolation
+                                    yname = yname,
+                                    curve_interpolation = curve_interpolation
     )
 
     # calculate "look into future" line
     pre_gList <- plot_lines_prediction(data,
-      yname = yname,
-      show_future = show_future,
-      curve_interpolation = curve_interpolation
+                                       yname = yname,
+                                       show_future = show_future,
+                                       curve_interpolation = curve_interpolation
     )
 
     # now put everything into a clipped grob

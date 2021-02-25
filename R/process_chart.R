@@ -94,8 +94,8 @@ process_chart <- function(individual,
   }
   ynames <- get_ynames(chartcode)
 
-  # match if needed
-  if (nmatch == 0L | length(period) == 0L | is.null(individual)) {
+  # calculate matches, if needed
+  if (!nmatch || !length(period) || is.null(individual)) {
     # no matches needed
     matches <- vector("list", length(ynames))
     names(matches) <- ynames
@@ -120,9 +120,9 @@ process_chart <- function(individual,
   parsed <- parse_chartcode(chartcode)
   old_pal <- palette(chartbox::palettes[parsed$population, ])
 
-  # set data points
   if (!quiet) cat("chartcode: ", chartcode, "\n")
 
+  # set data points
   set_curves(
     g = g, individual = individual,
     curve_interpolation = curve_interpolation,
