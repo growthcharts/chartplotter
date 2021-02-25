@@ -133,6 +133,10 @@ set_curves <- function(g, individual,
   plotdata <- data %>%
     select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
 
+  # for debugging
+  utils::write.table(data, file = "data.txt", quote = FALSE, sep = "\t", na = "",
+                     row.names = FALSE)
+
   # plot loop
   for (yname in ynames) {
 

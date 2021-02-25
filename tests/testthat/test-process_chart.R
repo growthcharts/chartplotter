@@ -65,7 +65,14 @@ test_that("Height plots on NJCH", {
   expect_silent(process_chart(ind, chartcode = "NJCH"))
 })
 
-ind <- installed.cabinets$terneuzen[["T 6021"]]
+
+# Study conversion
+#fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
+#js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+#ind <- minihealth::convert_bds_individual(js)
+g <- process_chart(ind, chartcode = "NMCH")
+grid::grid.draw(g)
+# ind <- installed.cabinets$terneuzen[["T 6021"]]
 test_that("Height plots on NMCH", {
   expect_silent(process_chart(ind, chartcode = "NMCH"))
 })
