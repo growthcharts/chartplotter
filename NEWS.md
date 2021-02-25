@@ -1,5 +1,6 @@
-# chartplotter 0.18.5
+# chartplotter 0.18.7
 
+* Set period to zero
 * Simplifies plotting logic
 
 # chartplotter 0.18.4
