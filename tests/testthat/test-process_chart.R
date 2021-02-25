@@ -3,10 +3,10 @@ context("process_chart")
 library(brokenstick)
 library(jamesyzy)
 
-#data("installed.cabinets", package = "jamestest")
-#ind <- installed.cabinets$smocc[["Laura S"]]
+# data("installed.cabinets", package = "jamestest")
+# ind <- installed.cabinets$smocc[["Laura S"]]
 
-#g <- process_chart(ind, chartcode = "NJAA",
+# g <- process_chart(ind, chartcode = "NJAA",
 #                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
 #
 # test_that("terneuzen donordata yields matches", {
@@ -19,26 +19,32 @@ data("installed.cabinets", package = "jamestest")
 ind <- installed.cabinets$smocc[["Laura S"]]
 test_that("prediction line connects last observation to prediction", {
   # warns for mutate_ in curvematching::calculate_matches()
-  expect_warning(process_chart(ind, chartcode = "NJCH",
-                   dnr = "terneuzen", period = c(3, 10),
-                   nmatch = 25, break_ties = TRUE,
-                   show_realized = TRUE, show_future = TRUE))
+  expect_warning(process_chart(ind,
+    chartcode = "NJCH",
+    dnr = "terneuzen", period = c(3, 10),
+    nmatch = 25, break_ties = TRUE,
+    show_realized = TRUE, show_future = TRUE
+  ))
 })
 
 
 ind <- installed.cabinets$smocc[["Kevin S"]]
 test_that("Kevin S is drawn silently", {
   # warns for mutate_ in curvematching::calculate_matches()
-  expect_silent(process_chart(ind, chartcode = "PJAAN34", dnr = "smocc", period = c(0.6, 1.1667),
-                               nmatch = 10, exact_ga = FALSE, break_ties = TRUE,
-                               show_future = TRUE, show_realized = TRUE, curve_interpolation = TRUE))
+  expect_silent(process_chart(ind,
+    chartcode = "PJAAN34", dnr = "smocc", period = c(0.6, 1.1667),
+    nmatch = 10, exact_ga = FALSE, break_ties = TRUE,
+    show_future = TRUE, show_realized = TRUE, curve_interpolation = TRUE
+  ))
 })
 
 ind <- installed.cabinets$smocc[["Kevin S"]]
 test_that("Kevin S predict hdc using lollypop", {
   # warns for mutate_ in curvematching::calculate_matches()
-  expect_silent(process_chart(ind, chartcode = "PJAAN34", dnr = "lollypop", period = c(0.6, 1.1667),
-                              nmatch = 10, show_future = TRUE, show_realized = TRUE))
+  expect_silent(process_chart(ind,
+    chartcode = "PJAAN34", dnr = "lollypop", period = c(0.6, 1.1667),
+    nmatch = 10, show_future = TRUE, show_realized = TRUE
+  ))
 })
 
 # problematic json file not_a_vector.json identified by Allegro Sultum - Feb 2020
@@ -51,9 +57,11 @@ test_that("Kevin S predict hdc using lollypop", {
 ind <- readRDS(system.file("testdata", "ind.rds", package = "chartplotter"))
 test_that("AS case Feb 2020 is silent", {
   # warns for mutate_ in curvematching::calculate_matches()
-  expect_silent(process_chart(individual = ind, chartcode = "NMAH", dnr = "0-2",
-                              period = numeric(0), nmatch = 0))
-  })
+  expect_silent(process_chart(
+    individual = ind, chartcode = "NMAH", dnr = "0-2",
+    period = numeric(0), nmatch = 0
+  ))
+})
 
 ind <- installed.cabinets$smocc[["Laura S"]]
 test_that("Head circumference plots on NMCO", {
@@ -66,9 +74,9 @@ test_that("Height plots on NJCH", {
 })
 
 # Study conversion
-#fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
-#js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-#ind <- minihealth::convert_bds_individual(js)
+# fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
+# js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+# ind <- minihealth::convert_bds_individual(js)
 g <- process_chart(ind, chartcode = "NMCH")
 grid::grid.draw(g)
 # ind <- installed.cabinets$terneuzen[["T 6021"]]
@@ -93,4 +101,3 @@ test_that("Height plots on NMCH", {
 #                 nmatch = 10, break_ties = TRUE,
 #                 curve_interpolation = TRUE, show_realized = TRUE,
 #                 show_future = TRUE)
-

@@ -1,5 +1,4 @@
 calc_predictions <- function(data, chartcode, ynames, dnr, period) {
-
   predlist <- vector("list", length(ynames))
   names(predlist) <- ynames
   vars <- names(data)
@@ -8,15 +7,17 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
   for (yname in ynames) {
     zname <- paste0(yname, "_z")
     df <- data %>%
-      filter(.data$yname == !! yname & .data$id == -1 & .data$obs) %>%
+      filter(.data$yname == !!yname & .data$id == -1 & .data$obs) %>%
       filter(.data$x <= period[1L]) %>%
       arrange(.data$x) %>%
-      mutate(age = .data$x,
-             !! zname := .data$z)
+      mutate(
+        age = .data$x,
+        !!zname := .data$z
+      )
 
     if (!nrow(df)) {
       # nothing to do
-      predlist[[yname]] <- df %>% select(all_of(!! vars))
+      predlist[[yname]] <- df %>% select(all_of(!!vars))
     } else {
       # here we go
 
@@ -28,14 +29,16 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
       x <- c(lo, xout[xout > lo & xout < hi], hi)
       n <- length(x)
       add <- dplyr::slice_tail(df, n = 1L) %>%
-        uncount(!! n) %>%
-        mutate(obs = rep(FALSE, !! n),
-               pred = rep(TRUE, !! n),
-               x = !! x,
-               y = rep(NA_real_, !! n),
-               z = rep(NA_real_, !! n),
-               age = !! x,
-               !! zname := rep(NA_real_, !! n))
+        uncount(!!n) %>%
+        mutate(
+          obs = rep(FALSE, !!n),
+          pred = rep(TRUE, !!n),
+          x = !!x,
+          y = rep(NA_real_, !!n),
+          z = rep(NA_real_, !!n),
+          age = !!x,
+          !!zname := rep(NA_real_, !!n)
+        )
       df2 <- bind_rows(df, add)
 
       # predict points with brokenstick model (in Z scale)
@@ -55,11 +58,11 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
       if (length(tmp) && !is.na(tmp)) z[1L] <- as.numeric(tmp)
       add$z[1L] <- z[1L]
       add$z[n] <- z[n]
-      #add$z <- approx(y = z[c(1L, n)], x = x[c(1L, n)], xout = x)$y
+      # add$z <- approx(y = z[c(1L, n)], x = x[c(1L, n)], xout = x)$y
       add$obs[1L] <- TRUE
 
       predlist[[yname]] <- add %>%
-        select(all_of(!! vars))
+        select(all_of(!!vars))
     }
   }
   bind_rows(predlist)

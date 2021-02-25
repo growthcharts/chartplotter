@@ -4,4 +4,4 @@
 #' @param name A string indicating the name of the \code{gTree} object
 #' @return An object of class \code{gTree} with name \code{name}
 #' @export
-placeholder <- function(name = "")  gTree(NULL, name = name)
+placeholder <- function(name = "") gTree(NULL, name = name)

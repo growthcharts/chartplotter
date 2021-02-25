@@ -24,13 +24,16 @@ find_matches <- function(individual,
   # preliminary exit if we need no matches
   matches <- vector("list", length(ynames))
   names(matches) <- ynames
-  if (length(ynames) == 0L | nmatch == 0L)
+  if (length(ynames) == 0L | nmatch == 0L) {
     return(lapply(matches, function(x) integer(0)))
+  }
 
   # convert individual data into donordata format
   # return if that cannot be done
   target <- individual_to_donordata(individual)
-  if (nrow(target$child) == 0L) return(lapply(matches, function(x) integer(0)))
+  if (nrow(target$child) == 0L) {
+    return(lapply(matches, function(x) integer(0)))
+  }
   target$child$istarget <- TRUE
   target$child$keep <- TRUE
 
@@ -40,8 +43,10 @@ find_matches <- function(individual,
   # fetch potential donor data for target
   donor <- load_data(con = con, dnr = dnr, element = "child")
   data <- donor %>%
-    mutate(keep = .data$id != target$child$id,
-           istarget = FALSE)
+    mutate(
+      keep = .data$id != target$child$id,
+      istarget = FALSE
+    )
 
   # add individual data to `donor`
   # take care that individual data are added as last because calculate_matches()
@@ -58,8 +63,9 @@ find_matches <- function(individual,
     bsm <- bs[[yname]]
 
     # get the observed target data up to period[1L]
-    if (yname %in% c("wfh")) xz <- tibble()
-    else {
+    if (yname %in% c("wfh")) {
+      xz <- tibble()
+    } else {
       idx <- target$time$age <= period[1L]
       zname <- paste(yname, "z", sep = "_")
       xz <- target$time[idx, c("id", "age", zname, "sex", "ga")]
@@ -88,24 +94,30 @@ find_matches <- function(individual,
   e_name <- c("sex", "ga")[c(exact_sex, exact_ga)]
   t_name <- character()
   xnames <- sapply(ynames,
-                   function(x) make_xname(x,
-                                          xnames_complete,
-                                          user_model = user_model,
-                                          current_age = period[1L]),
-                   simplify = FALSE)
+    function(x) {
+      make_xname(x,
+        xnames_complete,
+        user_model = user_model,
+        current_age = period[1L]
+      )
+    },
+    simplify = FALSE
+  )
   names(xnames) <- ynames
 
   # calculate rows of the matches
   for (yname in ynames) {
-    m <- calculate_matches(data = data,
-                           condition = .data$istarget == TRUE,
-                           subset = .data$keep == TRUE,
-                           y_name = paste(yname, "z", period[2L], sep = "_"),
-                           x_name = xnames[[yname]],
-                           e_name = e_name,
-                           t_name = t_name,
-                           k = as.numeric(nmatch),
-                           break_ties = break_ties)
+    m <- calculate_matches(
+      data = data,
+      condition = .data$istarget == TRUE,
+      subset = .data$keep == TRUE,
+      y_name = paste(yname, "z", period[2L], sep = "_"),
+      x_name = xnames[[yname]],
+      e_name = e_name,
+      t_name = t_name,
+      k = as.numeric(nmatch),
+      break_ties = break_ties
+    )
     matches[[yname]] <- extract_matches(m)
   }
 

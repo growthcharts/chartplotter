@@ -5,26 +5,36 @@ data1 <- data.frame(
   id = c(1, 1, 1, 2, 3, 3, 3),
   age = c(0, 0.2, 1.2, 0.5, 0.1, 1, 1.3),
   hgt = c(52, 60, 78, 69, 62, 78, 82),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 
 # with two or more observations per group
 data2 <- data.frame(
   id = c(1, 1, 1, 2, 2, 3, 3, 3),
   age = c(0, 0.2, 1.2, 0.5, 0.7, 0.1, 1, 1.3),
   hgt = c(52, 60, 78, 69, 70, NA, NA, NA),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 refcode <- "nl_1997_hgt_male_nl"
 
 test_that("handles id with single observations", {
-  expect_equal(curve_interpolation(data1, xname = "age", yname = "hgt",
-                                   xout = seq(0, 1.3, 0.5), refcode = refcode)$hgt,
-               c(52, 60, 68.077, 75.662, 78, 69, 62, 72.725, 78, 82))
+  expect_equal(
+    curve_interpolation(data1,
+      xname = "age", yname = "hgt",
+      xout = seq(0, 1.3, 0.5), refcode = refcode
+    )$hgt,
+    c(52, 60, 68.077, 75.662, 78, 69, 62, 72.725, 78, 82)
+  )
 })
 
 test_that("handles id with all missing outcome measurements", {
-  expect_equal(curve_interpolation(data2, xname = "age", yname = "hgt",
-                                   xout = seq(0, 1.3, 0.5), ref = refcode)$hgt,
-               c(52, 60, 68.077, 75.662, 78, 69, 70, NA, NA))
+  expect_equal(
+    curve_interpolation(data2,
+      xname = "age", yname = "hgt",
+      xout = seq(0, 1.3, 0.5), ref = refcode
+    )$hgt,
+    c(52, 60, 68.077, 75.662, 78, 69, 70, NA, NA)
+  )
 })
 
 xyz <- data.frame(x = numeric(0), y = numeric(0))

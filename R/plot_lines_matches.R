@@ -1,5 +1,4 @@
 plot_lines_matches <- function(data, yname, curve_interpolation = TRUE) {
-
   m <- filter(data, .data$id != -1 & .data$yname == yname)
   if (!curve_interpolation) m <- filter(m, .data$obs)
 

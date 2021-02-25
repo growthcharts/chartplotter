@@ -45,13 +45,17 @@
 #' library(grid)
 #' data("installed.cabinets", package = "jamestest")
 #' ind <- installed.cabinets$smocc[["Laura S"]]
-#' g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-#'                    dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10)
+#' g <- process_chart(ind,
+#'   chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
+#'   dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10
+#' )
 #' grid.draw(g)
 #'
 #' # using lollypop for matching
-#' g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-#'                    dnr = "2-4", period = c(0.5, 1.1667), nmatch = 10)
+#' g <- process_chart(ind,
+#'   chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
+#'   dnr = "2-4", period = c(0.5, 1.1667), nmatch = 10
+#' )
 #' grid.draw(g)
 #' }
 #' @export
@@ -60,8 +64,10 @@ process_chart <- function(individual,
                           curve_interpolation = TRUE,
                           quiet = TRUE,
                           con = NULL,
-                          dnr = c("0-2", "2-4", "4-18",
-                                  "smocc", "lollypop", "terneuzen", "pops"),
+                          dnr = c(
+                            "0-2", "2-4", "4-18",
+                            "smocc", "lollypop", "terneuzen", "pops"
+                          ),
                           period = numeric(0),
                           nmatch = 0L,
                           user_model = 2L,
@@ -70,20 +76,22 @@ process_chart <- function(individual,
                           break_ties = TRUE,
                           show_realized = FALSE,
                           show_future = FALSE,
-                          clip = TRUE)
-{
+                          clip = TRUE) {
   dnr <- match.arg(dnr)
 
   # make the switch to the donordata solution per age group
   dnr <- switch(dnr,
-                "0-2" = "smocc",
-                "2-4" = "lollypop",
-                "4-18" = "terneuzen",
-                dnr)
+    "0-2" = "smocc",
+    "2-4" = "lollypop",
+    "4-18" = "terneuzen",
+    dnr
+  )
 
   # load growthchart, return early if there is a problem
   g <- load_chart(chartcode)
-  if (is.null(g) || !is.grob(g)) return(placeholder(name = chartcode))
+  if (is.null(g) || !is.grob(g)) {
+    return(placeholder(name = chartcode))
+  }
   ynames <- get_ynames(chartcode)
 
   # match if needed
@@ -94,16 +102,18 @@ process_chart <- function(individual,
     matches <- lapply(matches, function(x) integer(0))
   } else {
     # find matches for measurements on chart
-    matches <- find_matches(individual = individual,
-                            con = con,
-                            dnr = dnr,
-                            ynames = ynames,
-                            nmatch = nmatch,
-                            period = period,
-                            user_model = user_model,
-                            exact_sex = exact_sex,
-                            exact_ga = exact_ga,
-                            break_ties = break_ties)
+    matches <- find_matches(
+      individual = individual,
+      con = con,
+      dnr = dnr,
+      ynames = ynames,
+      nmatch = nmatch,
+      period = period,
+      user_model = user_model,
+      exact_sex = exact_sex,
+      exact_ga = exact_ga,
+      break_ties = break_ties
+    )
   }
 
   # set the palette
@@ -113,13 +123,15 @@ process_chart <- function(individual,
   # set data points
   if (!quiet) cat("chartcode: ", chartcode, "\n")
 
-  set_curves(g = g, individual = individual,
-             curve_interpolation = curve_interpolation,
-             nmatch = nmatch,
-             matches = matches,
-             dnr = dnr,
-             period = period,
-             show_realized = show_realized,
-             show_future = show_future,
-             clip = clip)
+  set_curves(
+    g = g, individual = individual,
+    curve_interpolation = curve_interpolation,
+    nmatch = nmatch,
+    matches = matches,
+    dnr = dnr,
+    period = period,
+    show_realized = show_realized,
+    show_future = show_future,
+    clip = clip
+  )
 }

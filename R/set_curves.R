@@ -20,7 +20,6 @@ set_curves <- function(g, individual,
                        show_realized = FALSE,
                        show_future = FALSE,
                        clip = TRUE) {
-
   chartcode <- g$name
   ynames <- unname(chartcatalog::get_ynames(chartcode))
   if (!nmatch) period <- numeric(0)
@@ -32,9 +31,11 @@ set_curves <- function(g, individual,
     select(all_of(c("xname", "yname", "x", "y"))) %>%
     filter(.data$yname %in% ynames) %>%
     tidyr::drop_na(all_of("y")) %>%
-    mutate(id = -1,
-           sex = slot(individual, "sex"),
-           ga = slot(individual, "ga")) %>%
+    mutate(
+      id = -1,
+      sex = slot(individual, "sex"),
+      ga = slot(individual, "ga")
+    ) %>%
     select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
 
   # get data of matches
@@ -42,16 +43,20 @@ set_curves <- function(g, individual,
   names(time) <- ynames
   for (yname in ynames) {
     time[[yname]] <- load_data(dnr = dnr, element = "time", ids = matches[[yname]]) %>%
-      mutate(xhgt = .data$hgt,
-             wfh = .data$wgt) %>%
+      mutate(
+        xhgt = .data$hgt,
+        wfh = .data$wgt
+      ) %>%
       select(all_of(c("id", "age", "sex", "ga", "xhgt", yname)))
   }
   time <- time %>%
     bind_rows() %>%
     pivot_longer(cols = all_of(ynames), names_to = "yname", values_to = "y") %>%
     drop_na(.data$y) %>%
-    mutate(x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
-           xname = as.character(ifelse(.data$yname == "wfh", "hgt", "age"))) %>%
+    mutate(
+      x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
+      xname = as.character(ifelse(.data$yname == "wfh", "hgt", "age"))
+    ) %>%
     arrange(.data$id, .data$yname, .data$x) %>%
     select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
 
@@ -71,7 +76,8 @@ set_curves <- function(g, individual,
       ga = first(.data$ga),
       lo = suppressWarnings(min(.data$x)),
       hi = suppressWarnings(max(.data$x)),
-      .groups = "drop")
+      .groups = "drop"
+    )
   xl <- vector("list", nrow(lohi))
   for (i in seq_along(xl)) {
     xo <- set_xout(chartcode, lohi$yname[i])
@@ -79,9 +85,11 @@ set_curves <- function(g, individual,
   }
   lng <- sapply(xl, length)
   if (any(lng)) {
-    synt <- tidyr::uncount(lohi, weights = !! lng) %>%
-      mutate(x = unlist(!! xl),
-             obs = FALSE) %>%
+    synt <- tidyr::uncount(lohi, weights = !!lng) %>%
+      mutate(
+        x = unlist(!!xl),
+        obs = FALSE
+      ) %>%
       select(-.data$lo, -.data$hi)
   } else {
     synt <- tibble(yname = character(0))
@@ -92,16 +100,22 @@ set_curves <- function(g, individual,
     bind_rows(synt) %>%
     arrange(.data$id, .data$yname, .data$x) %>%
     mutate(refcode_z = jamesyzy::set_refcodes(.)) %>%
-    mutate(z = centile::y2z(y = .data$y,
-                            x = .data$x,
-                            refcode = .data$refcode_z,
-                            pkg = "jamesyzy",
-                            rule = 2L),
-           pred = FALSE)
+    mutate(
+      z = centile::y2z(
+        y = .data$y,
+        x = .data$x,
+        refcode = .data$refcode_z,
+        pkg = "jamesyzy",
+        rule = 2L
+      ),
+      pred = FALSE
+    )
 
   # calculate brokenstick predictions
-  pred <- calc_predictions(data, chartcode = chartcode, ynames = ynames,
-                           dnr = dnr, period = period)
+  pred <- calc_predictions(data,
+    chartcode = chartcode, ynames = ynames,
+    dnr = dnr, period = period
+  )
 
   # linear interpolation in Z-scale
   data <- data %>%
@@ -109,44 +123,55 @@ set_curves <- function(g, individual,
   data <- data %>%
     group_by(.data$id, .data$yname, .data$pred)
   data <- data %>%
-    mutate(z = safe_approx(x = .data$x, y = .data$z, xout = .data$x,
-                           ties = list("ordered", mean))$y)
+    mutate(z = safe_approx(
+      x = .data$x, y = .data$z, xout = .data$x,
+      ties = list("ordered", mean)
+    )$y)
   data <- data %>%
     ungroup()
 
   # set refcode as target's sex and ga
   refcode_y <- data %>%
-    mutate(sex = slot(individual, "sex"),
-           ga = slot(individual, "ga")) %>%
+    mutate(
+      sex = slot(individual, "sex"),
+      ga = slot(individual, "ga")
+    ) %>%
     mutate(refcode_y = jamesyzy::set_refcodes(.)) %>%
     pull(.data$refcode_y)
 
   # convert to display metric
   data <- data %>%
-    mutate(refcode_y = !! refcode_y,
-           v = centile::z2y(z = .data$z,
-                            x = .data$x,
-                            refcode = .data$refcode_y,
-                            pkg = "jamesyzy",
-                            rule = 2L))
+    mutate(
+      refcode_y = !!refcode_y,
+      v = centile::z2y(
+        z = .data$z,
+        x = .data$x,
+        refcode = .data$refcode_y,
+        pkg = "jamesyzy",
+        rule = 2L
+      )
+    )
 
   # select essential fields for plotting
   plotdata <- data %>%
     select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
 
   # for debugging
-  utils::write.table(data, file = "data.txt", quote = FALSE, sep = "\t", na = "",
-                     row.names = FALSE)
+  utils::write.table(data,
+    file = "data.txt", quote = FALSE, sep = "\t", na = "",
+    row.names = FALSE
+  )
 
   # plot loop
   for (yname in ynames) {
 
     # obtain data and apply data transforms
     data <- plotdata %>%
-      filter(.data$yname == !! yname) %>%
+      filter(.data$yname == !!yname) %>%
       mutate(
-        v = apply_transforms_y(.data$v, chartcode, !! yname),
-        x = apply_transforms_x(.data$x, chartcode, !! yname))
+        v = apply_transforms_y(.data$v, chartcode, !!yname),
+        x = apply_transforms_x(.data$x, chartcode, !!yname)
+      )
 
     # create visit lines grob
     tx <- get_tx(chartcode, yname)
@@ -156,30 +181,42 @@ set_curves <- function(g, individual,
     # plot curves of target individual
     p <- tx(period)
     if (yname == "wfh") p <- numeric(0)
-    ind_gList <- plot_lines_target(data, yname = yname, period = p,
-                                   curve_interpolation = curve_interpolation,
-                                   show_realized = show_realized)
+    ind_gList <- plot_lines_target(data,
+      yname = yname, period = p,
+      curve_interpolation = curve_interpolation,
+      show_realized = show_realized
+    )
 
     # plot curves of matches
-    mat_gList <- plot_lines_matches(data, yname = yname,
-                                    curve_interpolation = curve_interpolation)
+    mat_gList <- plot_lines_matches(data,
+      yname = yname,
+      curve_interpolation = curve_interpolation
+    )
 
     # calculate "look into future" line
-    pre_gList <- plot_lines_prediction(data, yname = yname,
-                                       show_future = show_future,
-                                       curve_interpolation = curve_interpolation)
+    pre_gList <- plot_lines_prediction(data,
+      yname = yname,
+      show_future = show_future,
+      curve_interpolation = curve_interpolation
+    )
 
     # now put everything into a clipped grob
     clipper <- clipGrob(name = "clipper")
-    curves <- gTree(name = "data",
-                    children = gList(clipper, visit_lines,
-                                     mat_gList$matches_lines,
-                                     mat_gList$matches_symbols,
-                                     pre_gList, ind_gList))
+    curves <- gTree(
+      name = "data",
+      children = gList(
+        clipper, visit_lines,
+        mat_gList$matches_lines,
+        mat_gList$matches_symbols,
+        pre_gList, ind_gList
+      )
+    )
 
-    g <- setGrob(gTree = g,
-                 gPath = gPath(yname, "modules", "data"),
-                 newGrob = curves)
+    g <- setGrob(
+      gTree = g,
+      gPath = gPath(yname, "modules", "data"),
+      newGrob = curves
+    )
   }
 
   invisible(g)
