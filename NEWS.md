@@ -1,17 +1,11 @@
-# chartplotter 0.18.7
+# chartplotter 0.19.0
 
-* Set period to zero
 * Simplifies plotting logic
-
-# chartplotter 0.18.4
-
+* Solves the problem that did not plot plot T 3254 and T 6021
 * Solves bug that did not plot 1-point curve
 * Adds data dump for debugging purposes
-
-# chartplotter 0.18.1
-
 * Add `safe_approx()` function to deal with zero observations
-* Use `rule = 2` in approx to calculate Z-score outside the reference (note: this may not always be appropriate)
+* Uses `rule = 2` in approx to calculate Z-score outside the reference (note: this may not always be appropriate)
 
 # chartplotter 0.18.0
 
