@@ -1,3 +1,7 @@
+# chartplotter 0.18.3
+
+* Adds data dump for debugging purposes
+
 # chartplotter 0.18.1
 
 * Add `safe_approx()` function to deal with zero observations
