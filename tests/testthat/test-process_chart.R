@@ -65,7 +65,6 @@ test_that("Height plots on NJCH", {
   expect_silent(process_chart(ind, chartcode = "NJCH"))
 })
 
-
 # Study conversion
 #fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
 #js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
@@ -77,6 +76,12 @@ test_that("Height plots on NMCH", {
   expect_silent(process_chart(ind, chartcode = "NMCH"))
 })
 
+
+# Curve of one point not plotted - solved 25/2/21
+# msg <- "{\"Referentie\":\"0680ab73-aed5-4cfd-be08-6afacd5d288d\",\"OrganisatieCode\":1234,\"Applicatie\":\"MLCAS 2.00.6993\",\"ClientGegevens\":{\"Elementen\":[{\"Bdsnummer\":19,\"Waarde\":\"2\",\"Omschrijving\":\"Geslacht\"},{\"Bdsnummer\":20,\"Waarde\":\"20210127\",\"Omschrijving\":\"Geboortedatum\"},{\"Bdsnummer\":82,\"Waarde\":\"256\",\"Omschrijving\":\"Zwangerschapsduur\"},{\"Bdsnummer\":91,\"Waarde\":\"2\",\"Omschrijving\":\"RokenTijdensDeZwangerschap\"},{\"Bdsnummer\":110,\"Waarde\":\"2670\",\"Omschrijving\":\"Geboortegewicht\"},{\"Bdsnummer\":238,\"Waarde\":\"1730\",\"Omschrijving\":\"LengteBiologischeMoeder\"},{\"Bdsnummer\":240,\"Waarde\":\"1780\",\"Omschrijving\":\"LengteBiologischeVader\"}],\"Groepen\":[{\"Elementen\":[{\"Bdsnummer\":62,\"Waarde\":\"02\",\"Omschrijving\":\"RelatieTotJeugdigeOuderVerzorger\"},{\"Bdsnummer\":63,\"Waarde\":\"19850114\",\"Omschrijving\":\"GeboortedatumOuderVerzorger\"},{\"Bdsnummer\":71,\"Waarde\":\"6030\",\"Omschrijving\":\"GeboortelandOuderVerzorger\"},{\"Bdsnummer\":66,\"Waarde\":\"09\",\"Omschrijving\":\"OpleidingOuderVerzorger\"}]},{\"Elementen\":[{\"Bdsnummer\":62,\"Waarde\":\"01\",\"Omschrijving\":\"RelatieTotJeugdigeOuderVerzorger\"},{\"Bdsnummer\":63,\"Waarde\":\"19800818\",\"Omschrijving\":\"GeboortedatumOuderVerzorger\"},{\"Bdsnummer\":71,\"Waarde\":\"6030\",\"Omschrijving\":\"GeboortelandOuderVerzorger\"},{\"Bdsnummer\":66,\"Waarde\":\"09\",\"Omschrijving\":\"OpleidingOuderVerzorger\"}]}]},\"Contactmomenten\":[{\"Tijdstip\":\"20210225\",\"Elementen\":[{\"Bdsnummer\":235,\"Waarde\":\"540\",\"Omschrijving\":\"Lengte\"},{\"Bdsnummer\":245,\"Waarde\":\"3410\",\"Omschrijving\":\"Gewicht\"},{\"Bdsnummer\":252,\"Waarde\":\"351\",\"Omschrijving\":\"Hoofdomtrek\"}]}]}"
+#
+# ind <- james::convert_bds_ind(txt = msg)
+# g <- process_chart(ind, chartcode = "NJAA")
 
 # g <- process_chart(ind, chartcode = "NJBH",
 #               dnr = "terneuzen", period = c(0.9, 2),

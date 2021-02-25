@@ -54,8 +54,11 @@ safe_approx <- function (x, y = NULL, xout, method = "linear", n = 50,
   mis <- is.na(x) | is.na(y)
   x <- x[!mis]
   y <- y[!mis]
-  if (length(x) < 2L) {
+  if (!length(x)) {
     return(list(x = xout, y = rep(NA_real_, length(xout))))
+  }
+  if (length(x) == 1L) {
+    return(list(x = x, y = rep(y, length(xout))))
   }
   approx(x = x, y = y, xout = xout, method = method, n = n,
          rule = rule, f = f, ties = ties, na.rm = na.rm)
