@@ -5,6 +5,10 @@ plot_lines_target <- function(data, yname, period = numeric(0),
   m <- na.omit(m[, c("x", "v", "obs")])
   names(m) <- c("x", "y", "obs")
 
+  # for debugging
+  utils::write.table(data, file = paste0("target_",yname,".txt"),
+                     quote = FALSE, sep = "\t", na = "", row.names = FALSE)
+
   if (!nrow(m)) {
     linesbefore <- placeholder("linesbefore")
     symbolsbefore <- placeholder("symbolsbefore")
