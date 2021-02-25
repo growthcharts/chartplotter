@@ -1,3 +1,7 @@
+# chartplotter 0.18.5
+
+* Simplifies plotting logic
+
 # chartplotter 0.18.4
 
 * Solves bug that did not plot 1-point curve
