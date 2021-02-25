@@ -1,5 +1,6 @@
-# chartplotter 0.18.3
+# chartplotter 0.18.4
 
+* Solves bug that did not plot 1-point curve
 * Adds data dump for debugging purposes
 
 # chartplotter 0.18.1
