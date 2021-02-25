@@ -27,10 +27,14 @@ A character vector with the \code{xname} specification
 Creates the model specifications for xname
 }
 \examples{
-xnames <- c("sex", "ga", "bw", "hgt_0", "hgt_1", "hgt_3",
-"wgt_0", "wgt_1", "wgt_2", "junk")
+xnames <- c(
+  "sex", "ga", "bw", "hgt_0", "hgt_1", "hgt_3",
+  "wgt_0", "wgt_1", "wgt_2", "junk"
+)
 
 # note that it does not return hgt2
-make_xname(yname = "hgt", xnames = xnames, user_model = 2,
-current_age = 2)
+make_xname(
+  yname = "hgt", xnames = xnames, user_model = 2,
+  current_age = 2
+)
 }

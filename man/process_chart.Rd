@@ -88,13 +88,17 @@ Plots the growth chart, optionally including matches
 library(grid)
 data("installed.cabinets", package = "jamestest")
 ind <- installed.cabinets$smocc[["Laura S"]]
-g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-                   dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10)
+g <- process_chart(ind,
+  chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
+  dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10
+)
 grid.draw(g)
 
 # using lollypop for matching
-g <- process_chart(ind, chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-                   dnr = "2-4", period = c(0.5, 1.1667), nmatch = 10)
+g <- process_chart(ind,
+  chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
+  dnr = "2-4", period = c(0.5, 1.1667), nmatch = 10
+)
 grid.draw(g)
 }
 }
