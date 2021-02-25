@@ -1,3 +1,7 @@
+
+
+* Styles the R sources
+
 # chartplotter 0.19.0
 
 * Simplifies plotting logic

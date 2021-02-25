@@ -165,6 +165,9 @@ set_curves <- function(g, individual,
   # plot loop
   for (yname in ynames) {
 
+    # cannot yet perform prediction for WFH
+    if (yname == "wfh") period <- numeric(0)
+
     # obtain data and apply data transforms
     data <- plotdata %>%
       filter(.data$yname == !!yname) %>%
@@ -179,8 +182,6 @@ set_curves <- function(g, individual,
     visit_lines <- plot_visit_lines(g, yname, p)
 
     # plot curves of target individual
-    p <- tx(period)
-    if (yname == "wfh") p <- numeric(0)
     ind_gList <- plot_lines_target(data,
       yname = yname, period = p,
       curve_interpolation = curve_interpolation,
