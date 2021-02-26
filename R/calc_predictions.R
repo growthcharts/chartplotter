@@ -25,8 +25,9 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
       bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
 
       # limit the prediction horizon by the last internal knot
+      # if there is no model, take age 2 yrs (relevant to dsc/hdc)
       limit <- ifelse(is.null(bsm),
-                      Inf,
+                      2,
                       tail(get_knots(bsm, "droplast"), 1L))
       hi <- min(period[2L], limit)
 
