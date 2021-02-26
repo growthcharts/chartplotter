@@ -55,7 +55,8 @@ set_curves <- function(g, individual,
     time <- time %>%
       select(all_of(c("id", "sex", "ga")))
   } else {
-    time <- pivot_longer(cols = any_of(ynames), names_to = "yname", values_to = "y") %>%
+    time <- time %>%
+      pivot_longer(cols = any_of(ynames), names_to = "yname", values_to = "y") %>%
       drop_na(.data$y) %>%
       mutate(
         x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
