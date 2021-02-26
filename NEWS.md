@@ -1,5 +1,6 @@
+# chartplotter 0.19.1
 
-
+* `process_chart()` returns early if there are no data
 * Styles the R sources
 
 # chartplotter 0.19.0
