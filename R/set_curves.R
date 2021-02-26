@@ -51,7 +51,7 @@ set_curves <- function(g, individual,
   }
   time <- time %>%
     bind_rows() %>%
-    pivot_longer(cols = all_of(ynames), names_to = "yname", values_to = "y") %>%
+    pivot_longer(cols = any_of(ynames), names_to = "yname", values_to = "y") %>%
     drop_na(.data$y) %>%
     mutate(
       x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
