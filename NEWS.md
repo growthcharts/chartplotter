@@ -1,3 +1,8 @@
+# chartplotter 0.19.6
+
+* Solves problem with curve interpolation of WFH
+* Limit prediction horizon to 2 years when there is no model
+
 # chartplotter 0.19.5
 
 * Sets the maximum prediction horizon equal to last internal knot
