@@ -1,7 +1,7 @@
 #' @importFrom brokenstick   get_knots
 #' @importFrom centile       y2z z2y
 #' @importFrom chartbox      load_chart
-#' @importFrom chartcatalog  get_breakpoints get_reference get_seq
+#' @importFrom chartcatalog  get_breakpoints get_seq
 #'                           get_tx get_ty get_ynames parse_chartcode
 #' @importFrom curvematching calculate_matches extract_matches
 #' @importFrom donorloader   load_data
@@ -16,8 +16,7 @@
 #'                           setGrob
 #' @importFrom jamesyzy      set_refcodes
 #' @importFrom methods       slot
-#' @importFrom minihealth    get_xyz individual_to_donordata
-#'                           is.individual
+#' @importFrom minihealth    individual_to_donordata is.individual
 #' @importFrom rlang         .data :=
 #' @importFrom stats         approx na.omit predict
 #' @importFrom tidyr         drop_na pivot_longer uncount

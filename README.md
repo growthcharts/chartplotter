@@ -24,8 +24,7 @@ You need two things in order to install `chartplotter`:
     `Sys.getenv("GITHUB_PAT")` returns your token;
 
 2.  Access to the following private repositories:
-    `stefvanbuuren/chartbox`, `stefvanbuuren/curvematching`,
-    `stefvanbuuren/donorloader` and `stefvanbuuren/minihealth`.
+    `stefvanbuuren/curvematching` and `stefvanbuuren/donorloader`.
 
 The following statements will install the `chartplotter` package, as
 well as any of its dependencies:
@@ -37,18 +36,18 @@ remotes::install_github("stefvanbuuren/chartplotter")
 
 ## Example
 
+The main function in `chartplotter` is `process_chart()`.
+
 ### Example 1: Plot child’s data onto a growth chart
 
 ``` r
-library(clopus)
 library(chartplotter)
 library(svglite)
-library(grid)
-library(jamesyzy)
-tgt <- minihealth::donordata_to_individual(dnr = "smocc", id = 10001)
-svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
-g <- process_chart(tgt, chartcode = "NMBA", period = c(0.5, 1))
-grid.draw(g)
+data("installed.cabinets", package = "jamestest")
+tgt <- installed.cabinets$smocc[["Laura S"]]
+svglite::svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
+g <- process_chart(tgt, chartcode = "NMBA")
+grid::grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2
@@ -76,16 +75,13 @@ of the prediction.
 
 ``` r
 set.seed(61771)
-svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
-g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
-                   dnr = "lollypop",
-                   period = c(0.25, 3.75), nmatch = 25,
-                   show_future = TRUE)
+svglite::svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
+g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(0.25, 3.75), 
+                   nmatch = 25, show_future = TRUE)
 #> Warning: `mutate_()` was deprecated in dplyr 0.7.0.
 #> Please use `mutate()` instead.
 #> See vignette('programming') for more help
-#> chartcode:  NMBA
-grid.draw(g)
+grid::grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2
@@ -107,13 +103,10 @@ Same as before, but now using all data up to (but not beyond) the age of
 smaller.
 
 ``` r
-svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
-g <- process_chart(tgt, chartcode = "NMBA", quiet = FALSE,
-                   dnr = "lollypop",
-                   period = c(2.0, 3.75), nmatch = 25,
-                   show_future = TRUE)
-#> chartcode:  NMBA
-grid.draw(g)
+svglite::svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
+g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(2.0, 3.75), 
+                   nmatch = 25, show_future = TRUE)
+grid::grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2
@@ -131,13 +124,12 @@ Dutch girls, 0-4 years
 ### Example 4: Square plot of height, chart `NMBH`
 
 ``` r
-svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
-g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE,
-                   dnr = "lollypop",
+svglite::svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
+g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE, dnr = "2-4",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE, show_realized = TRUE)
 #> chartcode:  NMBH
-grid.draw(g)
+grid::grid.draw(g)
 dev.off()
 #> quartz_off_screen 
 #>                 2

@@ -9,7 +9,7 @@ Description: This package plots the target child's growth curves on
     target child, predicts the most likely future visit value, and 
     graphically presents the inherent uncertainty around the 
     prediction.
-License: AGPL-3 + file LICENSE
+License: AGPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends: 

@@ -3,3 +3,5 @@
 ^README\.Rmd$
 ^figures$
 ^notes$
+^LICENSE\.md$
+^docs$
