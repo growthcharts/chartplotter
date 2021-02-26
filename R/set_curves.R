@@ -117,7 +117,7 @@ set_curves <- function(g, individual,
     )
 
   # calculate brokenstick predictions
-  pred <- calc_predictions(data,
+  pred <- calculate_predictions(data,
     chartcode = chartcode, ynames = ynames,
     dnr = dnr, period = period
   )

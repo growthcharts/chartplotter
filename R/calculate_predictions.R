@@ -1,4 +1,4 @@
-calc_predictions <- function(data, chartcode, ynames, dnr, period) {
+calculate_predictions <- function(data, chartcode, ynames, dnr, period) {
   predlist <- vector("list", length(ynames))
   names(predlist) <- ynames
   vars <- names(data)
