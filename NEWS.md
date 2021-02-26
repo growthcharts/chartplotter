@@ -1,14 +1,19 @@
+# chartplotter 0.19.5
+
+* Sets the maximum prediction horizon equal to last internal knot
+* Solves a problem with curve interpolation of the D-score
+
 # chartplotter 0.19.4
 
-* Evade prediction on NULL models
+* Evades prediction on NULL models
 
 # chartplotter 0.19.3
 
-* Silence `pivot_longer()` if no ynames are found
+* Silences `pivot_longer()` if no ynames are found
 
 # chartplotter 0.19.2
 
-* Make `yname` optional so that it doesn't get stuck on `dsc`
+* Makes `yname` optional so that it doesn't get stuck on `dsc`
 
 # chartplotter 0.19.1
 
