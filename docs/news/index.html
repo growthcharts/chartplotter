@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chartplotter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.19.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.0</span>
       </span>
     </div>
 
@@ -91,7 +91,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/stefvanbuuren/chartplotter/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -106,65 +111,24 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      
+      <small>Source: <a href='https://github.com/stefvanbuuren/chartplotter/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="chartplotter-0198" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.8">
-<a href="#chartplotter-0198" class="anchor"></a>chartplotter 0.19.8</h1>
+    <div id="chartplotter-0200" class="section level1">
+<h1 class="page-header" data-toc-text="0.20.0">
+<a href="#chartplotter-0200" class="anchor"></a>chartplotter 0.20.0</h1>
 <ul>
+<li>Main release, now completely based on <code>centile</code> package</li>
 <li>Unexport functions for internal use</li>
-</ul>
-</div>
-    <div id="chartplotter-0197" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.7">
-<a href="#chartplotter-0197" class="anchor"></a>chartplotter 0.19.7</h1>
-<ul>
 <li>Switch to <code>markdown</code> documentation</li>
-</ul>
-</div>
-    <div id="chartplotter-0196" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.6">
-<a href="#chartplotter-0196" class="anchor"></a>chartplotter 0.19.6</h1>
-<ul>
 <li>Solves problem with curve interpolation of WFH</li>
 <li>Limit prediction horizon to 2 years when there is no model</li>
-</ul>
-</div>
-    <div id="chartplotter-0195" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.5">
-<a href="#chartplotter-0195" class="anchor"></a>chartplotter 0.19.5</h1>
-<ul>
 <li>Sets the maximum prediction horizon equal to last internal knot</li>
 <li>Solves a problem with curve interpolation of the D-score</li>
-</ul>
-</div>
-    <div id="chartplotter-0194" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.4">
-<a href="#chartplotter-0194" class="anchor"></a>chartplotter 0.19.4</h1>
-<ul>
 <li>Evades prediction on NULL models</li>
-</ul>
-</div>
-    <div id="chartplotter-0193" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.3">
-<a href="#chartplotter-0193" class="anchor"></a>chartplotter 0.19.3</h1>
-<ul>
 <li>Silences <code>pivot_longer()</code> if no ynames are found</li>
-</ul>
-</div>
-    <div id="chartplotter-0192" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.2">
-<a href="#chartplotter-0192" class="anchor"></a>chartplotter 0.19.2</h1>
-<ul>
 <li>Makes <code>yname</code> optional so that it doesn’t get stuck on <code>dsc</code>
 </li>
-</ul>
-</div>
-    <div id="chartplotter-0191" class="section level1">
-<h1 class="page-header" data-toc-text="0.19.1">
-<a href="#chartplotter-0191" class="anchor"></a>chartplotter 0.19.1</h1>
-<ul>
 <li>
 <code><a href="../reference/process_chart.html">process_chart()</a></code> returns early if there are no data</li>
 <li>Styles the R sources</li>
@@ -241,7 +205,7 @@
 <h1 class="page-header" data-toc-text="0.12.0">
 <a href="#chartplotter-0120" class="anchor"></a>chartplotter 0.12.0</h1>
 <ul>
-<li>Repairs discrepancy in Z-transformation in <code><a href="../reference/find_matches.html">find_matches()</a></code> that resulted in incorrect Z-scores for preterms in mixed data (#2)</li>
+<li>Repairs discrepancy in Z-transformation in <code><a href="../reference/find_matches.html">find_matches()</a></code> that resulted in incorrect Z-scores for preterms in mixed data (<a href='https://github.com/stefvanbuuren/chartplotter/issues/2'>#2</a>)</li>
 </ul>
 </div>
     <div id="chartplotter-0110" class="section level1">
