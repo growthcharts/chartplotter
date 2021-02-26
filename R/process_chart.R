@@ -90,7 +90,7 @@ process_chart <- function(individual,
   # load growthchart, return early if there is a problem
   g <- load_chart(chartcode)
   if (is.null(g) || !is.grob(g)) {
-    return(placeholder(name = paste("chartcode", chartcode, "not found")))
+    return(placeholder(name = paste(chartcode, "ontbreekt")))
   }
 
   # set the palette

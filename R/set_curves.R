@@ -47,7 +47,7 @@ set_curves <- function(g, individual,
         xhgt = .data$hgt,
         wfh = .data$wgt
       ) %>%
-      select(all_of(c("id", "age", "sex", "ga", "xhgt", yname)))
+      select(any_of(c("id", "age", "sex", "ga", "xhgt", yname)))
   }
   time <- time %>%
     bind_rows() %>%
