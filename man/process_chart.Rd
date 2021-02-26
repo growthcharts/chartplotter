@@ -74,8 +74,7 @@ A \code{gTree} that can be rendered by \code{grid::grid.draw()}.
 \description{
 Plots the growth chart, optionally including matches
 }
-\details{
-# The meaning of the \code{user_model} parameter is as follows:
+\section{The meaning of the \code{user_model} parameter is as follows:}{
 \describe{
 \item{1}{most recent measurement only}
 \item{2}{sex + growth curve up to current}
@@ -83,6 +82,7 @@ Plots the growth chart, optionally including matches
 \item{4}{3 + growth curves up to current, other measures}
 }
 }
+
 \examples{
 \dontrun{
 library(grid)
@@ -103,5 +103,5 @@ grid.draw(g)
 }
 }
 \seealso{
-\code{\link[chartcatalog]{create_chartcode}}
+\code{\link[chartcatalog:create_chartcode]{chartcatalog::create_chartcode()}}
 }

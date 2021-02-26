@@ -2,7 +2,7 @@
 #'
 #' @param age Numeric vector with decimal age
 #' @param dnr Name of donor dataset
-#' @return \code{visit_number} returns a vector of length \code{length(age)}
+#' @return `visit_number` returns a vector of length `length(age)`
 #' @rdname visit
 #' @examples
 #' visit_number(age = c(0.5, 1))
@@ -16,7 +16,7 @@ visit_number <- function(age, dnr = "smocc") {
 #' Find the visit age given the visit number and donor data name
 #'
 #' @param number Integer, visit numbers
-#' @return \code{visit_age} returns a vector of length \code{length(number)}
+#' @return `visit_age` returns a vector of length `length(number)`
 #' @rdname visit
 #' @examples
 #' visit_age(1:3)
@@ -30,7 +30,7 @@ visit_age <- function(number, dnr = "smocc") {
 #' Find the visit label given the visit number and donor data name
 #'
 #' @rdname visit
-#' @return \code{visit_label} returns a vector of length \code{length(number)}
+#' @return `visit_label` returns a vector of length `length(number)`
 #' @examples
 #' visit_label(1:3)
 #' visit_label(1:3, "pops")

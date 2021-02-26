@@ -1,22 +1,22 @@
 #' Plots the growth chart, optionally including matches
 #'
-#' @param individual An S4 object of class \code{individual}
-#'   containing data of the individual, or \code{NULL}
+#' @param individual An S4 object of class `individual`
+#'   containing data of the individual, or `NULL`
 #' @param chartcode  A string with chart code
 #' @param curve_interpolation A logical indicating whether curve
 #'   interpolation shoud be applied.
 #' @param quiet Logical indicating whether chart code should be
-#'   written to standard output. Default is \code{quiet = TRUE}.
+#'   written to standard output. Default is `quiet = TRUE`.
 #' @param con        A connection on which the donor data reside. The
-#' default (\code{NULL}) reads from \code{donorloader} package.
+#' default (`NULL`) reads from `donorloader` package.
 #' @param dnr        A string with the name of the donor data
-#'   (currently available are \code{smocc}, \code{terneuzen},
-#'   \code{lollypop} and \code{pops})
+#'   (currently available are `smocc`, `terneuzen`,
+#'   `lollypop` and `pops`)
 #' @param period A vector of length 2 with left and right ages
-#'   (decimal age). If \code{length(period) == 0L}, then no curve
+#'   (decimal age). If `length(period) == 0L`, then no curve
 #'   matching is done
 #' @param nmatch     Integer. Number of matches needed. When
-#'   \code{nmatch == 0L} no matches are sought.
+#'   `nmatch == 0L` no matches are sought.
 #' @param user_model Model number (1-4), indicating type of model the
 #'   user wants. See details.
 #' @param exact_sex  A logical indicating whether sex should be
@@ -24,22 +24,22 @@
 #' @param exact_ga   A logical indicating whether gestational age
 #'   should be matched exactly
 #' @param break_ties A logical indicating whether ties should broken
-#'   randomly. The default (\code{TRUE}) breaks ties randomly.
+#'   randomly. The default (`TRUE`) breaks ties randomly.
 #' @param show_realized A logical indicating whether the realized
 #'   growth of the target child should be drawn
 #' @param show_future A logical indicating whether the predicted
 #'   growth of the target child should be drawn
 #' @param clip        A logical indicating whether clipping is needed
-#' @seealso \code{\link[chartcatalog]{create_chartcode}}
+#' @seealso [chartcatalog::create_chartcode()]
 #' @details
-#' # The meaning of the \code{user_model} parameter is as follows:
+#' # The meaning of the `user_model` parameter is as follows:
 #' \describe{
 #' \item{1}{most recent measurement only}
 #' \item{2}{sex + growth curve up to current}
 #' \item{3}{2 + all complete covariates}
 #' \item{4}{3 + growth curves up to current, other measures}
 #' }
-#' @return A \code{gTree} that can be rendered by \code{grid::grid.draw()}.
+#' @return A `gTree` that can be rendered by `grid::grid.draw()`.
 #' @examples
 #' \dontrun{
 #' library(grid)

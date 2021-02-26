@@ -6,29 +6,29 @@
 #' line gives an ugly representation that doesn't follow the real
 #' growth during the interval.
 #'
-#' The \code{curve_interpolation()} function provides a solution
+#' The `curve_interpolation()` function provides a solution
 #' for this. It defines a number of additional points (specified
-#' through the \code{xout} argument), and calculates the linear
+#' through the `xout` argument), and calculates the linear
 #' interpolation between these points in the Z-scores metric. After
 #' that, the procedure transforms back the interpolated Z-scores
 #' to the original scale, so the curve points follow the curvy
 #' centiles.
 #'
 #' @param data A data frame in long format, with columns for person
-#'   number (named \code{id}), the x and y variables.
+#'   number (named `id`), the x and y variables.
 #' @param xname Name of the variable on the horizontal axis.
 #' @param yname Name of the variable on the vertical axis.
 #' @param xout A vector of values for the horizontal axis in the scale
-#'  of the variable \code{xname}. Only \code{xout} points within the
-#'  data range of \code{xname} are interpolated.
+#'  of the variable `xname`. Only `xout` points within the
+#'  data range of `xname` are interpolated.
 #' @param refcode The name of reference needed to calculate the Z-score
 #'  scores and the back-transformation to measured scores. There can only
 #'  be one reference.
-#' @param rule The \code{rule} argument passed down to \code{approx}. The
-#' default here is \code{rule = 2L}, so any extrapolations beyond the
+#' @param rule The `rule` argument passed down to `approx`. The
+#' default here is `rule = 2L`, so any extrapolations beyond the
 #' ranges of the reference take the closest value (min or max).
-#' @return A \code{tibble} with five columns: \code{id}, xname, yname,
-#' zname and \code{obs}. The \code{obs} variables signals whether
+#' @return A `tibble` with five columns: `id`, xname, yname,
+#' zname and `obs`. The `obs` variables signals whether
 #' the point is observed or not.
 #' @seealso [centile::y2z()], [centile::z2y()]
 #' @author Stef van Buuren, 2021

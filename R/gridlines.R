@@ -1,19 +1,19 @@
 #' Draw gridlines for axes object
 #'
 #' Return a grob object that contains graphic object of four axes.
-#' @param xy.axes The axes definition produced by \code{chartdesigner:::axesGrob()$xy.axes}
+#' @param xy.axes The axes definition produced by `chartdesigner:::axesGrob()$xy.axes`
 #' @param at A list of length 2 containing the locations where the grid lines
-#' should be drawn. The first list component contains the values on the \code{x} axis
-#' (for vertical grid lines). The second component the values on the \code{y} axis
+#' should be drawn. The first list component contains the values on the `x` axis
+#' (for vertical grid lines). The second component the values on the `y` axis
 #' (for horizontal grid lines).
 #' @param lwd Scalar or list of length 2 containig line width for grid lines
-#' @param lty Scaler or list of length 2 containing the \code{lty} lint type parameter
+#' @param lty Scaler or list of length 2 containing the `lty` lint type parameter
 #' @param col Scalar or list of length 2 containing color if the grid lines
 #' @param vp Viewport to draw to
-#' @param name name of the \code{grob}
-#' @param \dots Additional argument passed to \code{gpar()}
-#' @return A \code{gTree} that contains the gridlines grobs, under child names
-#' \code{vertical} and \code{horizontal}. A \code{NULL} component does not draw grid lines.
+#' @param name name of the `grob`
+#' @param \dots Additional argument passed to `gpar()`
+#' @return A `gTree` that contains the gridlines grobs, under child names
+#' `vertical` and `horizontal`. A `NULL` component does not draw grid lines.
 gridlinesGrob <- function(xy.axes,
                           at = list(NULL, NULL),
                           lwd = 1,

@@ -1,11 +1,11 @@
 #' Create and plot two visit lines
 #'
-#' @param g A \code{gTree} object, typically loaded by
-#'   \code{chartbox::load_chart()}
+#' @param g A `gTree` object, typically loaded by
+#'   `chartbox::load_chart()`
 #' @param yname     Character indicating the measure
-#' @param period    A vector of length 2 with left and right ages, or \code{numeric(0)} (default) if there are
+#' @param period    A vector of length 2 with left and right ages, or `numeric(0)` (default) if there are
 #'                  no ages
-#' @return An object of class \code{grob} with the visit lines
+#' @return An object of class `grob` with the visit lines
 plot_visit_lines <- function(g, yname, period = numeric(0)) {
   if (!length(period)) {
     return(placeholder("visit_lines"))

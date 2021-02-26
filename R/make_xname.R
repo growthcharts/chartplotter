@@ -2,13 +2,13 @@
 #'
 #' @param yname    String indicating the dependent variable
 #' @param xnames   Character vector of available names to choose from.
-#'   It is assumed all variables named in \code{xnames} have complete
+#'   It is assumed all variables named in `xnames` have complete
 #'   data. Any brokenstick variable should have names like
-#'   \code{paste(yname, d, sep = "_")}, where \code{d} is a vector
+#'   `paste(yname, d, sep = "_")`, where `d` is a vector
 #'   contuining decimal ages.
 #' @param current_age Current age (in decimal years)
 #' @inheritParams process_chart
-#' @return A character vector with the \code{xname} specification
+#' @return A character vector with the `xname` specification
 #' @examples
 #' xnames <- c(
 #'   "sex", "ga", "bw", "hgt_0", "hgt_1", "hgt_3",

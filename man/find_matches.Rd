@@ -29,8 +29,7 @@ default (\code{NULL}) reads from \code{donorloader} package.}
 \code{lollypop} and \code{pops})}
 
 \item{ynames}{A vector with the names of the response variables
-for which matches are sought, e.g. \code{ynames = c("hdc",
-"hgt")}.}
+for which matches are sought, e.g. \code{ynames = c("hdc", "hgt")}.}
 
 \item{nmatch}{Integer. Number of matches needed. When
 \code{nmatch == 0L} no matches are sought.}
@@ -53,14 +52,14 @@ randomly. The default (\code{TRUE}) breaks ties randomly.}
 }
 \value{
 List with components with names \code{ynames}. Each
-  component is a vector of integers representing the id's of the
-  matches cases from \code{donor}. Returns \code{integer(0)} if no
-  matches are found.
+component is a vector of integers representing the id's of the
+matches cases from \code{donor}. Returns \code{integer(0)} if no
+matches are found.
 }
 \description{
 Find matches on all outcomes shown on the active chart
 }
 \seealso{
-\code{\link[curvematching]{calculate_matches}},
-  \code{\link[curvematching]{extract_matches}}
+\code{\link[curvematching:calculate_matches]{curvematching::calculate_matches()}},
+\code{\link[curvematching:extract_matches]{curvematching::extract_matches()}}
 }

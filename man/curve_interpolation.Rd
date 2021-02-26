@@ -69,7 +69,7 @@ int <- curve_interpolation(data,
 int
 }
 \seealso{
-[centile::y2z()], [centile::z2y()]
+\code{\link[centile:y2z]{centile::y2z()}}, \code{\link[centile:z2y]{centile::z2y()}}
 }
 \author{
 Stef van Buuren, 2021

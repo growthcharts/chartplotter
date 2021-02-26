@@ -1,15 +1,15 @@
 #' Find matches on all outcomes shown on the active chart
 #'
 #' @param ynames    A vector with the names of the response variables
-#'   for which matches are sought, e.g. \code{ynames = c("hdc",
-#'   "hgt")}.
+#'   for which matches are sought, e.g. `ynames = c("hdc",
+#'   "hgt")`.
 #' @inheritParams process_chart
-#' @return List with components with names \code{ynames}. Each
+#' @return List with components with names `ynames`. Each
 #'   component is a vector of integers representing the id's of the
-#'   matches cases from \code{donor}. Returns \code{integer(0)} if no
+#'   matches cases from `donor`. Returns `integer(0)` if no
 #'   matches are found.
-#' @seealso \code{\link[curvematching]{calculate_matches}},
-#'   \code{\link[curvematching]{extract_matches}}
+#' @seealso [curvematching::calculate_matches()],
+#'   [curvematching::extract_matches()]
 find_matches <- function(individual,
                          con,
                          dnr,

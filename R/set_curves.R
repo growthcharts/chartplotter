@@ -1,15 +1,15 @@
 #' Set data points in a graphic object
 #'
 #' Sets the data points in a graphic object. The function will identify
-#' and set all \code{ynames} in the graph.
-#' @param g A \code{gTree} object, typically loaded by
-#'   \code{chartbox::load_chart()}
+#' and set all `ynames` in the graph.
+#' @param g A `gTree` object, typically loaded by
+#'   `chartbox::load_chart()`
 #' @param matches List of vector containing the id's of the matches in
 #'   the donor data. List elements should be named after
-#'   \code{ynames}. The default value (\code{NULL}) indicates that no
+#'   `ynames`. The default value (`NULL`) indicates that no
 #'   matches are plotted.
 #' @inheritParams process_chart
-#' @return The grid object \code{g} with data points added.
+#' @return The grid object `g` with data points added.
 #' @export
 set_curves <- function(g, individual,
                        curve_interpolation = TRUE,
