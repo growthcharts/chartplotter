@@ -1,3 +1,7 @@
+# chartplotter 0.19.2
+
+* Make `yname` optional so that it doesn't get stuck on `dsc`
+
 # chartplotter 0.19.1
 
 * `process_chart()` returns early if there are no data
