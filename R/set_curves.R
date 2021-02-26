@@ -80,8 +80,8 @@ set_curves <- function(g, individual,
       xname = first(.data$xname),
       sex = first(.data$sex),
       ga = first(.data$ga),
-      lo = suppressWarnings(min(.data$x)),
-      hi = suppressWarnings(max(.data$x)),
+      lo = suppressWarnings(min(.data$x, na.rm = TRUE)),
+      hi = suppressWarnings(max(.data$x, na.rm = TRUE)),
       .groups = "drop"
     )
   xl <- vector("list", nrow(lohi))

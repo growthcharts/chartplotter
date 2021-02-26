@@ -80,9 +80,16 @@ test_that("D-score prediction does not go beyond 24 months", {
                                    nmatch = 10, show_realized = TRUE, show_future = TRUE))
 })
 
-g <- process_chart(ind, chartcode = "NMBD", period = c(1, 2),
-                   nmatch = 10, show_realized = TRUE, show_future = TRUE)
-grid::grid.draw(g)
+# g <- process_chart(ind, chartcode = "NMBD", period = c(1, 2),
+#                    nmatch = 10, show_realized = TRUE, show_future = TRUE)
+# grid::grid.draw(g)
+
+# correct curve interpolation for WFH
+# ind <- installed.cabinets$terneuzen[["T 163"]]
+# g <- process_chart(ind, chartcode = "NMCR", period = c(10, 20),
+#                    nmatch = 0, show_realized = TRUE, show_future = TRUE)
+# grid::grid.draw(g)
+
 
 # Study conversion
 # fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
