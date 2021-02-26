@@ -1,3 +1,7 @@
+# chartplotter 0.19.7 
+
+* Switch to `markdown` documentation
+
 # chartplotter 0.19.6
 
 * Solves problem with curve interpolation of WFH
