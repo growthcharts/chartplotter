@@ -1,3 +1,7 @@
+# chartplotter 0.19.3
+
+* Silence `pivot_longer()` if no ynames are found
+
 # chartplotter 0.19.2
 
 * Make `yname` optional so that it doesn't get stuck on `dsc`
