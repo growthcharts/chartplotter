@@ -1,3 +1,7 @@
+# chartplotter 0.19.4
+
+* Evade prediction on NULL models
+
 # chartplotter 0.19.3
 
 * Silence `pivot_longer()` if no ynames are found
