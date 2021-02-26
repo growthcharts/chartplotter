@@ -5,9 +5,8 @@
 #' @return `visit_number` returns a vector of length `length(age)`
 #' @rdname visit
 #' @examples
-#' visit_number(age = c(0.5, 1))
-#' visit_number(age = c(0.5, 1), "pops")
-#' @export
+#' chartplotter:::visit_number(age = c(0.5, 1))
+#' chartplotter:::visit_number(age = c(0.5, 1), "pops")
 visit_number <- function(age, dnr = "smocc") {
   brk <- get_breakpoints(dnr)
   round(approx(x = brk$age, y = brk$visit, xout = age, rule = 2)$y)
@@ -19,9 +18,8 @@ visit_number <- function(age, dnr = "smocc") {
 #' @return `visit_age` returns a vector of length `length(number)`
 #' @rdname visit
 #' @examples
-#' visit_age(1:3)
-#' visit_age(1:3, "pops")
-#' @export
+#' chartplotter:::visit_age(1:3)
+#' chartplotter:::visit_age(1:3, "pops")
 visit_age <- function(number, dnr = "smocc") {
   brk <- get_breakpoints(dnr)
   brk[brk$visit %in% number, "age"]
@@ -32,9 +30,8 @@ visit_age <- function(number, dnr = "smocc") {
 #' @rdname visit
 #' @return `visit_label` returns a vector of length `length(number)`
 #' @examples
-#' visit_label(1:3)
-#' visit_label(1:3, "pops")
-#' @export
+#' chartplotter:::visit_label(1:3)
+#' chartplotter:::visit_label(1:3, "pops")
 visit_label <- function(number, dnr = "smocc") {
   brk <- get_breakpoints(dnr)
   brk[brk$visit %in% number, "label"]

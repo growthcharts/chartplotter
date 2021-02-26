@@ -33,7 +33,7 @@ xnames <- c(
 )
 
 # note that it does not return hgt2
-make_xname(
+chartplotter:::make_xname(
   yname = "hgt", xnames = xnames, user_model = 2,
   current_age = 2
 )

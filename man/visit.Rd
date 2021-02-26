@@ -34,10 +34,10 @@ Find the visit age given the visit number and donor data name
 Find the visit label given the visit number and donor data name
 }
 \examples{
-visit_number(age = c(0.5, 1))
-visit_number(age = c(0.5, 1), "pops")
-visit_age(1:3)
-visit_age(1:3, "pops")
-visit_label(1:3)
-visit_label(1:3, "pops")
+chartplotter:::visit_number(age = c(0.5, 1))
+chartplotter:::visit_number(age = c(0.5, 1), "pops")
+chartplotter:::visit_age(1:3)
+chartplotter:::visit_age(1:3, "pops")
+chartplotter:::visit_label(1:3)
+chartplotter:::visit_label(1:3, "pops")
 }

@@ -62,7 +62,7 @@ data <- data.frame(
 )
 refcode <- "nl_1997_hgt_male_nl"
 xout <- seq(0, 3, 0.2)
-int <- curve_interpolation(data,
+int <- chartplotter:::curve_interpolation(data,
   xname = "age", yname = "hgt",
   xout = xout, refcode = refcode
 )
