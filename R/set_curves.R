@@ -119,8 +119,8 @@ set_curves <- function(g, individual,
 
   # calculate brokenstick predictions
   pred <- calc_predictions(data,
-                           chartcode = chartcode, ynames = ynames,
-                           dnr = dnr, period = period
+    chartcode = chartcode, ynames = ynames,
+    dnr = dnr, period = period
   )
 
   # linear interpolation in Z-scale
@@ -186,22 +186,22 @@ set_curves <- function(g, individual,
 
     # plot curves of target individual
     ind_gList <- plot_lines_target(data,
-                                   yname = yname, period = p,
-                                   curve_interpolation = curve_interpolation,
-                                   show_realized = show_realized
+      yname = yname, period = p,
+      curve_interpolation = curve_interpolation,
+      show_realized = show_realized
     )
 
     # plot curves of matches
     mat_gList <- plot_lines_matches(data,
-                                    yname = yname,
-                                    curve_interpolation = curve_interpolation
+      yname = yname,
+      curve_interpolation = curve_interpolation
     )
 
     # calculate "look into future" line
     pre_gList <- plot_lines_prediction(data,
-                                       yname = yname,
-                                       show_future = show_future,
-                                       curve_interpolation = curve_interpolation
+      yname = yname,
+      show_future = show_future,
+      curve_interpolation = curve_interpolation
     )
 
     # now put everything into a clipped grob
