@@ -19,7 +19,7 @@ find_matches(
 }
 \arguments{
 \item{individual}{An S4 object of class \code{individual}
-containing data of the individual}
+containing data of the individual, or \code{NULL}}
 
 \item{con}{A connection on which the donor data reside. The
 default (\code{NULL}) reads from \code{donorloader} package.}

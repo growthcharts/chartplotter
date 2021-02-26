@@ -1,7 +1,7 @@
 #' Plots the growth chart, optionally including matches
 #'
 #' @param individual An S4 object of class \code{individual}
-#'   containing data of the individual
+#'   containing data of the individual, or \code{NULL}
 #' @param chartcode  A string with chart code
 #' @param curve_interpolation A logical indicating whether curve
 #'   interpolation shoud be applied.
@@ -90,12 +90,21 @@ process_chart <- function(individual,
   # load growthchart, return early if there is a problem
   g <- load_chart(chartcode)
   if (is.null(g) || !is.grob(g)) {
-    return(placeholder(name = chartcode))
+    return(placeholder(name = paste("chartcode", chartcode, "not found")))
   }
-  ynames <- get_ynames(chartcode)
+
+  # set the palette
+  parsed <- parse_chartcode(chartcode)
+  old_pal <- palette(chartbox::palettes[parsed$population, ])
+
+  # return empty chart if no data
+  if (!is.individual(individual)) {
+    return(g)
+  }
 
   # calculate matches, if needed
-  if (!nmatch || !length(period) || is.null(individual)) {
+  ynames <- get_ynames(chartcode)
+  if (!nmatch || !length(period)) {
     # no matches needed
     matches <- vector("list", length(ynames))
     names(matches) <- ynames
@@ -115,10 +124,6 @@ process_chart <- function(individual,
       break_ties = break_ties
     )
   }
-
-  # set the palette
-  parsed <- parse_chartcode(chartcode)
-  old_pal <- palette(chartbox::palettes[parsed$population, ])
 
   if (!quiet) cat("chartcode: ", chartcode, "\n")
 

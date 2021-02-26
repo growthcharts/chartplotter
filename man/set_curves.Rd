@@ -22,7 +22,7 @@ set_curves(
 \code{chartbox::load_chart()}}
 
 \item{individual}{An S4 object of class \code{individual}
-containing data of the individual}
+containing data of the individual, or \code{NULL}}
 
 \item{curve_interpolation}{A logical indicating whether curve
 interpolation shoud be applied.}

@@ -91,6 +91,11 @@ test_that("Height plots on NMCH", {
 # ind <- james::convert_bds_ind(txt = msg)
 # g <- process_chart(ind, chartcode = "NJAA")
 
+# test with NULL individual
+# ind <- NULL
+# g <- process_chart(ind, chartcode = "NJAH")
+# grid::grid.draw(g)
+
 # g <- process_chart(ind, chartcode = "NJBH",
 #               dnr = "terneuzen", period = c(0.9, 2),
 #               nmatch = 10, break_ties = TRUE, show_future = TRUE,

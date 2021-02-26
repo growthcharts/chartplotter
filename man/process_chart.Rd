@@ -24,7 +24,7 @@ process_chart(
 }
 \arguments{
 \item{individual}{An S4 object of class \code{individual}
-containing data of the individual}
+containing data of the individual, or \code{NULL}}
 
 \item{chartcode}{A string with chart code}
 
