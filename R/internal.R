@@ -28,7 +28,7 @@ set_xout <- function(chartcode, yname) {
   if (design == "B" & yname == "wfh") {
     return(round(seq(50, 120, by = 2), 4L))
   }
-  if (design == "B" & yname == "hgt") {
+  if (design == "B" & yname %in% c("hgt", "dsc")) {
     return(round(c(0.5, 0.75, 1:48) / 12, 4L))
   }
   if (design == "B" & yname == "hdc") {

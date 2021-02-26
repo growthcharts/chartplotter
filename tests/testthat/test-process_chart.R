@@ -73,6 +73,17 @@ test_that("Height plots on NJCH", {
   expect_silent(process_chart(ind, chartcode = "NJCH"))
 })
 
+# Do not allow D-score prediction beyond 24 months
+ind <- installed.cabinets$smocc[["Laura S"]]
+test_that("D-score prediction does not go beyond 24 months", {
+  expect_silent(g <- process_chart(ind, chartcode = "NMBD", period = c(1, 3),
+                                   nmatch = 10, show_realized = TRUE, show_future = TRUE))
+})
+
+g <- process_chart(ind, chartcode = "NMBD", period = c(1, 2),
+                   nmatch = 10, show_realized = TRUE, show_future = TRUE)
+grid::grid.draw(g)
+
 # Study conversion
 # fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
 # js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)

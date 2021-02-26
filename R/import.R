@@ -7,7 +7,8 @@
 #' @importFrom donorloader   load_data
 #' @importFrom dplyr         %>% all_of any_of arrange as_tibble bind_rows
 #'                           distinct filter first group_by left_join mutate
-#'                           n pull select slice_tail summarise tibble ungroup
+#'                           n pull select slice slice_tail summarise tibble
+#'                           ungroup
 #' @importFrom grDevices     palette
 #' @importFrom grid          clipGrob editGrob gList gPath gTree gpar
 #'                           grid.draw is.grob nullGrob pointsGrob

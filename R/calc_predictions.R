@@ -21,11 +21,19 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
     } else {
       # here we go
 
+      # load with brokenstick model (in Z scale)
+      bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
+
+      # limit the prediction horizon by the last internal knot
+      limit <- ifelse(is.null(bsm),
+                      Inf,
+                      tail(get_knots(bsm, "droplast"), 1L))
+      hi <- min(period[2L], limit)
+
       # grid of data points to append. First = last observation before period[1],
-      # last = period[2], in-between points for curve interpolation
+      # last = hi, in-between points for curve interpolation
       xout <- set_xout(chartcode, yname)
       lo <- min(max(df$x, na.rm = TRUE), period[1L], na.rm = TRUE)
-      hi <- period[2L]
       x <- c(lo, xout[xout > lo & xout < hi], hi)
       n <- length(x)
       add <- dplyr::slice_tail(df, n = 1L) %>%
@@ -41,8 +49,6 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
         )
       df2 <- bind_rows(df, add)
 
-      # predict points with brokenstick model (in Z scale)
-      bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
       if (!is.null(bsm)) {
         z <- tail(predict(bsm, new_data = df2, shape = "vector"), n = n)
       } else {
