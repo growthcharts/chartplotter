@@ -74,7 +74,7 @@ find_matches <- function(individual,
     # predict according to the brokenstick model
     # store predicted Z-scores in last line of data
     if (!is.null(bsm) && nrow(xz)) {
-      zhat <- predict(bsm, xz, x = "knots", shape = "vector")
+      zhat <- predict(bsm, new_data = xz, x = "knots", shape = "vector")
       zhat_names <- paste(yname, "z", get_knots(bsm), sep = "_")
       data[nrow(data), zhat_names] <- as.list(zhat)
     }

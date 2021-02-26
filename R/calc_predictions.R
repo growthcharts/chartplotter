@@ -43,7 +43,11 @@ calc_predictions <- function(data, chartcode, ynames, dnr, period) {
 
       # predict points with brokenstick model (in Z scale)
       bsm <- load_data(dnr = paste0(dnr, "_bs"))[[yname]]
-      z <- tail(predict(bsm, new_data = df2, shape = "vector"), n = n)
+      if (!is.null(bsm)) {
+        z <- tail(predict(bsm, new_data = df2, shape = "vector"), n = n)
+      } else {
+        z <- rep(NA_real_, n)
+      }
 
       # Design decision. We have three possible ways to plot the predicted curve
       # 1) From start to end, plot predictions (there's a jump at start)
