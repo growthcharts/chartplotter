@@ -1,35 +1,15 @@
-# chartplotter 0.19.8
+# chartplotter 0.20.0
 
+* Main release, now completely based on `centile` package
 * Unexport functions for internal use
-
-# chartplotter 0.19.7 
-
 * Switch to `markdown` documentation
-
-# chartplotter 0.19.6
-
 * Solves problem with curve interpolation of WFH
 * Limit prediction horizon to 2 years when there is no model
-
-# chartplotter 0.19.5
-
 * Sets the maximum prediction horizon equal to last internal knot
 * Solves a problem with curve interpolation of the D-score
-
-# chartplotter 0.19.4
-
 * Evades prediction on NULL models
-
-# chartplotter 0.19.3
-
 * Silences `pivot_longer()` if no ynames are found
-
-# chartplotter 0.19.2
-
 * Makes `yname` optional so that it doesn't get stuck on `dsc`
-
-# chartplotter 0.19.1
-
 * `process_chart()` returns early if there are no data
 * Styles the R sources
 
