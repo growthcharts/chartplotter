@@ -50,15 +50,20 @@ set_curves <- function(g, individual,
       select(any_of(c("id", "age", "sex", "ga", "xhgt", yname)))
   }
   time <- time %>%
-    bind_rows() %>%
-    pivot_longer(cols = any_of(ynames), names_to = "yname", values_to = "y") %>%
-    drop_na(.data$y) %>%
-    mutate(
-      x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
-      xname = as.character(ifelse(.data$yname == "wfh", "hgt", "age"))
-    ) %>%
-    arrange(.data$id, .data$yname, .data$x) %>%
-    select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
+    bind_rows()
+  if (!nrow(time)) {
+    time <- time %>%
+      select(all_of(c("id", "sex", "ga")))
+  } else {
+    time <- pivot_longer(cols = any_of(ynames), names_to = "yname", values_to = "y") %>%
+      drop_na(.data$y) %>%
+      mutate(
+        x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
+        xname = as.character(ifelse(.data$yname == "wfh", "hgt", "age"))
+      ) %>%
+      arrange(.data$id, .data$yname, .data$x) %>%
+      select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
+  }
 
   # rbind target and matches
   data <- data %>%
