@@ -1,3 +1,7 @@
+# chartplotter 0.19.8
+
+* Unexport functions for internal use
+
 # chartplotter 0.19.7 
 
 * Switch to `markdown` documentation
