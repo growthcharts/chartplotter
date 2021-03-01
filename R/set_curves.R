@@ -104,13 +104,13 @@ set_curves <- function(g, individual,
   data <- data %>%
     bind_rows(synt) %>%
     arrange(.data$id, .data$yname, .data$x) %>%
-    mutate(refcode_z = jamesyzy::set_refcodes(.)) %>%
+    mutate(refcode_z = nlreferences::set_refcodes(.)) %>%
     mutate(
       z = centile::y2z(
         y = .data$y,
         x = .data$x,
         refcode = .data$refcode_z,
-        pkg = "jamesyzy",
+        pkg = "nlreferences",
         rule = 2L
       ),
       pred = FALSE
@@ -138,7 +138,7 @@ set_curves <- function(g, individual,
       sex = slot(individual, "sex"),
       ga = slot(individual, "ga")
     ) %>%
-    mutate(refcode_y = jamesyzy::set_refcodes(.)) %>%
+    mutate(refcode_y = nlreferences::set_refcodes(.)) %>%
     pull(.data$refcode_y)
 
   # convert to display metric
@@ -149,7 +149,7 @@ set_curves <- function(g, individual,
         z = .data$z,
         x = .data$x,
         refcode = .data$refcode_y,
-        pkg = "jamesyzy",
+        pkg = "nlreferences",
         rule = 2L
       )
     )

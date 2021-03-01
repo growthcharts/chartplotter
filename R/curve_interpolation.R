@@ -71,7 +71,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
       obs = TRUE,
       !!zname := centile::y2z(
         y = data[[yname]], x = data[[xname]],
-        refcode = refcode, pkg = "jamesyzy", rule = rule
+        refcode = refcode, pkg = "nlreferences", rule = rule
       )
     )
 
@@ -134,7 +134,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
     grid <- grid %>%
       mutate(yt = centile::z2y(
         z = .data[[zname]], x = .data[[xname]],
-        refcode = refcode, pkg = "jamesyzy", rule = rule
+        refcode = refcode, pkg = "nlreferences", rule = rule
       ))
 
     # overwrite any NA's in yname

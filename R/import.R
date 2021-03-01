@@ -14,7 +14,7 @@
 #'                           grid.draw is.grob nullGrob pointsGrob
 #'                           polylineGrob removeGrob segmentsGrob
 #'                           setGrob
-#' @importFrom jamesyzy      set_refcodes
+#' @importFrom nlreferences      set_refcodes
 #' @importFrom methods       slot
 #' @importFrom minihealth    individual_to_donordata is.individual
 #' @importFrom rlang         .data :=
