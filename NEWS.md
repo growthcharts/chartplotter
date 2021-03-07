@@ -1,3 +1,7 @@
+# chartplotter 0.20.1
+
+* Updates `ind.rds` to `minihealth 0.90.0`
+
 # chartplotter 0.20.0
 
 * Main release, now completely based on `centile` package
