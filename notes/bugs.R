@@ -8,4 +8,4 @@ Curve interpolation for DSC 0-4 jaar werkt niet - OPGELOST 26feb21
 Predicties voor DSC boven 24m niet toestaan - OPGELOST 26feb21
 Gewicht naar lengte doet geen curve interpolation - OPGELOST 26feb21
 
-Geboortegewicht/lengte wordt niet geplot
+Geboortegewicht/lengte wordt niet geplot - OPLGELOST 07mrt21
