@@ -1,6 +1,7 @@
-# chartplotter 0.20.1
+# chartplotter 0.21.0
 
 * Updates `ind.rds` to `minihealth 0.90.0`
+* Adds a test on testfile 5
 
 # chartplotter 0.20.0
 
