@@ -82,6 +82,15 @@ test_that("D-score prediction does not go beyond 24 months", {
   ))
 })
 
+# Test 5 - errors
+jtf <- system.file("extdata", "test", paste0("test", 1:24, ".json"), package = "jamestest")
+
+test_that("test5.json passes individual_to_donordata()", {
+  expect_message(chartplotter::process_chart(minihealth::convert_bds_individual(jtf[5]),
+                                            chartcode = "NJBA", nmatch = 1, period = c(0, 1)))
+  })
+
+
 # g <- process_chart(ind, chartcode = "NMBD", period = c(1, 2),
 #                    nmatch = 10, show_realized = TRUE, show_future = TRUE)
 # grid::grid.draw(g)
