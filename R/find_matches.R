@@ -112,8 +112,8 @@ find_matches <- function(target,
   # calculate rows of the matches
   for (yname in ynames) {
     m <- calculate_matches2(
-      donor = donor,
-      target = child,
+      data = donor,
+      newdata = child,
       subset = TRUE,
       y_name = paste(yname, "z", period[2L], sep = "_"),
       x_name = xnames[[yname]],
