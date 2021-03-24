@@ -16,7 +16,6 @@
 #'                           polylineGrob removeGrob segmentsGrob
 #'                           setGrob
 #' @importFrom nlreferences  set_refcodes
-#' @importFrom methods       slot
 #' @importFrom rlang         .data :=
 #' @importFrom stats         approx na.omit predict
 #' @importFrom tidyr         drop_na pivot_longer uncount
