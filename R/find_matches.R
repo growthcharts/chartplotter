@@ -10,7 +10,7 @@
 #'   matches are found.
 #' @seealso [curvematching::calculate_matches()],
 #'   [curvematching::extract_matches()]
-find_matches <- function(individual,
+find_matches <- function(target,
                          con,
                          dnr,
                          ynames,
@@ -21,68 +21,69 @@ find_matches <- function(individual,
                          exact_ga = FALSE,
                          break_ties = TRUE) {
 
-  # preliminary exit if we need no matches
   matches <- vector("list", length(ynames))
   names(matches) <- ynames
-  if (length(ynames) == 0L | nmatch == 0L) {
+
+    # return early if needed
+  if (!nmatch || !length(period) || !length(ynames) || !nrow(target)) {
     return(lapply(matches, function(x) integer(0)))
   }
 
-  # convert individual data into donordata format
-  # return if that cannot be done
-  target <- individual_to_donordata(individual)
-  if (nrow(target$child) == 0L) {
-    return(lapply(matches, function(x) integer(0)))
-  }
-  target$child$istarget <- TRUE
-  target$child$keep <- TRUE
+  # initialize person data
+  child <- persondata(target) %>%
+    mutate(istarget = TRUE,
+           keep = TRUE)
 
   # load model collection
   bs <- load_data(dnr = paste0(dnr, "_bs"))
 
   # fetch potential donor data for target
-  donor <- load_data(con = con, dnr = dnr, element = "child")
-  data <- donor %>%
+  # set keep to FALSE if donor$id and child$id match
+  donor <- load_data(con = con, dnr = dnr, element = "child") %>%
     mutate(
-      keep = .data$id != target$child$id,
+      keep = .data$id != (!! child)$id,
       istarget = FALSE
     )
 
-  # add individual data to `donor`
-  # take care that individual data are added as last because calculate_matches()
+  # add target child to `donor`
+  # take care that target child is added as last because calculate_matches()
   # returns the row number
-  data <- data %>%
-    bind_rows(target$child) %>%
-    restore_factors(f = c("sex", "etn", "edu"))
+  # data <- bind_rows(data, child)
+
+  # get the observed target data up to period[1L]
+  xz <- target %>%
+    filter(.data$age <= (!!period)[1L]) %>%
+    mutate(id = (!!child)$id) %>%
+    select(all_of(c("id", "age", "z", "yname")))
 
   # add the brokenstick estimates for target child at all break ages,
   # but using only the child's data up to the "current age" (period[1])
+  hat <- vector("list", length(ynames))
+  names(hat) <- ynames
   for (yname in ynames) {
 
     # get the brokenstick model
     bsm <- bs[[yname]]
 
-    # get the observed target data up to period[1L]
-    if (yname %in% c("wfh")) {
-      xz <- tibble()
-    } else {
-      idx <- target$time$age <= period[1L]
-      zname <- paste(yname, "z", sep = "_")
-      xz <- target$time[idx, c("id", "age", zname, "sex", "ga")]
-    }
+    # prepare child measurements
+    zname <- paste0(yname, "_z")
+    xzy <- xz %>%
+      filter(.data$yname == !! yname) %>%
+      rename(!! zname := .data$z)
 
     # predict according to the brokenstick model
-    # store predicted Z-scores in last line of data
-    if (!is.null(bsm) && nrow(xz)) {
-      zhat <- predict(bsm, new_data = xz, x = "knots", shape = "vector")
-      zhat_names <- paste(yname, "z", get_knots(bsm), sep = "_")
-      data[nrow(data), zhat_names] <- as.list(zhat)
+    # store predicted brokenstick values
+    if (!is.null(bsm) && nrow(xzy)) {
+      zhat <- predict(bsm, new_data = xzy, x = "knots", shape = "vector")
+      names(zhat) <- paste(yname, "z", get_knots(bsm), sep = "_")
+      hat[[yname]] <- data.frame(as.list(zhat))
     }
   }
+  child <- bind_cols(persondata(target), hat)
 
   # names of complete variables in the data
   # Note: 2020/12/31: Selecting the complete variables is very frail
-  xnames_complete <- names(data)[!unlist(lapply(data, anyNA))]
+  xnames_complete <- names(donor)[!unlist(lapply(donor, anyNA))]
 
   # define model variables
   # FIXME
@@ -94,23 +95,23 @@ find_matches <- function(individual,
   e_name <- c("sex", "ga")[c(exact_sex, exact_ga)]
   t_name <- character()
   xnames <- sapply(ynames,
-    function(x) {
-      make_xname(x,
-        xnames_complete,
-        user_model = user_model,
-        current_age = period[1L]
-      )
-    },
-    simplify = FALSE
+                   function(x) {
+                     make_xname(x,
+                                xnames_complete,
+                                user_model = user_model,
+                                current_age = period[1L]
+                     )
+                   },
+                   simplify = FALSE
   )
   names(xnames) <- ynames
 
   # calculate rows of the matches
   for (yname in ynames) {
-    m <- calculate_matches(
-      data = data,
-      condition = .data$istarget == TRUE,
-      subset = .data$keep == TRUE,
+    m <- calculate_matches2(
+      donor = donor,
+      target = child,
+      subset = TRUE,
       y_name = paste(yname, "z", period[2L], sep = "_"),
       x_name = xnames[[yname]],
       e_name = e_name,

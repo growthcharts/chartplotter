@@ -5,7 +5,7 @@
 \title{Find matches on all outcomes shown on the active chart}
 \usage{
 find_matches(
-  individual,
+  target,
   con,
   dnr,
   ynames,
@@ -18,8 +18,8 @@ find_matches(
 )
 }
 \arguments{
-\item{individual}{An S4 object of class \code{individual}
-containing data of the individual, or \code{NULL}}
+\item{target}{Tibble with person data, e.g. as produced by
+\code{bdsreader::read_bds()}}
 
 \item{con}{A connection on which the donor data reside. The
 default (\code{NULL}) reads from \code{donorloader} package.}

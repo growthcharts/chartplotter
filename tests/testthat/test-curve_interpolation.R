@@ -31,7 +31,7 @@ test_that("handles id with all missing outcome measurements", {
   expect_equal(
     curve_interpolation(data2,
       xname = "age", yname = "hgt",
-      xout = seq(0, 1.3, 0.5), ref = refcode
+      xout = seq(0, 1.3, 0.5), refcode = refcode
     )$hgt,
     c(52, 60, 68.077, 75.662, 78, 69, 70, NA, NA)
   )

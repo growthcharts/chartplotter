@@ -6,7 +6,7 @@
 \usage{
 set_curves(
   g,
-  individual,
+  target,
   curve_interpolation = TRUE,
   nmatch = 0L,
   matches = NULL,
@@ -21,8 +21,8 @@ set_curves(
 \item{g}{A \code{gTree} object, typically loaded by
 \code{chartbox::load_chart()}}
 
-\item{individual}{An S4 object of class \code{individual}
-containing data of the individual, or \code{NULL}}
+\item{target}{Tibble with person data, e.g. as produced by
+\code{bdsreader::read_bds()}}
 
 \item{curve_interpolation}{A logical indicating whether curve
 interpolation shoud be applied.}

@@ -1,7 +1,7 @@
 #' Plots the growth chart, optionally including matches
 #'
-#' @param individual An S4 object of class `individual`
-#'   containing data of the individual, or `NULL`
+#' @param target Tibble with person data, e.g. as produced by
+#'   `bdsreader::read_bds()`
 #' @param chartcode  A string with chart code
 #' @param curve_interpolation A logical indicating whether curve
 #'   interpolation shoud be applied.
@@ -43,23 +43,24 @@
 #' @examples
 #' \dontrun{
 #' library(grid)
-#' data("installed.cabinets", package = "jamestest")
-#' ind <- installed.cabinets$smocc[["Laura S"]]
-#' g <- process_chart(ind,
+#' library(bdsreader)
+#' fn <- system.file("examples", "maria.json", package = "bdsreader")
+#' fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+#' target <- read_bds(fn)
+#' g <- process_chart(target,
 #'   chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-#'   dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10
-#' )
+#'   dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10)
 #' grid.draw(g)
 #'
 #' # using lollypop for matching
-#' g <- process_chart(ind,
+#' g <- process_chart(target,
 #'   chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
 #'   dnr = "2-4", period = c(0.5, 1.1667), nmatch = 10
 #' )
 #' grid.draw(g)
 #' }
 #' @export
-process_chart <- function(individual,
+process_chart <- function(target,
                           chartcode,
                           curve_interpolation = TRUE,
                           quiet = TRUE,
@@ -98,7 +99,7 @@ process_chart <- function(individual,
   old_pal <- palette(chartbox::palettes[parsed$population, ])
 
   # return empty chart if no data
-  if (!is.individual(individual)) {
+  if (!nrow(target)) {
     return(g)
   }
 
@@ -112,7 +113,7 @@ process_chart <- function(individual,
   } else {
     # find matches for measurements on chart
     matches <- find_matches(
-      individual = individual,
+      target = target,
       con = con,
       dnr = dnr,
       ynames = ynames,
@@ -129,7 +130,7 @@ process_chart <- function(individual,
 
   # set data points
   set_curves(
-    g = g, individual = individual,
+    g = g, target = target,
     curve_interpolation = curve_interpolation,
     nmatch = nmatch,
     matches = matches,

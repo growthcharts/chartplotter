@@ -3,23 +3,21 @@ context("process_chart")
 library(brokenstick)
 library(nlreferences)
 
-# data("installed.cabinets", package = "jamestest")
-# ind <- installed.cabinets$smocc[["Laura S"]]
+fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+ind <- bdsreader::read_bds(fn)
 
-# g <- process_chart(ind, chartcode = "NJAA",
-#                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
-#
-# test_that("terneuzen donordata yields matches", {
-#   expect_silent(process_chart(ind, chartcode = "NJCH",
-#                    dnr = "terneuzen", period = c(2, 18),
-#                    nmatch = 10, break_ties = TRUE))
-# })
+g <- process_chart(ind, chartcode = "NJAA",
+                  dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
 
-data("installed.cabinets", package = "jamestest")
-ind <- installed.cabinets$smocc[["Laura S"]]
+test_that("terneuzen donordata yields matches", {
+  expect_silent(process_chart(ind, chartcode = "NJCH",
+                   dnr = "terneuzen", period = c(2, 18),
+                   nmatch = 10, break_ties = TRUE))
+})
+
 test_that("prediction line connects last observation to prediction", {
-  # warns for mutate_ in curvematching::calculate_matches()
-  expect_warning(process_chart(ind,
+  # does not warn anymore for mutate_ in curvematching::calculate_matches()
+  expect_silent(process_chart(ind,
     chartcode = "NJCH",
     dnr = "terneuzen", period = c(3, 10),
     nmatch = 25, break_ties = TRUE,
@@ -27,8 +25,8 @@ test_that("prediction line connects last observation to prediction", {
   ))
 })
 
-
-ind <- installed.cabinets$smocc[["Kevin S"]]
+fn <- system.file("extdata", "smocc", "Kevin_S.json", package = "jamestest")
+ind <- bdsreader::read_bds(fn)
 test_that("Kevin S is drawn silently", {
   # warns for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(ind,
@@ -38,7 +36,6 @@ test_that("Kevin S is drawn silently", {
   ))
 })
 
-ind <- installed.cabinets$smocc[["Kevin S"]]
 test_that("Kevin S predict hdc using lollypop", {
   # warns for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(ind,
@@ -48,33 +45,30 @@ test_that("Kevin S predict hdc using lollypop", {
 })
 
 # problematic json file not_a_vector.json identified by Allegro Sultum - Feb 2020
-# library(clopus)
-# fn <- system.file("extdata", "test", "not_a_vector.json", package = "jamestest")
-# js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-# ind <- minihealth::convert_bds_individual(js)
-# saveRDS(ind, file = "inst/testdata/ind.rds")
-
-ind <- readRDS(system.file("testdata", "ind.rds", package = "chartplotter"))
+fn <- system.file("extdata", "test", "not_a_vector.json", package = "jamestest")
+ind <- bdsreader::read_bds(fn)
 test_that("AS case Feb 2020 is silent", {
-  # warns for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(
-    individual = ind, chartcode = "NMAH", dnr = "0-2",
+    target = ind, chartcode = "NMAH", dnr = "0-2",
     period = numeric(0), nmatch = 0
   ))
 })
 
-ind <- installed.cabinets$smocc[["Laura S"]]
+fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+ind <- bdsreader::read_bds(fn)
 test_that("Head circumference plots on NMCO", {
   expect_silent(process_chart(ind, chartcode = "NMCO"))
 })
 
-ind <- installed.cabinets$terneuzen[["T 3254"]]
+fn <- system.file("extdata", "terneuzen", "T_3254.json", package = "jamestest")
+ind <- bdsreader::read_bds(fn)
 test_that("Height plots on NJCH", {
   expect_silent(process_chart(ind, chartcode = "NJCH"))
 })
 
 # Do not allow D-score prediction beyond 24 months
-ind <- installed.cabinets$smocc[["Laura S"]]
+fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+ind <- bdsreader::read_bds(fn)
 test_that("D-score prediction does not go beyond 24 months", {
   expect_silent(g <- process_chart(ind,
     chartcode = "NMBD", period = c(1, 3),
@@ -84,10 +78,10 @@ test_that("D-score prediction does not go beyond 24 months", {
 
 # Test 5 - errors
 jtf <- system.file("extdata", "test", paste0("test", 1:24, ".json"), package = "jamestest")
+ind <- bdsreader::read_bds(jtf[5])
 
 test_that("test5.json passes individual_to_donordata()", {
-  expect_message(chartplotter::process_chart(minihealth::convert_bds_individual(jtf[5]),
-                                            chartcode = "NJBA", nmatch = 1, period = c(0, 1)))
+  expect_silent(process_chart(ind, chartcode = "NJBA", nmatch = 1, period = c(0, 1)))
   })
 
 
@@ -103,12 +97,8 @@ test_that("test5.json passes individual_to_donordata()", {
 
 
 # Study conversion
-# fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
-# js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-# ind <- minihealth::convert_bds_individual(js)
-#g <- process_chart(ind, chartcode = "NMCH")
-#grid::grid.draw(g)
-# ind <- installed.cabinets$terneuzen[["T 6021"]]
+fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
+ind <- bdsreader::read_bds(fn)
 test_that("Height plots on NMCH", {
   expect_silent(process_chart(ind, chartcode = "NMCH"))
 })

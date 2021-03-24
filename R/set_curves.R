@@ -10,7 +10,8 @@
 #'   matches are plotted.
 #' @inheritParams process_chart
 #' @return The grid object `g` with data points added.
-set_curves <- function(g, individual,
+set_curves <- function(g,
+                       target,
                        curve_interpolation = TRUE,
                        nmatch = 0L,
                        matches = NULL,
@@ -24,16 +25,15 @@ set_curves <- function(g, individual,
   if (!nmatch) period <- numeric(0)
 
   # get target data
-  data <- individual %>%
-    data.frame() %>%
-    tibble() %>%
+  child <- persondata(target)
+  data <- target %>%
     select(all_of(c("xname", "yname", "x", "y"))) %>%
     filter(.data$yname %in% ynames) %>%
     tidyr::drop_na(all_of("y")) %>%
     mutate(
       id = -1,
-      sex = slot(individual, "sex"),
-      ga = slot(individual, "ga")
+      sex = child$sex,
+      ga = child$ga
     ) %>%
     select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
 
@@ -135,8 +135,8 @@ set_curves <- function(g, individual,
   # set refcode as target's sex and ga
   refcode_y <- data %>%
     mutate(
-      sex = slot(individual, "sex"),
-      ga = slot(individual, "ga")
+      sex = child$sex,
+      ga = child$ga
     ) %>%
     mutate(refcode_y = nlreferences::set_refcodes(.)) %>%
     pull(.data$refcode_y)
@@ -183,7 +183,7 @@ set_curves <- function(g, individual,
     p <- tx(period)
     visit_lines <- plot_visit_lines(g, yname, p)
 
-    # plot curves of target individual
+    # plot curves of target
     ind_gList <- plot_lines_target(data,
       yname = yname, period = p,
       curve_interpolation = curve_interpolation,

@@ -45,6 +45,7 @@
 #'   xout = xout, refcode = refcode
 #' )
 #' int
+#' @export
 curve_interpolation <- function(data, xname = "x", yname = "y",
                                 xout = numeric(0),
                                 refcode = NULL,

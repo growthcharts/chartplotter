@@ -15,6 +15,7 @@ LazyData: true
 Depends: 
     R (>= 3.5.0)
 Imports: 
+    bdsreader,
     brokenstick (>= 1.1.0),
     centile,
     chartbox (>= 1.2.0),
@@ -26,7 +27,6 @@ Imports:
     grid,
     nlreferences (>= 0.7.0),
     methods,
-    minihealth (>= 0.85.0),
     rlang,
     stats,
     tidyr,
@@ -35,14 +35,14 @@ Suggests:
     jamestest,
     testthat
 Remotes: 
+  growthcharts/bdsreader,
   growthcharts/centile,
   growthcharts/nlreferences,
   stefvanbuuren/chartbox,
   stefvanbuuren/chartcatalog,
-  stefvanbuuren/curvematching,
+  stefvanbuuren/curvematching@bdsreader,
   stefvanbuuren/donorloader,
-  stefvanbuuren/jamestest,
-  stefvanbuuren/minihealth
+  stefvanbuuren/jamestest
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/stefvanbuuren/chartplotter

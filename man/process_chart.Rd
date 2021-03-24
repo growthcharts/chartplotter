@@ -5,7 +5,7 @@
 \title{Plots the growth chart, optionally including matches}
 \usage{
 process_chart(
-  individual,
+  target,
   chartcode,
   curve_interpolation = TRUE,
   quiet = TRUE,
@@ -23,8 +23,8 @@ process_chart(
 )
 }
 \arguments{
-\item{individual}{An S4 object of class \code{individual}
-containing data of the individual, or \code{NULL}}
+\item{target}{Tibble with person data, e.g. as produced by
+\code{bdsreader::read_bds()}}
 
 \item{chartcode}{A string with chart code}
 
@@ -86,16 +86,17 @@ Plots the growth chart, optionally including matches
 \examples{
 \dontrun{
 library(grid)
-data("installed.cabinets", package = "jamestest")
-ind <- installed.cabinets$smocc[["Laura S"]]
-g <- process_chart(ind,
+library(bdsreader)
+fn <- system.file("examples", "maria.json", package = "bdsreader")
+fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+target <- read_bds(fn)
+g <- process_chart(target,
   chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
-  dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10
-)
+  dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10)
 grid.draw(g)
 
 # using lollypop for matching
-g <- process_chart(ind,
+g <- process_chart(target,
   chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
   dnr = "2-4", period = c(0.5, 1.1667), nmatch = 10
 )
