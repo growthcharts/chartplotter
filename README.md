@@ -42,10 +42,11 @@ The main function in `chartplotter` is `process_chart()`.
 
 ``` r
 library(chartplotter)
+library(bdsreader)
 library(svglite)
-data("installed.cabinets", package = "jamestest")
-tgt <- installed.cabinets$smocc[["Laura S"]]
-svglite::svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
+fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+tgt <- bdsreader::read_bds(fn)
+svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
 grid::grid.draw(g)
 dev.off()
@@ -75,12 +76,9 @@ of the prediction.
 
 ``` r
 set.seed(61771)
-svglite::svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(0.25, 3.75), 
                    nmatch = 25, show_future = TRUE)
-#> Warning: `mutate_()` was deprecated in dplyr 0.7.0.
-#> Please use `mutate()` instead.
-#> See vignette('programming') for more help
 grid::grid.draw(g)
 dev.off()
 #> quartz_off_screen 
@@ -103,7 +101,7 @@ Same as before, but now using all data up to (but not beyond) the age of
 smaller.
 
 ``` r
-svglite::svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(2.0, 3.75), 
                    nmatch = 25, show_future = TRUE)
 grid::grid.draw(g)
@@ -124,7 +122,7 @@ Dutch girls, 0-4 years
 ### Example 4: Square plot of height, chart `NMBH`
 
 ``` r
-svglite::svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
+svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
 g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE, dnr = "2-4",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE, show_realized = TRUE)

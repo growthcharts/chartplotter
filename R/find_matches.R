@@ -24,7 +24,7 @@ find_matches <- function(target,
   matches <- vector("list", length(ynames))
   names(matches) <- ynames
 
-    # return early if needed
+  # return early if needed
   if (!nmatch || !length(period) || !length(ynames) || !nrow(target)) {
     return(lapply(matches, function(x) integer(0)))
   }
@@ -64,6 +64,9 @@ find_matches <- function(target,
 
     # get the brokenstick model
     bsm <- bs[[yname]]
+    if (is.null(bsm)) {
+      next
+    }
 
     # prepare child measurements
     zname <- paste0(yname, "_z")

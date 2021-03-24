@@ -53,10 +53,11 @@ The main function in `chartplotter` is `process_chart()`.
 
 ```{r example}
 library(chartplotter)
+library(bdsreader)
 library(svglite)
-data("installed.cabinets", package = "jamestest")
-tgt <- installed.cabinets$smocc[["Laura S"]]
-svglite::svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
+fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+tgt <- bdsreader::read_bds(fn)
+svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
 grid::grid.draw(g)
 dev.off()
@@ -79,7 +80,7 @@ uncertainty of the prediction.
 
 ```{r example2}
 set.seed(61771)
-svglite::svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(0.25, 3.75), 
                    nmatch = 25, show_future = TRUE)
 grid::grid.draw(g)
@@ -97,7 +98,7 @@ the age of 2 years. The variation between the grey curves at age 3y9m is now muc
 
 
 ```{r example3}
-svglite::svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(2.0, 3.75), 
                    nmatch = 25, show_future = TRUE)
 grid::grid.draw(g)
@@ -112,7 +113,7 @@ knitr::include_graphics("figures/chart3.svg")
 ### Example 4: Square plot of height, chart `NMBH`
 
 ```{r example4}
-svglite::svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
+svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
 g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE, dnr = "2-4",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE, show_realized = TRUE)
