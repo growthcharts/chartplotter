@@ -73,7 +73,7 @@ and set all ynames in the graph." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chartplotter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.22.0</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@ and set all <code>ynames</code> in the graph.</p>
 
     <pre class="usage"><span class='fu'>set_curves</span><span class='op'>(</span>
   <span class='va'>g</span>,
-  <span class='va'>individual</span>,
+  <span class='va'>target</span>,
   curve_interpolation <span class='op'>=</span> <span class='cn'>TRUE</span>,
   nmatch <span class='op'>=</span> <span class='fl'>0L</span>,
   matches <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -144,9 +144,9 @@ and set all <code>ynames</code> in the graph.</p>
 <code><a href='https://rdrr.io/pkg/chartbox/man/load_chart.html'>chartbox::load_chart()</a></code></p></td>
     </tr>
     <tr>
-      <th>individual</th>
-      <td><p>An S4 object of class <code>individual</code>
-containing data of the individual, or <code>NULL</code></p></td>
+      <th>target</th>
+      <td><p>Tibble with person data, e.g. as produced by
+<code><a href='https://rdrr.io/pkg/bdsreader/man/read_bds.html'>bdsreader::read_bds()</a></code></p></td>
     </tr>
     <tr>
       <th>curve_interpolation</th>
