@@ -1,3 +1,10 @@
+# chartplotter 0.22.0
+
+* MAJOR UPDATE
+* Replaces `jamestest` by `jamesdemodata` package
+* Replaces `minihealth` by `bdsreader` package
+* Update all code and test files
+
 # chartplotter 0.21.0
 
 * Updates `ind.rds` to `minihealth 0.90.0`
