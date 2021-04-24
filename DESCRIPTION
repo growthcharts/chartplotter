@@ -31,7 +31,7 @@ Imports:
     tidyr,
     utils
 Suggests:
-    jamestest,
+    jamesdemodata,
     testthat
 Remotes: 
   growthcharts/bdsreader,
@@ -41,7 +41,7 @@ Remotes:
   stefvanbuuren/chartcatalog,
   stefvanbuuren/curvematching@bdsreader,
   stefvanbuuren/donorloader,
-  stefvanbuuren/jamestest
+  growthcharts/jamesdemodata
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/stefvanbuuren/chartplotter

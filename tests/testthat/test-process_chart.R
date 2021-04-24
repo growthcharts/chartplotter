@@ -25,7 +25,7 @@ test_that("prediction line connects last observation to prediction", {
   ))
 })
 
-fn <- system.file("extdata", "smocc", "Kevin_S.json", package = "jamestest")
+fn <- system.file("extdata", "bds_str", "smocc", "Kevin_S.json", package = "jamesdemodata")
 ind <- bdsreader::read_bds(fn)
 test_that("Kevin S is drawn silently", {
   # warns for mutate_ in curvematching::calculate_matches()
@@ -45,7 +45,7 @@ test_that("Kevin S predict hdc using lollypop", {
 })
 
 # problematic json file not_a_vector.json identified by Allegro Sultum - Feb 2020
-fn <- system.file("extdata", "test", "not_a_vector.json", package = "jamestest")
+fn <- system.file("extdata", "bds_str", "test", "not_a_vector.json", package = "jamesdemodata")
 ind <- bdsreader::read_bds(fn)
 test_that("AS case Feb 2020 is silent", {
   expect_silent(process_chart(
@@ -60,7 +60,7 @@ test_that("Head circumference plots on NMCO", {
   expect_silent(process_chart(ind, chartcode = "NMCO"))
 })
 
-fn <- system.file("extdata", "terneuzen", "T_3254.json", package = "jamestest")
+fn <- system.file("extdata", "bds_str", "terneuzen", "T_3254.json", package = "jamesdemodata")
 ind <- bdsreader::read_bds(fn)
 test_that("Height plots on NJCH", {
   expect_silent(process_chart(ind, chartcode = "NJCH"))
@@ -77,7 +77,7 @@ test_that("D-score prediction does not go beyond 24 months", {
 })
 
 # Test 5 - errors
-jtf <- system.file("extdata", "test", paste0("test", 1:24, ".json"), package = "jamestest")
+jtf <- system.file("extdata", "bds_str", "test", paste0("test", 1:24, ".json"), package = "jamesdemodata")
 ind <- bdsreader::read_bds(jtf[5])
 
 test_that("test5.json passes individual_to_donordata()", {
@@ -97,7 +97,7 @@ test_that("test5.json passes individual_to_donordata()", {
 
 
 # Study conversion
-fn <- system.file("extdata", "terneuzen", "T_6021.json", package = "jamestest")
+fn <- system.file("extdata", "bds_str", "terneuzen", "T_6021.json", package = "jamesdemodata")
 ind <- bdsreader::read_bds(fn)
 test_that("Height plots on NMCH", {
   expect_silent(process_chart(ind, chartcode = "NMCH"))
