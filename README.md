@@ -32,6 +32,7 @@ well as any of its dependencies:
 ``` r
 install.packages("remotes")
 remotes::install_github("stefvanbuuren/chartplotter")
+remotes::install_github("growthcharts/jamesdemodata")
 ```
 
 ## Example
@@ -44,7 +45,7 @@ The main function in `chartplotter` is `process_chart()`.
 library(chartplotter)
 library(bdsreader)
 library(svglite)
-fn <- system.file("examples", "Laura_S2.json", package = "bdsreader")
+fn <- system.file("extdata", "bds", "smocc", "Laura_S.json", package = "jamesdemodata")
 tgt <- bdsreader::read_bds(fn)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
