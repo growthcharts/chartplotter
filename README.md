@@ -44,7 +44,7 @@ The main function in `chartplotter` is `process_chart()`.
 library(chartplotter)
 library(bdsreader)
 library(svglite)
-fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+fn <- system.file("examples", "Laura_S2.json", package = "bdsreader")
 tgt <- bdsreader::read_bds(fn)
 svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
