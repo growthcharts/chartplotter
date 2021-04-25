@@ -1,3 +1,7 @@
+# chartplotter 0.22.1
+
+* Improves handling of empty `target` object
+
 # chartplotter 0.22.0
 
 * MAJOR UPDATE
