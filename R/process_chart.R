@@ -110,7 +110,7 @@ process_chart <- function(target,
 
   # calculate matches, if needed
   ynames <- get_ynames(chartcode)
-  if (!nmatch || !length(period)) {
+  if (!nmatch || !length(period) || !length(ynames)) {
     # no matches needed
     matches <- vector("list", length(ynames))
     names(matches) <- ynames
