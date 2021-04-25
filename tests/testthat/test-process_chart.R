@@ -3,6 +3,17 @@ context("process_chart")
 library(brokenstick)
 library(nlreferences)
 
+test_that("returns empty chart if there is no person attrbute", {
+          expect_silent(process_chart(NULL, chartcode = "NJAA"))
+})
+
+data <- data.frame()
+attr(data, "person") <- NA_character_
+
+test_that("returns empty chart if there is are no data", {
+  expect_silent(process_chart(data, chartcode = "NJAA"))
+})
+
 fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
 ind <- bdsreader::read_bds(fn)
 

@@ -98,7 +98,12 @@ process_chart <- function(target,
   parsed <- parse_chartcode(chartcode)
   old_pal <- palette(chartbox::palettes[parsed$population, ])
 
-  # return empty chart if no data
+  # return empty chart if target does not have person attribute
+  if (!hasName(attributes(target), "person")) {
+    return(g)
+  }
+
+  # return empty chart if target has zero rows
   if (!nrow(target)) {
     return(g)
   }
