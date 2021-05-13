@@ -4,6 +4,8 @@
 # chartplotter
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/growthcharts/chartplotter/workflows/R-CMD-check/badge.svg)](https://github.com/growthcharts/chartplotter/actions)
 <!-- badges: end -->
 
 The goal of `chartplotter` is to
