@@ -1,5 +1,6 @@
 # chartplotter 0.24.0
 
+* Relocate back to `stefvanbuuren` account
 * Add GHA `R-CMD-check` and `pkgdown`
 
 # chartplotter 0.23.0
