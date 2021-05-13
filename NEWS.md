@@ -1,5 +1,6 @@
-# chartplotter 0.22.1
+# chartplotter 0.23.0
 
+* Relocate dependencies to `growthcharts` organisation
 * Improves handling of empty `target` object
 
 # chartplotter 0.22.0
