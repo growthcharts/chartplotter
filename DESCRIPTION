@@ -44,4 +44,4 @@ Remotes:
     stefvanbuuren/donorloader
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/stefvanbuuren/chartplotter
+URL: https://github.com/growthcharts/chartplotter

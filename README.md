@@ -24,14 +24,14 @@ You need two things in order to install `chartplotter`:
     `Sys.getenv("GITHUB_PAT")` returns your token;
 
 2.  Access to the following private repositories:
-    `stefvanbuuren/curvematching` and `stefvanbuuren/donorloader`.
+    `growthcharts/curvematching` and `stefvanbuuren/donorloader`.
 
 The following statements will install the `chartplotter` package, as
 well as any of its dependencies:
 
 ``` r
 install.packages("remotes")
-remotes::install_github("stefvanbuuren/chartplotter")
+remotes::install_github("growthcharts/chartplotter")
 remotes::install_github("growthcharts/jamesdemodata")
 ```
 
