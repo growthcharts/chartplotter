@@ -1,3 +1,7 @@
+# chartplotter 0.25.0
+
+* Relocate dependencies to `growthcharts` organisation
+
 # chartplotter 0.24.0
 
 * Relocate back to `stefvanbuuren` account

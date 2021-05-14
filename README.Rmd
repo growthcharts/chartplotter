@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # chartplotter
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/stefvanbuuren/chartplotter/workflows/R-CMD-check/badge.svg)](https://github.com/stefvanbuuren/chartplotter/actions)
+[![R-CMD-check](https://github.com/growthcharts/chartplotter/workflows/R-CMD-check/badge.svg)](https://github.com/growthcharts/chartplotter/actions)
 <!-- badges: end -->
 
 The goal of `chartplotter` is to
@@ -43,7 +43,7 @@ well as any of its dependencies:
 
 ```{r eval = FALSE}
 install.packages("remotes")
-remotes::install_github("stefvanbuuren/chartplotter")
+remotes::install_github("growthcharts/chartplotter")
 remotes::install_github("growthcharts/jamesdemodata")
 ```
 

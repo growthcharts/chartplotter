@@ -1,7 +1,7 @@
 Package: chartplotter
 Type: Package
 Title: Analysing and Plotting Growth Curves
-Version: 0.24.0
+Version: 0.25.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: This package plots the target child's growth curves on 
@@ -25,7 +25,7 @@ Imports:
     dplyr,
     grDevices,
     grid,
-    nlreferences (>= 0.7.0),
+    nlreferences,
     rlang,
     stats,
     tidyr,
@@ -44,4 +44,4 @@ Remotes:
     stefvanbuuren/donorloader
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/stefvanbuuren/chartplotter
+URL: https://github.com/growthcharts/chartplotter
