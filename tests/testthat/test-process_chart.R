@@ -15,7 +15,7 @@ test_that("returns empty chart if there is are no data", {
 })
 
 fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
-ind <- bdsreader::read_bds(fn)
+ind <- bdsreader::read_bds(fn, schema = "bds_schema_str.json")
 
 g <- process_chart(ind, chartcode = "NJAA",
                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
