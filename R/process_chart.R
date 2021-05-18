@@ -109,7 +109,7 @@ process_chart <- function(target,
   }
 
   # calculate matches, if needed
-  ynames <- get_ynames(chartcode)
+  ynames <- unname(chartcatalog::get_ynames(chartcode))
 
   # return empty chart if there's nothing to plot
   if (!length(ynames)) {
@@ -141,7 +141,7 @@ process_chart <- function(target,
 
   # set data points
   set_curves(
-    g = g, target = target,
+    g = g, target = target, ynames = ynames,
     curve_interpolation = curve_interpolation,
     nmatch = nmatch,
     matches = matches,

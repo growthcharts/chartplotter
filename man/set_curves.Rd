@@ -7,6 +7,7 @@
 set_curves(
   g,
   target,
+  ynames,
   curve_interpolation = TRUE,
   nmatch = 0L,
   matches = NULL,
@@ -23,6 +24,9 @@ set_curves(
 
 \item{target}{Tibble with person data, e.g. as produced by
 \code{bdsreader::read_bds()}}
+
+\item{ynames}{A vector with the names of the response variables
+for which matches are sought, e.g. \code{ynames = c("hdc", "hgt")}.}
 
 \item{curve_interpolation}{A logical indicating whether curve
 interpolation shoud be applied.}

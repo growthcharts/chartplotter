@@ -4,6 +4,9 @@
 #' and set all `ynames` in the graph.
 #' @param g A `gTree` object, typically loaded by
 #'   `chartbox::load_chart()`
+#' @param ynames    A vector with the names of the response variables
+#'   for which matches are sought, e.g. `ynames = c("hdc",
+#'   "hgt")`.
 #' @param matches List of vector containing the id's of the matches in
 #'   the donor data. List elements should be named after
 #'   `ynames`. The default value (`NULL`) indicates that no
@@ -12,6 +15,7 @@
 #' @return The grid object `g` with data points added.
 set_curves <- function(g,
                        target,
+                       ynames,
                        curve_interpolation = TRUE,
                        nmatch = 0L,
                        matches = NULL,
@@ -21,7 +25,6 @@ set_curves <- function(g,
                        show_future = FALSE,
                        clip = TRUE) {
   chartcode <- g$name
-  ynames <- unname(chartcatalog::get_ynames(chartcode))
   if (!nmatch) period <- numeric(0)
 
   # get target data
