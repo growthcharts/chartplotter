@@ -15,7 +15,6 @@ LazyData: true
 Depends: 
     R (>= 3.5.0)
 Imports: 
-    bdsreader,
     brokenstick (>= 1.1.0),
     centile,
     chartbox (>= 1.2.0),
@@ -31,6 +30,7 @@ Imports:
     tidyr,
     utils
 Suggests:
+    bdsreader,
     jamesdemodata,
     testthat
 Remotes: 

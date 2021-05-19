@@ -83,3 +83,11 @@ safe_approx <- function(x, y = NULL, xout, method = "linear", n = 50,
     rule = rule, f = f, ties = ties, na.rm = na.rm
   )
 }
+
+persondata <- function(x) {
+  p <- attr(x, "person")
+  if (is.null(p)) {
+    stop("Found no person attribute.")
+  }
+  p %>% select(-all_of(c("dob")))
+}

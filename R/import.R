@@ -1,4 +1,3 @@
-#' @importFrom bdsreader     persondata
 #' @importFrom brokenstick   get_knots
 #' @importFrom centile       y2z z2y
 #' @importFrom chartbox      load_chart

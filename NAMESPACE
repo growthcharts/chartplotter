@@ -2,7 +2,6 @@
 
 export(curve_interpolation)
 export(process_chart)
-importFrom(bdsreader,persondata)
 importFrom(brokenstick,get_knots)
 importFrom(centile,y2z)
 importFrom(centile,z2y)
