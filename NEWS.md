@@ -1,15 +1,20 @@
+# chartplotter 0.26.0
+
+* Solves problem with chart without `ynames`
+* Adds some tweaks to GitHub Actions scripts
+
 # chartplotter 0.25.0
 
-* Relocate dependencies to `growthcharts` organisation
+* Relocates dependencies to `growthcharts` organisation
 
 # chartplotter 0.24.0
 
-* Relocate back to `stefvanbuuren` account
-* Add GHA `R-CMD-check` and `pkgdown`
+* Relocates back to `stefvanbuuren` account
+* Adds GHA `R-CMD-check` and `pkgdown`
 
 # chartplotter 0.23.0
 
-* Relocate dependencies to `growthcharts` organisation
+* Relocates dependencies to `growthcharts` organisation
 * Improves handling of empty `target` object
 
 # chartplotter 0.22.0
