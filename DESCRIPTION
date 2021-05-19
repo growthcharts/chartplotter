@@ -41,7 +41,7 @@ Remotes:
     growthcharts/curvematching,
     growthcharts/jamesdemodata,
     growthcharts/nlreferences,
-    stefvanbuuren/donorloader
+    growthcharts/donorloader
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/growthcharts/chartplotter
