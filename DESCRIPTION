@@ -11,7 +11,6 @@ Description: This package plots the target child's growth curves on
     prediction.
 License: AGPL (>= 3)
 Encoding: UTF-8
-LazyData: true
 Depends: 
     R (>= 3.5.0)
 Imports: 
