@@ -44,7 +44,7 @@ jobs:
 
       - name: Query dependencies
         env:
-          GITHUB_PAT: ${{ secrets.CHARTPLOTTER_ONLY_TOKEN }}
+          GITHUB_PAT: ${{ secrets.REPO_ONLY_TOKEN }}
         run: |
           install.packages('remotes')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
@@ -69,7 +69,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          GITHUB_PAT: ${{ secrets.CHARTPLOTTER_ONLY_TOKEN }}
+          GITHUB_PAT: ${{ secrets.REPO_ONLY_TOKEN }}
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
@@ -78,7 +78,7 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
-          GITHUB_PAT: ${{ secrets.CHARTPLOTTER_ONLY_TOKEN }}
+          GITHUB_PAT: ${{ secrets.REPO_ONLY_TOKEN }}
         run: |
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
