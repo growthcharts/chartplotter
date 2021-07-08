@@ -1,3 +1,7 @@
+# chartplotter 0.27.0
+
+* Supports the new `format` arguments in `bdsreader::read_bds()`
+
 # chartplotter 0.26.0
 
 * Solves problem with chart without `ynames`
