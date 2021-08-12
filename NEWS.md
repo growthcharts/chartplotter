@@ -1,3 +1,7 @@
+# chartplotter 0.27.1
+
+* Use data from the `jamesdemodata` rather than `bdsreader` package
+
 # chartplotter 0.27.0
 
 * Supports the new `format` arguments in `bdsreader::read_bds()`
