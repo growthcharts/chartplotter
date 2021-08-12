@@ -14,7 +14,7 @@ test_that("returns empty chart if there is are no data", {
   expect_silent(process_chart(data, chartcode = "NJAA"))
 })
 
-fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
 ind <- bdsreader::read_bds(fn, format = 1)
 
 g <- process_chart(ind, chartcode = "NJAA",
@@ -65,7 +65,7 @@ test_that("AS case Feb 2020 is silent", {
   ))
 })
 
-fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
 ind <- bdsreader::read_bds(fn, format = 1)
 test_that("Head circumference plots on NMCO", {
   expect_silent(process_chart(ind, chartcode = "NMCO"))
@@ -78,7 +78,7 @@ test_that("Height plots on NJCH", {
 })
 
 # Do not allow D-score prediction beyond 24 months
-fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
+fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
 ind <- bdsreader::read_bds(fn, format = 1)
 test_that("D-score prediction does not go beyond 24 months", {
   expect_silent(g <- process_chart(ind,

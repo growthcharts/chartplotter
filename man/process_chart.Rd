@@ -86,10 +86,8 @@ Plots the growth chart, optionally including matches
 \examples{
 \dontrun{
 library(grid)
-library(bdsreader)
-fn <- system.file("examples", "maria.json", package = "bdsreader")
-fn <- system.file("examples", "Laura_S.json", package = "bdsreader")
-target <- read_bds(fn)
+fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json", package = "jamesdemodata")
+target <- bdsreader::read_bds(fn)
 g <- process_chart(target,
   chartcode = "NJAA", show_realized = TRUE, show_future = TRUE,
   dnr = "0-2", period = c(0.5, 1.1667), nmatch = 10)
