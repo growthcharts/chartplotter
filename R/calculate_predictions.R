@@ -3,7 +3,7 @@ calculate_predictions <- function(data, chartcode, ynames, dnr, period) {
   names(predlist) <- ynames
   vars <- names(data)
 
-  # prepare data and new_data
+  # prepare data and newdata
   for (yname in ynames) {
     zname <- paste0(yname, "_z")
     df <- data %>%
@@ -52,7 +52,7 @@ calculate_predictions <- function(data, chartcode, ynames, dnr, period) {
       df2 <- bind_rows(df, add)
 
       if (!is.null(bsm)) {
-        z <- tail(predict(bsm, new_data = df2, shape = "vector"), n = n)
+        z <- tail(predict(bsm, newdata = df2, shape = "vector"), n = n)
       } else {
         z <- rep(NA_real_, n)
       }

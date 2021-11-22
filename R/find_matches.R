@@ -77,7 +77,7 @@ find_matches <- function(target,
     # predict according to the brokenstick model
     # store predicted brokenstick values
     if (!is.null(bsm) && nrow(xzy)) {
-      zhat <- predict(bsm, new_data = xzy, x = "knots", shape = "vector")
+      zhat <- predict(bsm, newdata = xzy, x = "knots", shape = "vector")
       names(zhat) <- paste(yname, "z", get_knots(bsm), sep = "_")
       hat[[yname]] <- data.frame(as.list(zhat))
     }
