@@ -1,3 +1,9 @@
+# chartplotter 0.28.0
+
+- Replaces `new_data` by `newdata` for `brokenstick 2.0.0` package
+- Removes `format = 1` arguments for `read_bds()` in tests
+- Update dependency versions to `brokenstick 2.0.0` and `donorloader 0.31.1`
+
 # chartplotter 0.27.1
 
 * Use data from the `jamesdemodata` rather than `bdsreader` package

@@ -18,15 +18,8 @@ The goal of `chartplotter` is to
 
 ## Installation
 
-You need two things in order to install `chartplotter`:
-
-1.  A personal access token (PAT) from
-    <https://github.com/settings/tokens>. I assume the token is stored
-    in the environmental variable `GITHUB_PAT`, so that
-    `Sys.getenv("GITHUB_PAT")` returns your token;
-
-2.  Access to the following private repositories:
-    `growthcharts/curvematching` and `stefvanbuuren/donorloader`.
+You need access to `growthcharts/donorloader` in order to install
+`chartplotter`.
 
 The following statements will install the `chartplotter` package, as
 well as any of its dependencies:
@@ -57,14 +50,7 @@ dev.off()
 #>                 2
 ```
 
-<div class="figure" style="text-align: center">
-
-<img src="figures/chart1.svg" alt="Dutch girls, 0-4 years" width="100%" />
-<p class="caption">
-Dutch girls, 0-4 years
-</p>
-
-</div>
+<img src="figures/chart1.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 2: Predict height at 3y9m when child is 3 months
 
@@ -88,14 +74,7 @@ dev.off()
 #>                 2
 ```
 
-<div class="figure" style="text-align: center">
-
-<img src="figures/chart2.svg" alt="Dutch girls, 0-4 years" width="100%" />
-<p class="caption">
-Dutch girls, 0-4 years
-</p>
-
-</div>
+<img src="figures/chart2.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 3: Predict height at 3y9m when child is 2 years
 
@@ -113,14 +92,7 @@ dev.off()
 #>                 2
 ```
 
-<div class="figure" style="text-align: center">
-
-<img src="figures/chart3.svg" alt="Dutch girls, 0-4 years" width="100%" />
-<p class="caption">
-Dutch girls, 0-4 years
-</p>
-
-</div>
+<img src="figures/chart3.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 4: Square plot of height, chart `NMBH`
 
@@ -136,11 +108,4 @@ dev.off()
 #>                 2
 ```
 
-<div class="figure" style="text-align: center">
-
-<img src="figures/chart4.svg" alt="Dutch girls, 0-4 years" width="100%" />
-<p class="caption">
-Dutch girls, 0-4 years
-</p>
-
-</div>
+<img src="figures/chart4.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />

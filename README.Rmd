@@ -28,15 +28,7 @@ The goal of `chartplotter` is to
 
 ## Installation
 
-You need two things in order to install `chartplotter`:
-
-1. A personal access token (PAT) from
-<https://github.com/settings/tokens>. I assume the token is stored in
-the environmental variable `GITHUB_PAT`, so that
-`Sys.getenv("GITHUB_PAT")` returns your token;
-
-2. Access to the following private repositories:
-`growthcharts/curvematching` and `stefvanbuuren/donorloader`.
+You need access to `growthcharts/donorloader` in order to install `chartplotter`.
 
 The following statements will install the `chartplotter` package, as
 well as any of its dependencies:
