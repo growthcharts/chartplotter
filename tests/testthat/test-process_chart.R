@@ -15,7 +15,7 @@ test_that("returns empty chart if there is are no data", {
 })
 
 fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
-ind <- bdsreader::read_bds(fn, format = 1)
+ind <- bdsreader::read_bds(fn)
 
 g <- process_chart(ind, chartcode = "NJAA",
                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
@@ -37,7 +37,7 @@ test_that("prediction line connects last observation to prediction", {
 })
 
 fn <- system.file("extdata", "bds_v1.0", "smocc", "Kevin_S.json", package = "jamesdemodata")
-ind <- bdsreader::read_bds(fn, format = 1)
+ind <- bdsreader::read_bds(fn)
 test_that("Kevin S is drawn silently", {
   # warns for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(ind,
@@ -57,7 +57,7 @@ test_that("Kevin S predict hdc using lollypop", {
 
 # problematic json file not_a_vector.json identified by Allegro Sultum - Feb 2020
 fn <- system.file("extdata", "bds_v1.0", "test", "not_a_vector.json", package = "jamesdemodata")
-ind <- bdsreader::read_bds(fn, format = 1)
+ind <- bdsreader::read_bds(fn)
 test_that("AS case Feb 2020 is silent", {
   expect_silent(process_chart(
     target = ind, chartcode = "NMAH", dnr = "0-2",
@@ -66,20 +66,20 @@ test_that("AS case Feb 2020 is silent", {
 })
 
 fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
-ind <- bdsreader::read_bds(fn, format = 1)
+ind <- bdsreader::read_bds(fn)
 test_that("Head circumference plots on NMCO", {
   expect_silent(process_chart(ind, chartcode = "NMCO"))
 })
 
 fn <- system.file("extdata", "bds_v1.0", "terneuzen", "T_3254.json", package = "jamesdemodata")
-ind <- bdsreader::read_bds(fn, format = 1)
+ind <- bdsreader::read_bds(fn)
 test_that("Height plots on NJCH", {
   expect_silent(process_chart(ind, chartcode = "NJCH"))
 })
 
 # Do not allow D-score prediction beyond 24 months
 fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
-ind <- bdsreader::read_bds(fn, format = 1)
+ind <- bdsreader::read_bds(fn)
 test_that("D-score prediction does not go beyond 24 months", {
   expect_silent(g <- process_chart(ind,
     chartcode = "NMBD", period = c(1, 3),
@@ -89,7 +89,7 @@ test_that("D-score prediction does not go beyond 24 months", {
 
 # Test 5 - errors
 jtf <- system.file("extdata", "bds_v1.0", "test", paste0("test", 1:24, ".json"), package = "jamesdemodata")
-ind <- bdsreader::read_bds(jtf[5], format = 1)
+ind <- bdsreader::read_bds(jtf[5])
 
 test_that("test5.json passes individual_to_donordata()", {
   expect_silent(process_chart(ind, chartcode = "NJBA", nmatch = 1, period = c(0, 1)))
@@ -109,7 +109,7 @@ test_that("test5.json passes individual_to_donordata()", {
 
 # Study conformat
 fn <- system.file("extdata", "bds_v1.0", "terneuzen", "T_6021.json", package = "jamesdemodata")
-ind <- bdsreader::read_bds(fn, format = 1)
+ind <- bdsreader::read_bds(fn)
 test_that("Height plots on NMCH", {
   expect_silent(process_chart(ind, chartcode = "NMCH"))
 })
