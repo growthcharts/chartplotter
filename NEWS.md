@@ -1,3 +1,7 @@
+# chartplotter 0.29.0
+
+- Replaces "tibble with attribute" by list with elements `psn` and `xyz`
+
 # chartplotter 0.28.0
 
 - Replaces `new_data` by `newdata` for `brokenstick 2.0.0` package
