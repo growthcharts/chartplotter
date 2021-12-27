@@ -29,7 +29,7 @@ Imports:
     tidyr,
     utils
 Suggests:
-    bdsreader,
+    bdsreader (>= 0.16.1),
     jamesdemodata,
     testthat
 Remotes: 
