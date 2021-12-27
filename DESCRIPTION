@@ -43,3 +43,4 @@ Remotes:
     growthcharts/donorloader
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/growthcharts/chartplotter
+RoxygenNote: 7.1.2

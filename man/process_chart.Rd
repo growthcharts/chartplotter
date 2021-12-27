@@ -23,7 +23,7 @@ process_chart(
 )
 }
 \arguments{
-\item{target}{Tibble with person data, e.g. as produced by
+\item{target}{A list with elements \code{"psn"} and \code{"xyz"}, e.g. as produced by
 \code{bdsreader::read_bds()}}
 
 \item{chartcode}{A string with chart code}

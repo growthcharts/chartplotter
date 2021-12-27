@@ -86,12 +86,14 @@ safe_approx <- function(x, y = NULL, xout, method = "linear", n = 50,
 
 # from bdsreader
 persondata <- function(x) {
-  stopifnot(inherits(x, "target"))
-  return(x$psn)
+  stopifnot(is.list(x))
+  stopifnot("psn" %in% names(x))
+  return(x[["psn"]])
 }
 
 # from bdsreader
 timedata <- function(x) {
-  stopifnot(inherits(x, "target"))
-  return(x$xyz)
+  stopifnot(is.list(x))
+  stopifnot("xyz" %in% names(x))
+  return(x[["xyz"]])
 }

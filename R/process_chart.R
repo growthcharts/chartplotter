@@ -1,6 +1,6 @@
 #' Plots the growth chart, optionally including matches
 #'
-#' @param target An object of class `target`, e.g. as produced by
+#' @param target A list with elements `"psn"` and `"xyz"`, e.g. as produced by
 #'   `bdsreader::read_bds()`
 #' @param chartcode  A string with chart code
 #' @param curve_interpolation A logical indicating whether curve
@@ -96,8 +96,8 @@ process_chart <- function(target,
   parsed <- parse_chartcode(chartcode)
   old_pal <- palette(chartbox::palettes[parsed$population, ])
 
-  # return empty chart if target is not of class target
-  if (!inherits(target, "target")) {
+  # return empty chart if target is not a list
+  if (!is.list(target)) {
     return(g)
   }
 

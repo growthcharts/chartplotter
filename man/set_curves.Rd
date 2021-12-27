@@ -22,7 +22,7 @@ set_curves(
 \item{g}{A \code{gTree} object, typically loaded by
 \code{chartbox::load_chart()}}
 
-\item{target}{Tibble with person data, e.g. as produced by
+\item{target}{A list with elements \code{"psn"} and \code{"xyz"}, e.g. as produced by
 \code{bdsreader::read_bds()}}
 
 \item{ynames}{A vector with the names of the response variables

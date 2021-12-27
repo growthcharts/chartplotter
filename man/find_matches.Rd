@@ -18,7 +18,7 @@ find_matches(
 )
 }
 \arguments{
-\item{target}{Tibble with person data, e.g. as produced by
+\item{target}{A list with elements \code{"psn"} and \code{"xyz"}, e.g. as produced by
 \code{bdsreader::read_bds()}}
 
 \item{con}{A connection on which the donor data reside. The
