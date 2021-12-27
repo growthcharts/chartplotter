@@ -29,7 +29,8 @@ set_curves <- function(g,
 
   # get target data
   child <- persondata(target)
-  data <- target %>%
+  time <- timedata(target)
+  data <- time %>%
     select(all_of(c("xname", "yname", "x", "y"))) %>%
     filter(.data$yname %in% ynames) %>%
     tidyr::drop_na(all_of("y")) %>%

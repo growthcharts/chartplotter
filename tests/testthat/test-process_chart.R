@@ -3,15 +3,18 @@ context("process_chart")
 library(brokenstick)
 library(nlreferences)
 
-test_that("returns empty chart if there is no person attrbute", {
+test_that("returns empty chart if not of class target", {
           expect_silent(process_chart(NULL, chartcode = "NJAA"))
 })
 
-data <- data.frame()
-attr(data, "person") <- NA_character_
+target <- list(
+  psn = NA_character_,
+  xyz = data.frame()
+)
+class(target) <- "target"
 
 test_that("returns empty chart if there is are no data", {
-  expect_silent(process_chart(data, chartcode = "NJAA"))
+  expect_silent(process_chart(target, chartcode = "NJAA"))
 })
 
 fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")

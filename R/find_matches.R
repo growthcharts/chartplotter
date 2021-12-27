@@ -20,19 +20,19 @@ find_matches <- function(target,
                          exact_sex = FALSE,
                          exact_ga = FALSE,
                          break_ties = TRUE) {
-
   matches <- vector("list", length(ynames))
   names(matches) <- ynames
 
-  # return early if needed
-  if (!nmatch || !length(period) || !length(ynames) || !nrow(target)) {
-    return(lapply(matches, function(x) integer(0)))
-  }
-
-  # initialize person data
+  # initialize child and time data
   child <- persondata(target) %>%
     mutate(istarget = TRUE,
            keep = TRUE)
+  time <- timedata(target)
+
+  # return early if needed
+  if (!nmatch || !length(period) || !length(ynames) || !nrow(time)) {
+    return(lapply(matches, function(x) integer(0)))
+  }
 
   # load model collection
   bs <- load_data(dnr = paste0(dnr, "_bs"))
@@ -51,7 +51,7 @@ find_matches <- function(target,
   # data <- bind_rows(data, child)
 
   # get the observed target data up to period[1L]
-  xz <- target %>%
+  xz <- time %>%
     filter(.data$age <= (!!period)[1L]) %>%
     mutate(id = (!!child)$id) %>%
     select(all_of(c("id", "age", "z", "yname")))

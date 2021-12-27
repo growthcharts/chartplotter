@@ -84,10 +84,14 @@ safe_approx <- function(x, y = NULL, xout, method = "linear", n = 50,
   )
 }
 
+# from bdsreader
 persondata <- function(x) {
-  p <- attr(x, "person")
-  if (is.null(p)) {
-    stop("Found no person attribute.")
-  }
-  p %>% select(-all_of(c("dob")))
+  stopifnot(inherits(x, "target"))
+  return(x$psn)
+}
+
+# from bdsreader
+timedata <- function(x) {
+  stopifnot(inherits(x, "target"))
+  return(x$xyz)
 }

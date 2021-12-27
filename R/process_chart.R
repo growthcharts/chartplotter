@@ -1,6 +1,6 @@
 #' Plots the growth chart, optionally including matches
 #'
-#' @param target Tibble with person data, e.g. as produced by
+#' @param target An object of class `target`, e.g. as produced by
 #'   `bdsreader::read_bds()`
 #' @param chartcode  A string with chart code
 #' @param curve_interpolation A logical indicating whether curve
@@ -96,13 +96,14 @@ process_chart <- function(target,
   parsed <- parse_chartcode(chartcode)
   old_pal <- palette(chartbox::palettes[parsed$population, ])
 
-  # return empty chart if target does not have person attribute
-  if (!hasName(attributes(target), "person")) {
+  # return empty chart if target is not of class target
+  if (!inherits(target, "target")) {
     return(g)
   }
 
-  # return empty chart if target has zero rows
-  if (!nrow(target)) {
+  # return empty chart if time target has zero rows
+  time <- timedata(target)
+  if (!nrow(time)) {
     return(g)
   }
 
