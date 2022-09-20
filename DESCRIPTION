@@ -1,7 +1,7 @@
 Package: chartplotter
 Type: Package
 Title: Analysing and Plotting Growth Curves
-Version: 0.29.0
+Version: 0.30.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: This package plots the target child's growth curves on 
@@ -14,12 +14,12 @@ Encoding: UTF-8
 Depends: 
     R (>= 3.5.0)
 Imports: 
-    brokenstick (>= 2.0.0),
+    brokenstick (>= 2.3.0),
     centile,
-    chartbox (>= 1.2.0),
-    chartcatalog (>= 1.4.0),
-    curvematching (>= 0.12.0),
-    donorloader (>= 0.31.1),
+    chartbox (>= 1.11.0),
+    chartcatalog (>= 1.10.0),
+    curvematching (>= 0.13.1),
+    donorloader (>= 0.32.0),
     dplyr,
     grDevices,
     grid,
@@ -43,4 +43,4 @@ Remotes:
     growthcharts/donorloader
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/growthcharts/chartplotter
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1

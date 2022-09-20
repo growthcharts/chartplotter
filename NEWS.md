@@ -1,3 +1,7 @@
+# chartplotter 0.30.0
+
+- Repairs bug introduced by new behavior of `predict()` from `brokenstick 2.3.0`
+
 # chartplotter 0.29.0
 
 - Replaces "tibble with attribute" by list with elements `psn` and `xyz`

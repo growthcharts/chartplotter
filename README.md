@@ -50,7 +50,7 @@ dev.off()
 #>                 2
 ```
 
-<img src="figures/chart1.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
+<img src="figures/chart1.svg" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 2: Predict height at 3y9m when child is 3 months
 
@@ -74,7 +74,7 @@ dev.off()
 #>                 2
 ```
 
-<img src="figures/chart2.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
+<img src="figures/chart2.svg" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 3: Predict height at 3y9m when child is 2 years
 
@@ -92,7 +92,7 @@ dev.off()
 #>                 2
 ```
 
-<img src="figures/chart3.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
+<img src="figures/chart3.svg" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
 
 ### Example 4: Square plot of height, chart `NMBH`
 
@@ -108,4 +108,4 @@ dev.off()
 #>                 2
 ```
 
-<img src="figures/chart4.svg" title="Dutch girls, 0-4 years" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
+<img src="figures/chart4.svg" alt="Dutch girls, 0-4 years" width="100%" style="display: block; margin: auto;" />
