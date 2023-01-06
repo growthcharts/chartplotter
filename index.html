@@ -23,6 +23,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -35,18 +37,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">chartplotter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.24.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.31.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -56,7 +52,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/stefvanbuuren/chartplotter/">
+  <a href="https://github.com/growthcharts/chartplotter/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -73,9 +69,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="chartplotter" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#chartplotter" class="anchor"></a>chartplotter</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="chartplotter">chartplotter<a class="anchor" aria-label="anchor" href="#chartplotter"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>The goal of <code>chartplotter</code> is to</p>
@@ -86,97 +82,93 @@
 <li>predict the most likely future visit value;</li>
 <li>represent the inherent uncertainty of the prediction.</li>
 </ul>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You need two things in order to install <code>chartplotter</code>:</p>
-<ol>
-<li><p>A personal access token (PAT) from <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>. I assume the token is stored in the environmental variable <code>GITHUB_PAT</code>, so that <code><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv("GITHUB_PAT")</a></code> returns your token;</p></li>
-<li><p>Access to the following private repositories: <code>growthcharts/curvematching</code> and <code>stefvanbuuren/donorloader</code>.</p></li>
-</ol>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You need access to <code>growthcharts/donorloader</code> in order to install <code>chartplotter</code>.</p>
 <p>The following statements will install the <code>chartplotter</code> package, as well as any of its dependencies:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"stefvanbuuren/chartplotter"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"growthcharts/jamesdemodata"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"growthcharts/chartplotter"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"growthcharts/jamesdemodata"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>The main function in <code>chartplotter</code> is <code><a href="reference/process_chart.html">process_chart()</a></code>.</p>
-<div id="example-1-plot-childs-data-onto-a-growth-chart" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-1-plot-childs-data-onto-a-growth-chart" class="anchor"></a>Example 1: Plot child’s data onto a growth chart</h3>
+<div class="section level3">
+<h3 id="example-1-plot-childs-data-onto-a-growth-chart">Example 1: Plot child’s data onto a growth chart<a class="anchor" aria-label="anchor" href="#example-1-plot-childs-data-onto-a-growth-chart"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stefvanbuuren/chartplotter">chartplotter</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/growthcharts/bdsreader">bdsreader</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">svglite</span><span class="op">)</span>
-<span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bds"</span>, <span class="st">"smocc"</span>, <span class="st">"Laura_S.json"</span>, package <span class="op">=</span> <span class="st">"jamesdemodata"</span><span class="op">)</span>
-<span class="va">tgt</span> <span class="op">&lt;-</span> <span class="fu">bdsreader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bdsreader/man/read_bds.html">read_bds</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span>
-<span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart1.svg"</span>, height <span class="op">=</span> <span class="fl">29.7</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">21</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBA"</span><span class="op">)</span>
-<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; quartz_off_screen </span>
-<span class="co">#&gt;                 2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/growthcharts/chartplotter" class="external-link">chartplotter</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/growthcharts/bdsreader" class="external-link">bdsreader</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://svglite.r-lib.org" class="external-link">svglite</a></span><span class="op">)</span></span>
+<span><span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bds_v2.0"</span>, <span class="st">"smocc"</span>, <span class="st">"Laura_S.json"</span>, package <span class="op">=</span> <span class="st">"jamesdemodata"</span><span class="op">)</span></span>
+<span><span class="va">tgt</span> <span class="op">&lt;-</span> <span class="fu">bdsreader</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/bdsreader/man/read_bds.html" class="external-link">read_bds</a></span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span>
+<span><span class="fu">svglite</span><span class="fu">::</span><span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart1.svg"</span>, height <span class="op">=</span> <span class="fl">29.7</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">21</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBA"</span><span class="op">)</span></span>
+<span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; quartz_off_screen </span></span>
+<span><span class="co">#&gt;                 2</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/chart1.svg" alt="Dutch girls, 0-4 years" width="100%"><p class="caption">
 Dutch girls, 0-4 years
 </p>
 </div>
 </div>
-<div id="example-2-predict-height-at-3y9m-when-child-is-3-months" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-2-predict-height-at-3y9m-when-child-is-3-months" class="anchor"></a>Example 2: Predict height at 3y9m when child is 3 months</h3>
+<div class="section level3">
+<h3 id="example-2-predict-height-at-3y9m-when-child-is-3-months">Example 2: Predict height at 3y9m when child is 3 months<a class="anchor" aria-label="anchor" href="#example-2-predict-height-at-3y9m-when-child-is-3-months"></a>
+</h3>
 <p>Suppose the baby is 3 months old, and that we want to predict the future child’s height at the age of 3y9m. The following examples finds 25 matches to the child, and plots the observed curves of those matches as grey curves.</p>
 <p>The blue line indicates the predicted height at age 3y9m. The variation between the grey curves at age 3y9m indicates the amount of uncertainty of the prediction.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">61771</span><span class="op">)</span>
-<span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart2.svg"</span>, height <span class="op">=</span> <span class="fl">29.7</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">21</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBA"</span>, dnr <span class="op">=</span> <span class="st">"2-4"</span>, period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">3.75</span><span class="op">)</span>, 
-                   nmatch <span class="op">=</span> <span class="fl">25</span>, show_future <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; quartz_off_screen </span>
-<span class="co">#&gt;                 2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">61771</span><span class="op">)</span></span>
+<span><span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart2.svg"</span>, height <span class="op">=</span> <span class="fl">29.7</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">21</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBA"</span>, dnr <span class="op">=</span> <span class="st">"2-4"</span>, period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">3.75</span><span class="op">)</span>, </span>
+<span>                   nmatch <span class="op">=</span> <span class="fl">25</span>, show_future <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; quartz_off_screen </span></span>
+<span><span class="co">#&gt;                 2</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/chart2.svg" alt="Dutch girls, 0-4 years" width="100%"><p class="caption">
 Dutch girls, 0-4 years
 </p>
 </div>
 </div>
-<div id="example-3-predict-height-at-3y9m-when-child-is-2-years" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-3-predict-height-at-3y9m-when-child-is-2-years" class="anchor"></a>Example 3: Predict height at 3y9m when child is 2 years</h3>
+<div class="section level3">
+<h3 id="example-3-predict-height-at-3y9m-when-child-is-2-years">Example 3: Predict height at 3y9m when child is 2 years<a class="anchor" aria-label="anchor" href="#example-3-predict-height-at-3y9m-when-child-is-2-years"></a>
+</h3>
 <p>Same as before, but now using all data up to (but not beyond) the age of 2 years. The variation between the grey curves at age 3y9m is now much smaller.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart3.svg"</span>, height <span class="op">=</span> <span class="fl">29.7</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">21</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBA"</span>, dnr <span class="op">=</span> <span class="st">"2-4"</span>, period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.0</span>, <span class="fl">3.75</span><span class="op">)</span>, 
-                   nmatch <span class="op">=</span> <span class="fl">25</span>, show_future <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; quartz_off_screen </span>
-<span class="co">#&gt;                 2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart3.svg"</span>, height <span class="op">=</span> <span class="fl">29.7</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">21</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBA"</span>, dnr <span class="op">=</span> <span class="st">"2-4"</span>, period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.0</span>, <span class="fl">3.75</span><span class="op">)</span>, </span>
+<span>                   nmatch <span class="op">=</span> <span class="fl">25</span>, show_future <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; quartz_off_screen </span></span>
+<span><span class="co">#&gt;                 2</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/chart3.svg" alt="Dutch girls, 0-4 years" width="100%"><p class="caption">
 Dutch girls, 0-4 years
 </p>
 </div>
 </div>
-<div id="example-4-square-plot-of-height-chart-nmbh" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-4-square-plot-of-height-chart-nmbh" class="anchor"></a>Example 4: Square plot of height, chart <code>NMBH</code>
+<div class="section level3">
+<h3 id="example-4-square-plot-of-height-chart-nmbh">Example 4: Square plot of height, chart <code>NMBH</code>
+<a class="anchor" aria-label="anchor" href="#example-4-square-plot-of-height-chart-nmbh"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart4.svg"</span>, height <span class="op">=</span> <span class="fl">18</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">18</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBH"</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, dnr <span class="op">=</span> <span class="st">"2-4"</span>,
-                   period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.0</span>, <span class="fl">3.75</span><span class="op">)</span>, nmatch <span class="op">=</span> <span class="fl">25</span>,
-                   show_future <span class="op">=</span> <span class="cn">TRUE</span>, show_realized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; chartcode:  NMBH</span>
-<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; quartz_off_screen </span>
-<span class="co">#&gt;                 2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">svglite</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"figures/chart4.svg"</span>, height <span class="op">=</span> <span class="fl">18</span><span class="op">/</span><span class="fl">2.54</span>, width <span class="op">=</span> <span class="fl">18</span><span class="op">/</span><span class="fl">2.54</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_chart.html">process_chart</a></span><span class="op">(</span><span class="va">tgt</span>, chartcode <span class="op">=</span> <span class="st">"NMBH"</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, dnr <span class="op">=</span> <span class="st">"2-4"</span>,</span>
+<span>                   period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.0</span>, <span class="fl">3.75</span><span class="op">)</span>, nmatch <span class="op">=</span> <span class="fl">25</span>,</span>
+<span>                   show_future <span class="op">=</span> <span class="cn">TRUE</span>, show_realized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; chartcode:  NMBH</span></span>
+<span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; quartz_off_screen </span></span>
+<span><span class="co">#&gt;                 2</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="figures/chart4.svg" alt="Dutch girls, 0-4 years" width="100%"><p class="caption">
 Dutch girls, 0-4 years
@@ -189,42 +181,55 @@ Dutch girls, 0-4 years
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/stefvanbuuren/chartplotter/">https://​github.com/​stefvanbuuren/​chartplotter/​</a>
-</li>
+<li><a href="https://github.com/growthcharts/chartplotter/" class="external-link">Browse source code</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>AGPL (&gt;= 3)</small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing chartplotter</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Stef van Buuren <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/stefvanbuuren/chartplotter/actions"><img src="https://github.com/stefvanbuuren/chartplotter/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/growthcharts/chartplotter/actions" class="external-link"><img src="https://github.com/growthcharts/chartplotter/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/growthcharts/chartplotter/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/growthcharts/chartplotter/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Stef van Buuren.</p>
+  <p></p>
+<p>Developed by Stef van Buuren.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -232,6 +237,8 @@ Dutch girls, 0-4 years
 
   
 
+
+  
 
   </body>
 </html>
