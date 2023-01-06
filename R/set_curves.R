@@ -65,7 +65,7 @@ set_curves <- function(g,
         x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
         xname = as.character(ifelse(.data$yname == "wfh", "hgt", "age"))
       ) %>%
-      arrange(.data$id, .data$yname, .data$x) %>%
+      arrange(.data$id, .data$yname, .data$x, .data$age) %>%
       select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
   }
 
