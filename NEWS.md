@@ -1,3 +1,8 @@
+# chartplotter 0.31.0
+
+- Updates `select()`, `drop_na()` and `rename()` function to `tidyselect 1.2.0` grammar that prohibits names like `.data$x`
+- Adds extra sorting operation on age to so that WFH points are always connected in their time sequence
+
 # chartplotter 0.30.0
 
 - Repairs bug introduced by new behavior of `predict()` from `brokenstick 2.3.0`

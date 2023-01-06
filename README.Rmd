@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/growthcharts/chartplotter/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/growthcharts/chartplotter/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of `chartplotter` is to
+The goal of `chartplotter` is  to
 
 - plot the child's growth curves on pre-defined charts;
 - plot two (visit) lines indicating a present and a future visit;
