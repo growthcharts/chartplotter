@@ -67,7 +67,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
 
   # Transform to Z-values (analysis metric)
   observed <- data %>%
-    select(.data$id, !!xname, !!yname) %>%
+    select(all_of(c("id", xname, yname))) %>%
     mutate(
       obs = TRUE,
       !!zname := centile::y2z(
@@ -89,7 +89,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
       obs = FALSE,
       !!xname := .data$xout
     ) %>%
-    select(-.data$xout) %>%
+    select(-"xout") %>%
     bind_rows(observed) %>%
     arrange(!!!rlang::syms(c("id", xname, yname, zname))) %>%
     distinct(!!!rlang::syms(c("id", xname)), .keep_all = TRUE)
@@ -104,7 +104,7 @@ curve_interpolation <- function(data, xname = "x", yname = "y",
       higher = .data[[xname]] > .data$mx & !.data$obs
     ) %>%
     filter(!.data$lower & !.data$higher) %>%
-    select(-.data$mn, -.data$mx, -.data$lower, -.data$higher)
+    select(-c("mn", "mx", "lower", "higher"))
 
   # isolate data with fewer than two valid xy pairs (approx fails)
   minimal2 <- grid %>%

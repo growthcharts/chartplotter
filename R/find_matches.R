@@ -72,7 +72,7 @@ find_matches <- function(target,
     zname <- paste0(yname, "_z")
     xzy <- xz %>%
       filter(.data$yname == !! yname) %>%
-      rename(!! zname := .data$z)
+      rename(!! zname := "z")
 
     # predict according to the brokenstick model
     # store predicted brokenstick values

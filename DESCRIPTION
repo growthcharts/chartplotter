@@ -18,7 +18,7 @@ Imports:
     centile,
     chartbox (>= 1.11.0),
     chartcatalog (>= 1.10.0),
-    curvematching (>= 0.13.1),
+    curvematching (>= 0.14.0),
     donorloader (>= 0.32.0),
     dplyr,
     grDevices,

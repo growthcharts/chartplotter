@@ -31,15 +31,15 @@ set_curves <- function(g,
   child <- persondata(target)
   time <- timedata(target)
   data <- time %>%
-    select(all_of(c("xname", "yname", "x", "y"))) %>%
+    select(all_of(c("age", "xname", "yname", "x", "y"))) %>%
     filter(.data$yname %in% ynames) %>%
-    tidyr::drop_na(all_of("y")) %>%
+    drop_na("y") %>%
     mutate(
       id = -1,
       sex = child$sex,
       ga = child$ga
     ) %>%
-    select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
+    select(all_of(c("id", "age", "xname", "yname", "x", "y", "sex", "ga")))
 
   # get data of matches
   time <- vector("list", length(ynames))
@@ -60,13 +60,13 @@ set_curves <- function(g,
   } else {
     time <- time %>%
       pivot_longer(cols = any_of(ynames), names_to = "yname", values_to = "y") %>%
-      drop_na(.data$y) %>%
+      drop_na("y") %>%
       mutate(
         x = as.numeric(ifelse(.data$yname == "wfh", .data$xhgt, .data$age)),
         xname = as.character(ifelse(.data$yname == "wfh", "hgt", "age"))
       ) %>%
       arrange(.data$id, .data$yname, .data$x, .data$age) %>%
-      select(all_of(c("id", "xname", "yname", "x", "y", "sex", "ga")))
+      select(all_of(c("id", "age", "xname", "yname", "x", "y", "sex", "ga")))
   }
 
   # rbind target and matches
@@ -99,7 +99,7 @@ set_curves <- function(g,
         x = unlist(!!xl),
         obs = FALSE
       ) %>%
-      select(-.data$lo, -.data$hi)
+      select(-c("lo", "hi"))
   } else {
     synt <- tibble(yname = character(0))
   }
@@ -107,7 +107,7 @@ set_curves <- function(g,
   # append synthetic data
   data <- data %>%
     bind_rows(synt) %>%
-    arrange(.data$id, .data$yname, .data$x) %>%
+    arrange(.data$id, .data$yname, .data$x, .data$age) %>%
     mutate(refcode_z = nlreferences::set_refcodes(.)) %>%
     mutate(
       z = centile::y2z(
@@ -160,7 +160,7 @@ set_curves <- function(g,
 
   # select essential fields for plotting
   plotdata <- data %>%
-    select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
+    select(all_of(c("id", "age", "yname", "obs", "pred", "x", "y", "z", "v")))
 
   # for debugging
   # utils::write.table(data,
