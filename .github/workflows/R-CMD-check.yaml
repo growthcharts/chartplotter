@@ -12,7 +12,7 @@ jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
     env:
-      GITHUB_PAT: ${{ secrets.PRIVATE_REPOSITORIES }}
+      GITHUB_PAT: ${{ secrets.READ_JAMES_PACKAGE }}
       R_KEEP_PKG_SOURCE: yes
     steps:
       - uses: actions/checkout@v3
