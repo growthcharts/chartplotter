@@ -28,7 +28,7 @@ calculate_predictions <- function(data, chartcode, ynames, dnr, period) {
       # if there is no model, take age 2 yrs (relevant to dsc/hdc)
       limit <- ifelse(is.null(bsm),
         2,
-        tail(get_knots(bsm, "droplast"), 1L)
+        tail(get_knots(bsm), 1L)
       )
       hi <- min(period[2L], limit)
 

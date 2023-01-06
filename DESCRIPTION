@@ -14,7 +14,7 @@ Encoding: UTF-8
 Depends: 
     R (>= 3.5.0)
 Imports: 
-    brokenstick (>= 2.3.0),
+    brokenstick (>= 2.4.0),
     centile,
     chartbox (>= 1.11.0),
     chartcatalog (>= 1.10.0),
