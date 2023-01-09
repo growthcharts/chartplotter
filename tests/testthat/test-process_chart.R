@@ -138,3 +138,12 @@ test_that("Height plots on NMCH", {
 #                 nmatch = 10, break_ties = TRUE,
 #                 curve_interpolation = TRUE, show_realized = TRUE,
 #                 show_future = TRUE)
+
+# Illustrate sawtooth problem with preterm reference selection - resolved 2023/01/09 SvB
+# fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json", package = "jamesdemodata")
+# fn <- system.file("extdata", "bds_v2.0", "lollypop", "Anouk_P.json", package = "jamesdemodata")
+# fn <- system.file("extdata", "bds_v2.0", "test", "test1.json", package = "jamesdemodata")
+# # data2 <- read_json(fn, simplifyVector = TRUE)
+# ind <- bdsreader::read_bds(fn)
+# g <- process_chart(ind, chartcode = "NMAH")
+# grid::grid.draw(g)

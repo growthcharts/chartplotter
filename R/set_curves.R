@@ -108,6 +108,7 @@ set_curves <- function(g,
   data <- data %>%
     bind_rows(synt) %>%
     arrange(.data$id, .data$yname, .data$x, .data$age) %>%
+    select(-"age") %>%  # fool set_refcodes()
     mutate(refcode_z = nlreferences::set_refcodes(.)) %>%
     mutate(
       z = centile::y2z(
@@ -160,7 +161,7 @@ set_curves <- function(g,
 
   # select essential fields for plotting
   plotdata <- data %>%
-    select(all_of(c("id", "age", "yname", "obs", "pred", "x", "y", "z", "v")))
+    select(all_of(c("id", "yname", "obs", "pred", "x", "y", "z", "v")))
 
   # for debugging
   # utils::write.table(data,
