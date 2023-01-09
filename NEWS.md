@@ -1,3 +1,7 @@
+# chartplotter 0.31.1
+
+- Solves a bug in the selection of the preterm reference in `set_curves()`
+
 # chartplotter 0.31.0
 
 - Updates `select()`, `drop_na()` and `rename()` function to `tidyselect 1.2.0` grammar that prohibits names like `.data$x`
