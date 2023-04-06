@@ -1,3 +1,7 @@
+# chartplotter 0.31.2
+
+- Sets colors to green for new D-score references (despite their WHOpink/blue defaults)
+
 # chartplotter 0.31.1
 
 - Solves a bug in the selection of the preterm reference in `set_curves()`
