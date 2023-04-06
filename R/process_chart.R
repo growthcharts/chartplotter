@@ -93,8 +93,14 @@ process_chart <- function(target,
   }
 
   # set the palette
+  # set green for D-score plots despite their WHOblue and WHOpink defaults
+  palettes <- chartbox::palettes
   parsed <- parse_chartcode(chartcode)
-  old_pal <- palette(chartbox::palettes[parsed$population, ])
+  if (parsed$side == "dsc") {
+    palette(palettes["NL",])
+  } else {
+    palette(palettes[parsed$population,])
+  }
 
   # return empty chart if target is not a list
   if (!is.list(target)) {
