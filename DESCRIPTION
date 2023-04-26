@@ -21,10 +21,12 @@ Imports:
     curvematching (>= 0.14.0),
     donorloader (>= 0.32.0),
     dplyr (>= 1.0.10),
+    ggplot2,
     grDevices,
     grid,
     nlreferences,
     rlang,
+    plotly,
     stats,
     tidyr,
     utils
