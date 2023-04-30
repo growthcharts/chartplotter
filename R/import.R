@@ -23,7 +23,8 @@
 #'                           polylineGrob removeGrob segmentsGrob
 #'                           setGrob
 #' @importFrom nlreferences  set_refcodes
-#' @importFrom plotly        add_trace add_lines add_markers config layout plot_ly
+#' @importFrom plotly        add_trace add_lines add_markers config layout
+#'                           plot_ly plotly_build plotly_data
 #' @importFrom rlang         .data :=
 #' @importFrom stats         approx na.omit pnorm predict
 #' @importFrom tidyr         drop_na pivot_longer uncount
