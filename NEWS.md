@@ -119,7 +119,7 @@ This version major extension of the chartplotter package.
 
 # chartplotter 0.13.1
 
-# Repairs prediction line plotting
+* Repairs prediction line plotting
 
 # chartplotter 0.13.0
 
