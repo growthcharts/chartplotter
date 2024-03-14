@@ -3,4 +3,5 @@
 #' @aliases placeholder
 #' @param name A string indicating the name of the `gTree` object
 #' @return An object of class `gTree` with name `name`
+#' @export
 placeholder <- function(name = "") gTree(NULL, name = name)

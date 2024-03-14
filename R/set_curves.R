@@ -13,6 +13,7 @@
 #'   matches are plotted.
 #' @inheritParams process_chart
 #' @return The grid object `g` with data points added.
+#' @export
 set_curves <- function(g,
                        target,
                        ynames,
