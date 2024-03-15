@@ -1,3 +1,7 @@
+# chartplotter 0.32.1
+
+- Set color blue for preterm D-score chart
+
 # chartplotter 0.32.0
 
 - Solves a problem resulted in `Error in eval(predvars, data, env) : object 'hgt_z_0' not found`. The problem occured in `find_matches()` when `hat` contains no brokenstick estimates. This may happen when child observations do not start at birth. The function now removes names of earlier predictors and matches only on covariates.
