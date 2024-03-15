@@ -4,7 +4,7 @@ library(brokenstick)
 library(nlreferences)
 
 test_that("returns empty chart if not a list", {
-          expect_silent(process_chart(NULL, chartcode = "NJAA"))
+  expect_silent(process_chart(NULL, chartcode = "NJAA"))
 })
 
 target <- list(
@@ -20,21 +20,21 @@ fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jam
 ind <- bdsreader::read_bds(fn)
 
 g <- process_chart(ind, chartcode = "NJAA",
-                  dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
+                   dnr = "smocc", period = c(0.5, 1.1667), nmatch = 10, break_ties = TRUE)
 
 test_that("terneuzen donordata yields matches", {
   expect_silent(process_chart(ind, chartcode = "NJCH",
-                   dnr = "terneuzen", period = c(2, 18),
-                   nmatch = 10, break_ties = TRUE))
+                              dnr = "terneuzen", period = c(2, 18),
+                              nmatch = 10, break_ties = TRUE))
 })
 
 test_that("prediction line connects last observation to prediction", {
   # does not warn anymore for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(ind,
-    chartcode = "NJCH",
-    dnr = "terneuzen", period = c(3, 10),
-    nmatch = 25, break_ties = TRUE,
-    show_realized = TRUE, show_future = TRUE
+                              chartcode = "NJCH",
+                              dnr = "terneuzen", period = c(3, 10),
+                              nmatch = 25, break_ties = TRUE,
+                              show_realized = TRUE, show_future = TRUE
   ))
 })
 
@@ -43,17 +43,17 @@ ind <- bdsreader::read_bds(fn)
 test_that("Kevin S is drawn silently", {
   # warns for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(ind,
-    chartcode = "PJAAN34", dnr = "smocc", period = c(0.6, 1.1667),
-    nmatch = 10, exact_ga = FALSE, break_ties = TRUE,
-    show_future = TRUE, show_realized = TRUE, curve_interpolation = TRUE
+                              chartcode = "PJAAN34", dnr = "smocc", period = c(0.6, 1.1667),
+                              nmatch = 10, exact_ga = FALSE, break_ties = TRUE,
+                              show_future = TRUE, show_realized = TRUE, curve_interpolation = TRUE
   ))
 })
 
 test_that("Kevin S predict hdc using lollypop", {
   # warns for mutate_ in curvematching::calculate_matches()
   expect_silent(process_chart(ind,
-    chartcode = "PJAAN34", dnr = "lollypop", period = c(0.6, 1.1667),
-    nmatch = 10, show_future = TRUE, show_realized = TRUE
+                              chartcode = "PJAAN34", dnr = "lollypop", period = c(0.6, 1.1667),
+                              nmatch = 10, show_future = TRUE, show_realized = TRUE
   ))
 })
 
@@ -84,8 +84,8 @@ fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jam
 ind <- bdsreader::read_bds(fn)
 test_that("D-score prediction does not go beyond 24 months", {
   expect_silent(g <- process_chart(ind,
-    chartcode = "NMBD", period = c(1, 3),
-    nmatch = 10, show_realized = TRUE, show_future = TRUE
+                                   chartcode = "NMBD", period = c(1, 3),
+                                   nmatch = 10, show_realized = TRUE, show_future = TRUE
   ))
 })
 
@@ -95,7 +95,7 @@ ind <- bdsreader::read_bds(jtf[5])
 
 test_that("test5.json passes individual_to_donordata()", {
   expect_silent(process_chart(ind, chartcode = "NJBA", nmatch = 1, period = c(0, 1)))
-  })
+})
 
 
 # g <- process_chart(ind, chartcode = "NMBD", period = c(1, 2),
@@ -147,3 +147,17 @@ test_that("Height plots on NMCH", {
 # ind <- bdsreader::read_bds(fn)
 # g <- process_chart(ind, chartcode = "NMAH")
 # grid::grid.draw(g)
+
+# Mar 2024
+# Error in eval(predvars, data, env) : object 'hgt_z_0' not found
+# Occurs when period[1] < min(age)
+# Solution: predict from the population mean/no prediction/random sample?
+fn <- system.file("examples/maria.json", package = "bdsreader")
+tgt <- bdsreader::read_bds(fn)
+test_that("Matches do not condition on yname when there are no brokenstick estimates", {
+  expect_silent(process_chart(
+    target = tgt,
+    chartcode = "PMAHN27",
+    nmatch = 10,
+    period = c(0.01, 1.1667)))
+})

@@ -102,7 +102,8 @@ find_matches <- function(target,
                      make_xname(x,
                                 xnames_complete,
                                 user_model = user_model,
-                                current_age = period[1L]
+                                current_age = period[1L],
+                                hat
                      )
                    },
                    simplify = FALSE

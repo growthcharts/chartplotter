@@ -7,6 +7,11 @@
 #'   `paste(yname, d, sep = "_")`, where `d` is a vector
 #'   contuining decimal ages.
 #' @param current_age Current age (in decimal years)
+#' @param hat A list with brokenstick prediction for the target that
+#' contains the names of the brokenstick proedictions. The entry is
+#' `NULL` if these estimates cannot be made. In that case, this
+#' function does not include the previous yname scores into the
+#' matching.
 #' @inheritParams process_chart
 #' @return A character vector with the `xname` specification
 #' @examples
@@ -23,7 +28,8 @@
 make_xname <- function(yname,
                        xnames,
                        user_model,
-                       current_age) {
+                       current_age,
+                       hat = NULL) {
   covariates <- c(
     "sex", "etn", "ga", "bw", "twin", "smo",
     "edu", "agem", "hgtf", "wgtf", "hgtm", "wgtm",
@@ -31,7 +37,13 @@ make_xname <- function(yname,
   )
   ynames <- c("hgt", "wgt", "hdc", "bmi", "wfh", "dsc")
   yname <- match.arg(yname, ynames)
-  xn <- get_xname(yname, xnames)
+  # read names from hat if brokenstick estimates are present
+  # else create names
+  if (missing(hat)) {
+    xn <- get_xname(yname, xnames)
+  } else {
+    xn <- names(hat[[yname]])
+  }
   xa <- get_age(xn)
 
   idx <- xa <= current_age
