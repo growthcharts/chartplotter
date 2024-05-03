@@ -4,7 +4,7 @@
 \alias{make_xname}
 \title{Creates the model specifications for xname}
 \usage{
-make_xname(yname, xnames, user_model, current_age)
+make_xname(yname, xnames, user_model, current_age, hat = NULL)
 }
 \arguments{
 \item{yname}{String indicating the dependent variable}
@@ -19,6 +19,12 @@ contuining decimal ages.}
 user wants. See details.}
 
 \item{current_age}{Current age (in decimal years)}
+
+\item{hat}{A list with brokenstick prediction for the target that
+contains the names of the brokenstick proedictions. The entry is
+\code{NULL} if these estimates cannot be made. In that case, this
+function does not include the previous yname scores into the
+matching.}
 }
 \value{
 A character vector with the \code{xname} specification

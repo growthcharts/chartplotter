@@ -38,9 +38,13 @@ set_curves <- function(g,
     mutate(
       id = -1,
       sex = child$sex,
-      ga = child$ga
+      ga = child$ga,
+      x2 = .data$x
     ) %>%
-    select(all_of(c("id", "age", "xname", "yname", "x", "y", "sex", "ga")))
+    select(all_of(c("id", "age", "xname", "yname", "x", "y", "sex", "ga", "x2")))
+  # For WFH, temporary sort on age to get correct time sequence, use x2 to store x
+  idx <- data$yname == "wfh"
+  data$x[idx] <- data$age[idx]
 
   # get data of matches
   time <- vector("list", length(ynames))
@@ -108,7 +112,17 @@ set_curves <- function(g,
   # append synthetic data
   data <- data %>%
     bind_rows(synt) %>%
-    arrange(.data$id, .data$yname, .data$x, .data$age) %>%
+    arrange(.data$id, .data$yname, .data$x)
+
+  # For wfh, interpolate hgt from age, and overwrite data$x with hgt
+  idx <- data$yname == "wfh"
+  if (any(idx)) {
+    data$x[idx] <- safe_approx(x = data$x[idx], y = data$x2[idx],
+                               xout = data$x[idx], ties = list("ordered", mean))$y
+  }
+
+  # add Z-scores
+  data <- data %>%
     select(-"age") %>%  # fool set_refcodes()
     mutate(refcode_z = nlreferences::set_refcodes(.)) %>%
     mutate(
@@ -134,8 +148,7 @@ set_curves <- function(g,
     group_by(.data$id, .data$yname, .data$pred) %>%
     mutate(z = safe_approx(
       x = .data$x, y = .data$z, xout = .data$x,
-      ties = list("ordered", mean)
-    )$y) %>%
+      ties = mean)$y) %>%
     ungroup()
 
   # set refcode as target's sex and ga

@@ -1,3 +1,15 @@
+# chartplotter 0.33.0
+
+- Resolves the incorrect time sequence of the WFH curve when height at a later age is lower. See <https://github.com/growthcharts/james/issues/24> It works for `curve_interpolation` is `FALSE`. Some approximation error remain for `curve_interpolation` is `TRUE`.
+
+# chartplotter 0.32.1
+
+- Set color blue for preterm D-score chart
+
+# chartplotter 0.32.0
+
+- Solves a problem resulted in `Error in eval(predvars, data, env) : object 'hgt_z_0' not found`. The problem occured in `find_matches()` when `hat` contains no brokenstick estimates. This may happen when child observations do not start at birth. The function now removes names of earlier predictors and matches only on covariates.
+
 # chartplotter 0.31.2
 
 - Sets colors to green for new D-score references (despite their WHOpink/blue defaults)
@@ -119,7 +131,7 @@ This version major extension of the chartplotter package.
 
 # chartplotter 0.13.1
 
-# Repairs prediction line plotting
+* Repairs prediction line plotting
 
 # chartplotter 0.13.0
 
