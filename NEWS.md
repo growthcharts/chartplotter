@@ -1,3 +1,7 @@
+# chartplotter 0.33.1
+
+- Updates to roxygen2 7.3.1 package
+
 # chartplotter 0.33.0
 
 - Resolves the incorrect time sequence of the WFH curve when height at a later age is lower. See <https://github.com/growthcharts/james/issues/24> It works for `curve_interpolation` is `FALSE`. Some approximation error remain for `curve_interpolation` is `TRUE`.
