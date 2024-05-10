@@ -1,3 +1,7 @@
+# chartplotter 0.34.0
+
+- Adds support for `dnr` is `NULL` argument in `process_chart()`
+
 # chartplotter 0.33.1
 
 - Updates to roxygen2 7.3.1 package

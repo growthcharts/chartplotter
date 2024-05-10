@@ -1,7 +1,7 @@
 Package: chartplotter
 Type: Package
 Title: Analysing and Plotting Growth Curves
-Version: 0.33.1
+Version: 0.34.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: This package plots the target child's growth curves on 
