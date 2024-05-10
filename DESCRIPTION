@@ -19,7 +19,7 @@ Imports:
     chartbox (>= 1.11.0),
     chartcatalog (>= 1.10.0),
     curvematching (>= 0.14.0),
-    donorloader (>= 0.32.0),
+    donorloader (>= 0.37.1),
     dplyr (>= 1.0.10),
     grDevices,
     grid,

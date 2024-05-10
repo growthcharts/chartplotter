@@ -26,6 +26,7 @@ set_curves <- function(g,
                        clip = TRUE) {
   chartcode <- g$name
   if (!nmatch) period <- numeric(0)
+  if (is.null(dnr)) matches <- NULL
 
   # get target data
   child <- persondata(target)

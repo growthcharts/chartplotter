@@ -11,7 +11,8 @@
 #' default (`NULL`) reads from `donorloader` package.
 #' @param dnr        A string with the name of the donor data
 #'   (currently available are `smocc`, `terneuzen`,
-#'   `lollypop` and `pops`)
+#'   `lollypop`, `pops`, `0-2`, `2-4` and `4-18`). The default (`NULL`)
+#'   sets the donor data according to `period[2]`.
 #' @param period A vector of length 2 with left and right ages
 #'   (decimal age). If `length(period) == 0L`, then no curve
 #'   matching is done
@@ -63,10 +64,7 @@ process_chart <- function(target,
                           curve_interpolation = TRUE,
                           quiet = TRUE,
                           con = NULL,
-                          dnr = c(
-                            "0-2", "2-4", "4-18",
-                            "smocc", "lollypop", "terneuzen", "pops"
-                          ),
+                          dnr = NULL,
                           period = numeric(0),
                           nmatch = 0L,
                           user_model = 2L,
@@ -76,15 +74,8 @@ process_chart <- function(target,
                           show_realized = FALSE,
                           show_future = FALSE,
                           clip = TRUE) {
-  dnr <- match.arg(dnr)
-
-  # make the switch to the donordata solution per age group
-  dnr <- switch(dnr,
-    "0-2" = "smocc",
-    "2-4" = "lollypop",
-    "4-18" = "terneuzen",
-    dnr
-  )
+  # set the donor data dnr
+  dnr <- set_dnr(dnr, period)
 
   # load growthchart, return early if there is a problem
   g <- load_chart(chartcode)
@@ -122,7 +113,7 @@ process_chart <- function(target,
     return(g)
   }
 
-  if (!nmatch || !length(period)) {
+  if (!nmatch || !length(period) || is.null(dnr)) {
     # no matches needed
     matches <- vector("list", length(ynames))
     names(matches) <- ynames
@@ -157,4 +148,26 @@ process_chart <- function(target,
     show_future = show_future,
     clip = clip
   )
+}
+
+set_dnr <- function(dnr, period) {
+  if (!is.null(dnr)) {
+    dnr <- switch(dnr,
+                  "0-2" = "smocc",
+                  "2-4" = "lollypop",
+                  "4-18" = "terneuzen",
+                  dnr
+    )
+  } else {
+    # use period[2] to set dnr
+    if (length(period) != 2L || !is.numeric(period)) {
+      dnr <- NULL
+    } else {
+      to <- period[2L]
+      dnr <- "terneuzen"
+      if (to <= 2) dnr <- "smocc"
+      if (2 < to && to <= 4) dnr <- "lollypop"
+    }
+  }
+  return(dnr)
 }

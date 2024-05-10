@@ -26,7 +26,8 @@ default (\code{NULL}) reads from \code{donorloader} package.}
 
 \item{dnr}{A string with the name of the donor data
 (currently available are \code{smocc}, \code{terneuzen},
-\code{lollypop} and \code{pops})}
+\code{lollypop}, \code{pops}, \code{0-2}, \code{2-4} and \code{4-18}). The default (\code{NULL})
+sets the donor data according to \code{period[2]}.}
 
 \item{ynames}{A vector with the names of the response variables
 for which matches are sought, e.g. \code{ynames = c("hdc", "hgt")}.}
