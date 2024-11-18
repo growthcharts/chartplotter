@@ -1,3 +1,7 @@
+# chartplotter 0.35.0
+
+- Adds functionality to plot the target height and target height range
+
 # chartplotter 0.34.0
 
 - Adds support for `dnr` is `NULL` argument in `process_chart()`
