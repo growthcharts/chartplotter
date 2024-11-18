@@ -19,7 +19,8 @@ process_chart(
   break_ties = TRUE,
   show_realized = FALSE,
   show_future = FALSE,
-  clip = TRUE
+  clip = TRUE,
+  target_height = list(show = TRUE, alpha = 0.95)
 )
 }
 \arguments{
@@ -68,6 +69,9 @@ growth of the target child should be drawn}
 growth of the target child should be drawn}
 
 \item{clip}{A logical indicating whether clipping is needed}
+
+\item{target_height}{A list with two elements: \code{show} (logical)
+and \code{alpha} (numeric, e.g. 0.50 or 0.95).}
 }
 \value{
 A \code{gTree} that can be rendered by \code{grid::grid.draw()}.

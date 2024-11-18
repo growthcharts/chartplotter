@@ -31,6 +31,8 @@
 #' @param show_future A logical indicating whether the predicted
 #'   growth of the target child should be drawn
 #' @param clip        A logical indicating whether clipping is needed
+#' @param target_height A list with two elements: `show` (logical)
+#' and `alpha` (numeric, e.g. 0.50 or 0.95).
 #' @seealso [chartcatalog::create_chartcode()]
 #' @details
 #' # The meaning of the `user_model` parameter is as follows:
@@ -73,7 +75,9 @@ process_chart <- function(target,
                           break_ties = TRUE,
                           show_realized = FALSE,
                           show_future = FALSE,
-                          clip = TRUE) {
+                          clip = TRUE,
+                          target_height = list(show = TRUE, alpha = 0.95))
+{
   # set the donor data dnr
   dnr <- set_dnr(dnr, period)
 
@@ -139,6 +143,7 @@ process_chart <- function(target,
   # set data points
   set_curves(
     g = g, target = target, ynames = ynames,
+    parsed = parsed,
     curve_interpolation = curve_interpolation,
     nmatch = nmatch,
     matches = matches,
@@ -146,7 +151,8 @@ process_chart <- function(target,
     period = period,
     show_realized = show_realized,
     show_future = show_future,
-    clip = clip
+    clip = clip,
+    target_height = target_height
   )
 }
 

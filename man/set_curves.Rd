@@ -8,6 +8,7 @@ set_curves(
   g,
   target,
   ynames,
+  parsed,
   curve_interpolation = TRUE,
   nmatch = 0L,
   matches = NULL,
@@ -15,7 +16,8 @@ set_curves(
   period = numeric(0),
   show_realized = FALSE,
   show_future = FALSE,
-  clip = TRUE
+  clip = TRUE,
+  target_height = list(show = TRUE, alpha = 0.05)
 )
 }
 \arguments{
@@ -27,6 +29,9 @@ set_curves(
 
 \item{ynames}{A vector with the names of the response variables
 for which matches are sought, e.g. \code{ynames = c("hdc", "hgt")}.}
+
+\item{parsed}{A list, result of \code{parse_chartcode()}. Used for
+calculating the target height.}
 
 \item{curve_interpolation}{A logical indicating whether curve
 interpolation shoud be applied.}
@@ -55,6 +60,9 @@ growth of the target child should be drawn}
 growth of the target child should be drawn}
 
 \item{clip}{A logical indicating whether clipping is needed}
+
+\item{target_height}{A list with two elements: \code{show} (logical)
+and \code{alpha} (numeric, e.g. 0.50 or 0.95).}
 }
 \value{
 The grid object \code{g} with data points added.

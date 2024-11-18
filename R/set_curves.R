@@ -7,6 +7,8 @@
 #' @param ynames    A vector with the names of the response variables
 #'   for which matches are sought, e.g. `ynames = c("hdc",
 #'   "hgt")`.
+#' @param parsed A list, result of `parse_chartcode()`. Used for
+#' calculating the target height.
 #' @param matches List of vector containing the id's of the matches in
 #'   the donor data. List elements should be named after
 #'   `ynames`. The default value (`NULL`) indicates that no
@@ -16,6 +18,7 @@
 set_curves <- function(g,
                        target,
                        ynames,
+                       parsed,
                        curve_interpolation = TRUE,
                        nmatch = 0L,
                        matches = NULL,
@@ -23,7 +26,8 @@ set_curves <- function(g,
                        period = numeric(0),
                        show_realized = FALSE,
                        show_future = FALSE,
-                       clip = TRUE) {
+                       clip = TRUE,
+                       target_height = list(show = TRUE, alpha = 0.05)) {
   chartcode <- g$name
   if (!nmatch) period <- numeric(0)
   if (is.null(dnr)) matches <- NULL
@@ -138,8 +142,8 @@ set_curves <- function(g,
 
   # calculate brokenstick predictions
   pred <- calculate_predictions(data,
-    chartcode = chartcode, ynames = ynames,
-    dnr = dnr, period = period
+                                chartcode = chartcode, ynames = ynames,
+                                dnr = dnr, period = period
   )
 
   # linear interpolation in Z-scale
@@ -203,23 +207,34 @@ set_curves <- function(g,
     visit_lines <- plot_visit_lines(g, yname, p)
 
     # plot curves of target
-    ind_gList <- plot_lines_target(data,
+    ind_gList <- plot_lines_target(
+      data,
       yname = yname, period = p,
       curve_interpolation = curve_interpolation,
       show_realized = show_realized
     )
 
     # plot curves of matches
-    mat_gList <- plot_lines_matches(data,
+    mat_gList <- plot_lines_matches(
+      data,
       yname = yname,
       curve_interpolation = curve_interpolation
     )
 
     # calculate "look into future" line
-    pre_gList <- plot_lines_prediction(data,
+    pre_gList <- plot_lines_prediction(
+      data,
       yname = yname,
       show_future = show_future,
       curve_interpolation = curve_interpolation
+    )
+
+    # plot target height
+    th_gList <- plot_target_height(
+      child = child,
+      yname = yname,
+      parsed = parsed,
+      options = target_height
     )
 
     # now put everything into a clipped grob
@@ -228,6 +243,7 @@ set_curves <- function(g,
       name = "data",
       children = gList(
         clipper, visit_lines,
+        th_gList,
         mat_gList$matches_lines,
         mat_gList$matches_symbols,
         pre_gList, ind_gList
