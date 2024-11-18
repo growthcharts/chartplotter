@@ -31,8 +31,6 @@ remotes::install_github("growthcharts/chartplotter")
 remotes::install_github("growthcharts/jamesdemodata")
 ```
 
-## Example
-
 The main function in `chartplotter` is `process_chart()`.
 
 ### Example 1: Plot child’s data onto a growth chart
@@ -41,9 +39,12 @@ The main function in `chartplotter` is `process_chart()`.
 library(chartplotter)
 library(bdsreader)
 library(svglite)
+
 fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json", package = "jamesdemodata")
 tgt <- bdsreader::read_bds(fn)
-svglite::svglite(file = "figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
+
+# No need to manually set file path
+svglite::svglite(file = "man/figures/chart1.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA")
 grid::grid.draw(g)
 dev.off()
@@ -53,7 +54,7 @@ dev.off()
 
 <div class="figure" style="text-align: center">
 
-<img src="figures/chart1.svg" alt="Dutch girls, 0-4 years" width="100%" />
+<img src="man/figures/chart1.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
 Dutch girls, 0-4 years
 </p>
@@ -73,7 +74,7 @@ of the prediction.
 
 ``` r
 set.seed(61771)
-svglite(file = "figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "man/figures/chart2.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(0.25, 3.75), 
                    nmatch = 25, show_future = TRUE)
 grid::grid.draw(g)
@@ -84,7 +85,7 @@ dev.off()
 
 <div class="figure" style="text-align: center">
 
-<img src="figures/chart2.svg" alt="Dutch girls, 0-4 years" width="100%" />
+<img src="man/figures/chart2.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
 Dutch girls, 0-4 years
 </p>
@@ -98,7 +99,7 @@ Same as before, but now using all data up to (but not beyond) the age of
 smaller.
 
 ``` r
-svglite(file = "figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
+svglite(file = "man/figures/chart3.svg", height = 29.7/2.54, width = 21/2.54)
 g <- process_chart(tgt, chartcode = "NMBA", dnr = "2-4", period = c(2.0, 3.75), 
                    nmatch = 25, show_future = TRUE)
 grid::grid.draw(g)
@@ -109,7 +110,7 @@ dev.off()
 
 <div class="figure" style="text-align: center">
 
-<img src="figures/chart3.svg" alt="Dutch girls, 0-4 years" width="100%" />
+<img src="man/figures/chart3.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
 Dutch girls, 0-4 years
 </p>
@@ -119,7 +120,7 @@ Dutch girls, 0-4 years
 ### Example 4: Square plot of height, chart `NMBH`
 
 ``` r
-svglite(file = "figures/chart4.svg", height = 18/2.54, width = 18/2.54)
+svglite(file = "man/figures/chart4.svg", height = 18/2.54, width = 18/2.54)
 g <- process_chart(tgt, chartcode = "NMBH", quiet = FALSE, dnr = "2-4",
                    period = c(2.0, 3.75), nmatch = 25,
                    show_future = TRUE, show_realized = TRUE)
@@ -132,7 +133,7 @@ dev.off()
 
 <div class="figure" style="text-align: center">
 
-<img src="figures/chart4.svg" alt="Dutch girls, 0-4 years" width="100%" />
+<img src="man/figures/chart4.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
 Dutch girls, 0-4 years
 </p>
