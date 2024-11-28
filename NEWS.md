@@ -1,3 +1,7 @@
+# chartplotter 0.35.1
+
+- Exports `find_matches()` function
+
 # chartplotter 0.35.0
 
 - Adds functionality to plot the target height and target height range
