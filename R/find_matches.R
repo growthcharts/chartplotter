@@ -10,6 +10,7 @@
 #'   matches are found.
 #' @seealso [curvematching::calculate_matches()],
 #'   [curvematching::extract_matches()]
+#' @export
 find_matches <- function(target,
                          con,
                          dnr,
