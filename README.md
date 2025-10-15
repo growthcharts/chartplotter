@@ -56,6 +56,7 @@ dev.off()
 
 <img src="man/figures/chart1.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
+
 Dutch girls, 0-4 years
 </p>
 
@@ -87,6 +88,7 @@ dev.off()
 
 <img src="man/figures/chart2.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
+
 Dutch girls, 0-4 years
 </p>
 
@@ -112,6 +114,7 @@ dev.off()
 
 <img src="man/figures/chart3.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
+
 Dutch girls, 0-4 years
 </p>
 
@@ -135,6 +138,7 @@ dev.off()
 
 <img src="man/figures/chart4.svg" alt="Dutch girls, 0-4 years" width="100%" />
 <p class="caption">
+
 Dutch girls, 0-4 years
 </p>
 
