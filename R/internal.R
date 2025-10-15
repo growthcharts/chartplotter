@@ -6,7 +6,9 @@ apply_transforms_y <- function(y, chartcode, yname) {
   # The table ynames_lookup in chartcatalog return "tr", because these are based
   # on the 1980 data (which was modeled in a different way than the WFH data
   # of 1997
-  if (yname == "wfh") sq <- "rt"
+  if (yname == "wfh") {
+    sq <- "rt"
+  }
   if (sq == "rt") {
     return(ty(y))
   }
@@ -61,20 +63,108 @@ restore_factors <- function(data, f = NULL) {
   data
 }
 
-safe_approx <- function(x, y = NULL, xout, method = "linear", n = 50,
-                        rule = 1, f = 0, ties = mean, na.rm = TRUE) {
+safe_approx <- function(
+  x,
+  y = NULL,
+  xout,
+  method = "linear",
+  n = 50,
+  rule = 1,
+  f = 0,
+  ties = mean,
+  na.rm = TRUE
+) {
+  # ---- helpers -------------------------------------------------------------
+  coerce_ties_fun <- function(ties) {
+    if (is.function(ties)) {
+      return(ties)
+    }
+    if (is.character(ties) && length(ties) >= 1L) {
+      key <- ties[[1L]]
+      if (identical(key, "ordered")) {
+        return(function(z) z[1L])
+      }
+      if (identical(key, "mean")) {
+        return(mean)
+      }
+      if (identical(key, "min")) {
+        return(min)
+      }
+      if (identical(key, "max")) return(max)
+    }
+    stop(
+      "'ties' must be a function or one of 'ordered', 'mean', 'min', 'max'.",
+      call. = FALSE
+    )
+  }
+
+  scalarize_rule <- function(rule) {
+    if (length(rule) < 1L) {
+      return(1L)
+    }
+    as.integer(rule[[1L]])
+  }
+
+  # ---- inputs --------------------------------------------------------------
+  # Mirror approx() behavior if y is NULL
+  if (is.null(y)) {
+    y <- x
+    x <- seq_along(y)
+  }
+
+  # drop NA pairs
   mis <- is.na(x) | is.na(y)
   x <- x[!mis]
   y <- y[!mis]
+
+  # nothing left
   if (!length(x)) {
     return(list(x = xout, y = rep(NA_real_, length(xout))))
   }
+
+  # single point -> constant or NA depending on rule
   if (length(x) == 1L) {
-    return(list(x = x, y = rep(y, length(xout))))
+    r <- scalarize_rule(rule)
+    y1 <- y[[1L]]
+    yout <- if (r == 2L) {
+      rep(y1, length(xout))
+    } else {
+      ifelse(xout == x[[1L]], y1, NA_real_)
+    }
+    return(list(x = xout, y = yout))
   }
-  approx(
-    x = x, y = y, xout = xout, method = method, n = n,
-    rule = rule, f = f, ties = ties, na.rm = na.rm
+
+  # all x identical -> collapse with ties and apply rule
+  if (length(unique(x)) == 1L) {
+    tie_fun <- coerce_ties_fun(ties)
+    y_c <- tie_fun(y)
+    r <- scalarize_rule(rule)
+    yout <- if (r == 2L) {
+      rep(y_c, length(xout))
+    } else {
+      ifelse(xout == x[[1L]], y_c, NA_real_)
+    }
+    return(list(x = xout, y = yout))
+  }
+
+  # delegate to approx(); ensure ties is either function or "ordered"
+  tie_arg <- if (is.function(ties)) {
+    ties
+  } else {
+    key <- ties[[1L]]
+    if (identical(key, "ordered")) "ordered" else coerce_ties_fun(key)
+  }
+
+  stats::approx(
+    x = x,
+    y = y,
+    xout = xout,
+    method = method,
+    n = n,
+    rule = scalarize_rule(rule),
+    f = f,
+    ties = tie_arg,
+    na.rm = na.rm
   )
 }
 
