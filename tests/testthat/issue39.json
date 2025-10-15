@@ -1,0 +1,51 @@
+{
+  "Format": "3.0",
+  "organisationCode": 1234,
+  "reference": "Issue39",
+  "clientDetails": [
+    {
+      "bdsNumber": 19,
+      "value": "1"
+    },
+    {
+      "bdsNumber": 20,
+      "value": "20230910"
+    },
+    {
+      "bdsNumber": 82,
+      "value": 283
+    },
+    {
+      "bdsNumber": 110,
+      "value": 3420
+    },
+    {
+      "bdsNumber": 238,
+      "value": 1670
+    },
+    {
+      "bdsNumber": 240,
+      "value": 1900
+    }
+  ],
+  "clientMeasurements": [
+    {
+      "bdsNumber": 235,
+      "values": [
+        {
+          "date": "20250506",
+          "value": 810
+        }
+      ]
+    },
+    {
+      "bdsNumber": 245,
+      "values": [
+        {
+          "date": "20250506",
+          "value": 1130
+        }
+      ]
+    }
+  ]
+}
