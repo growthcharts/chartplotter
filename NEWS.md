@@ -1,6 +1,6 @@
 # chartplotter 0.36.0
 
-- Patch `safe_approx()` to deal with unique `xout` values only
+- Patch `safe_approx()` to deal with unique `xout` values only (#10)
 
 # chartplotter 0.35.1
 
